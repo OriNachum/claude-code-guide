@@ -1,37 +1,40 @@
 ---
-description: Show all available onboarding skills and suggest where to start based on experience level. Use when someone first installs the plugin or wants to see what's available.
+description: Interactive onboarding guide for Claude Code. Covers setup, first session, best practices, model selection, built-in tools, automation (hooks, skills, sub agents), plugins, configuration, and agent teams. Use when someone wants to learn Claude Code or needs guidance on any feature.
 disable-model-invocation: true
 ---
 
-# Onboarding Claude Code — Skill Guide
+# Onboarding Claude Code
 
-Welcome! This plugin helps you learn and get the most out of Claude Code through interactive guided skills.
+You are helping a developer learn and get the most out of Claude Code. You have comprehensive reference documentation available in the `references/` folder next to this file.
 
-## Available skills
+## How to guide the user
 
-Here's what you can invoke:
+1. **Ask what they need help with** — or suggest a starting point based on their experience level.
+2. **Read the relevant reference doc(s)** from the `references/` folder to ground your guidance in accurate, detailed content.
+3. **Walk the user through interactively** — don't dump the whole doc. Ask questions, adapt to their project, and give step-by-step guidance.
 
-| Skill | What it does | Best for |
-|---|---|---|
-| `/onboarding:setup` | Walk through environment configuration — CLAUDE.md, model selection, permissions, first verification | New projects, new machines, fresh setups |
-| `/onboarding:first-session` | Guide your first real working session — explore→plan→code, course-correction, specificity | Developers who have Claude Code but haven't used it for real work |
-| `/onboarding:best-practices` | Self-testing loops, context management, effective prompting, CLAUDE.md improvement | Anyone wanting better results from Claude Code |
-| `/onboarding:choose-model` | Help pick the right Claude model and effort level for the task at hand | When unsure which model to use or optimizing cost vs quality |
-| `/onboarding:built-ins` | Tour of built-in commands, tools, and capabilities available out of the box | Discovering what Claude Code can do natively |
-| `/onboarding:automate` | The three automation mechanisms (Hooks, Skills, Sub Agents) with guidance on when to use each | Developers who find themselves repeating instructions |
-| `/onboarding:hooks` | Deep dive into lifecycle event automation — triggers, handlers, and practical examples | Automating actions on file save, pre-commit, post-tool events |
-| `/onboarding:skills-guide` | Creating reusable prompt workflows as Markdown skill files | Building team-shared or personal skill libraries |
-| `/onboarding:sub-agents` | Delegating work to specialist agents with scoped permissions and focus areas | Breaking large tasks into parallel specialist work |
-| `/onboarding:team-mode` | ⚠️ Experimental: Running multiple independent Claude instances coordinated via shared files | Large-scale parallel work (use with caution — experimental feature) |
-| `/onboarding:plugins-guide` | Installing, creating, and sharing Claude Code plugins | Packaging skills for distribution or using community plugins |
-| `/onboarding:configure` | Ongoing configuration — CLAUDE.md refinement, settings layers, building agent personality | Developers who want to improve how Claude works in their project |
+## Available references
 
-## Where to start
+Read these files from the `references/` folder as needed:
 
-**Brand new to Claude Code?** Start with `/onboarding:setup`, then `/onboarding:first-session`.
+| Reference file | Topic |
+|---|---|
+| `setting-your-environment.md` | Initial setup: CLAUDE.md, permissions, model selection, MCP servers, customization |
+| `starting-to-work.md` | Permission modes, Plan Mode, Accept Edits, Normal mode, the explore-plan-implement workflow |
+| `choosing-your-model.md` | Opus 4.6, Sonnet 4.6, Haiku, effort levels, when to use each |
+| `best-practices.md` | Self-testing loops, context management, effective prompting, common failure patterns |
+| `built-ins.md` | Built-in slash commands, bundled skills, hook events, sub agents, and tools |
+| `automating-your-workflows.md` | Overview of the three automation mechanisms: Hooks, Skills, Sub Agents |
+| `hooks.md` | Lifecycle event automation — triggers, handlers, matchers, common patterns |
+| `skills.md` | Creating reusable prompt workflows as Markdown skill files |
+| `sub-agents.md` | Specialist agent delegation with scoped permissions, worktree isolation |
+| `plugins.md` | Installing, creating, and sharing Claude Code plugins |
+| `configuring-your-claude.md` | Ongoing configuration — when to build skills, agents, hooks, and how they evolve |
+| `team-mode.md` | Experimental: coordinated multi-agent sessions with shared task lists and direct messaging |
 
-**Already using Claude Code but want better results?** Go straight to `/onboarding:best-practices`.
+## Where to start (suggest based on experience)
 
-**Want to understand what's built in?** Try `/onboarding:built-ins` and `/onboarding:choose-model`.
-
-**Ready to automate?** Jump to `/onboarding:automate`, then explore `/onboarding:hooks`, `/onboarding:skills-guide`, or `/onboarding:sub-agents`.
+- **Brand new to Claude Code?** Start with `setting-your-environment.md`, then `starting-to-work.md`.
+- **Already using it but want better results?** Go to `best-practices.md`.
+- **Want to understand what's built in?** Read `built-ins.md` and `choosing-your-model.md`.
+- **Ready to automate?** Start with `automating-your-workflows.md`, then dive into `hooks.md`, `skills.md`, or `sub-agents.md`.

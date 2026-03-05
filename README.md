@@ -19,54 +19,44 @@ git clone https://github.com/OriNachum/onboarding-claude-code.git
 claude plugin add ./onboarding-claude-code
 ```
 
-### Available skills
+### Usage
 
-Once installed, type `/onboarding:guide` to see everything, or jump directly to any skill:
+Once installed, run:
 
-| Skill | What it does |
-|---|---|
-| `/onboarding:guide` | See all skills and where to start |
-| `/onboarding:setup` | Environment configuration — CLAUDE.md, model selection, permissions |
-| `/onboarding:first-session` | Guide your first real working session |
-| `/onboarding:best-practices` | Self-testing, context management, prompting |
-| `/onboarding:choose-model` | Pick the right model and effort level |
-| `/onboarding:built-ins` | Tour of built-in commands, tools, and capabilities |
-| `/onboarding:automate` | Overview of Hooks, Skills, and Sub Agents |
-| `/onboarding:hooks` | Lifecycle event automation deep dive |
-| `/onboarding:skills-guide` | Creating reusable prompt workflows |
-| `/onboarding:sub-agents` | Specialist agent delegation |
-| `/onboarding:team-mode` | Experimental multi-agent coordination |
-| `/onboarding:plugins-guide` | Install, create, and share plugins |
-| `/onboarding:configure` | Ongoing configuration and CLAUDE.md refinement |
+```
+/onboarding:guide
+```
+
+Claude will ask about your experience level and guide you through the relevant topics interactively. Topics covered include:
+
+- **Setup** — CLAUDE.md, permissions, model selection, MCP servers
+- **First session** — Permission modes, Plan Mode, the explore-plan-implement workflow
+- **Model selection** — Opus 4.6, Sonnet 4.6, Haiku, effort levels
+- **Best practices** — Self-testing loops, context management, effective prompting
+- **Built-ins** — Slash commands, bundled skills, hook events, sub agents, tools
+- **Automation** — Hooks, Skills, Sub Agents overview and deep dives
+- **Plugins** — Installing, creating, and sharing plugins
+- **Configuration** — Ongoing setup evolution
+- **Agent Teams** — Experimental multi-agent coordination
 
 ## Repository structure
 
 ```
 onboarding-claude-code/
 ├── .claude-plugin/
-│   └── plugin.json              Plugin manifest
-├── skills/                      All content lives here as interactive skills
-│   ├── automate/SKILL.md
-│   ├── best-practices/SKILL.md
-│   ├── built-ins/SKILL.md
-│   ├── choose-model/SKILL.md
-│   ├── configure/SKILL.md
-│   ├── first-session/SKILL.md
-│   ├── guide/SKILL.md
-│   ├── hooks/SKILL.md
-│   ├── plugins-guide/SKILL.md
-│   ├── setup/SKILL.md
-│   ├── skills-guide/SKILL.md
-│   ├── sub-agents/SKILL.md
-│   └── team-mode/SKILL.md
-├── CLAUDE.md                    Agent instructions
-├── LICENSE                      CC BY 4.0
-└── README.md                    This file
+│   └── plugin.json                    Plugin manifest
+├── skills/
+│   └── guide/
+│       ├── SKILL.md                   Interactive onboarding skill
+│       └── references/                Detailed reference docs (12 files)
+├── CLAUDE.md                          Agent instructions
+├── LICENSE                            CC BY 4.0
+└── README.md                          This file
 ```
 
 ## Contributing
 
-Contributions welcome! Each skill is a self-contained SKILL.md file in `skills/<name>/`. See `/onboarding:skills-guide` for the format.
+Contributions welcome! The skill is at `skills/guide/SKILL.md` and reference docs are in `skills/guide/references/`.
 
 ## License
 
