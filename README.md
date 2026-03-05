@@ -47,6 +47,7 @@ Once installed, two skills are available:
 
 - [Configuring Your Claude](skills/guide/ask/references/configuring-your-claude.md) — Ongoing configuration — when to build skills, agents, hooks, and how they evolve
 - [Plugins](skills/guide/ask/references/plugins.md) — Installing, creating, and sharing Claude Code plugins
+- [MCP](skills/guide/ask/references/mcp.md) — MCP (Model Context Protocol) — when to use it, the restaurant analogy, server setup and scopes
 - [Built-ins](skills/guide/ask/references/built-ins.md) — Built-in slash commands, bundled skills, hook events, sub agents, and tools
 
 ## Repository structure
@@ -54,19 +55,19 @@ Once installed, two skills are available:
 ```
 claude-code-guide/
 ├── .claude-plugin/
-│   ├── plugin.json                    Plugin manifest
-│   └── marketplace.json               Marketplace manifest
+│   ├── plugin.json              Plugin manifest
+│   └── marketplace.json         Marketplace manifest
 ├── skills/
 │   └── guide/
 │       ├── onboarding/
-│       │   └── SKILL.md               Interactive getting-started walkthrough
+│       │   └── SKILL.md         Interactive getting-started walkthrough
 │       └── ask/
-│           ├── SKILL.md               Q&A against reference docs
-│           └── references/            Detailed reference docs (12 files)
-├── CLAUDE.md                          Agent instructions
-├── PRIVACY.md                         Privacy policy
-├── LICENSE                            CC BY 4.0
-└── README.md                          This file
+│           ├── SKILL.md         Q&A against reference docs
+│           └── references/      Detailed reference docs (13 files)
+├── CLAUDE.md                    Agent instructions
+├── PRIVACY.md                   Privacy policy
+├── LICENSE                      CC BY 4.0
+└── README.md                    This file
 ```
 
 ## Contributing
