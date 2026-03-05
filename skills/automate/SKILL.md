@@ -1,5 +1,6 @@
 ---
 description: Overview of Claude Code's three automation mechanisms — Hooks, Skills, and Sub Agents — with the IKEA analogy and guidance on when to use each. Use when a developer wants to stop repeating themselves.
+disable-model-invocation: true
 ---
 
 # Automating Your Workflows
@@ -73,6 +74,6 @@ For experimental multi-agent coordination across separate Claude instances, expl
 Help the developer identify ONE thing to automate right now. Walk them through creating it. They can always add more later.
 
 ## Related skills
-- `/onboarding-claude-code:best-practices` — effective patterns before automating
-- `/onboarding-claude-code:configure` — where automation config lives
-- `/onboarding-claude-code:setup` — initial setup if not done yet
+- `/onboarding:best-practices` — effective patterns before automating
+- `/onboarding:configure` — where automation config lives
+- `/onboarding:setup` — initial setup if not done yet
