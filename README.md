@@ -27,17 +27,30 @@ Once installed, run:
 /onboarding:guide
 ```
 
-Claude will ask about your experience level and guide you through the relevant topics interactively. Topics covered include:
+Claude will ask about your experience level and guide you through the relevant topics interactively.
 
-- **Setup** — CLAUDE.md, permissions, model selection, MCP servers
-- **First session** — Permission modes, Plan Mode, the explore-plan-implement workflow
-- **Model selection** — Opus 4.6, Sonnet 4.6, Haiku, effort levels
-- **Best practices** — Self-testing loops, context management, effective prompting
-- **Built-ins** — Slash commands, bundled skills, hook events, sub agents, tools
-- **Automation** — Hooks, Skills, Sub Agents overview and deep dives
-- **Plugins** — Installing, creating, and sharing plugins
-- **Configuration** — Ongoing setup evolution
-- **Agent Teams** — Experimental multi-agent coordination
+## Documentation
+
+### Getting Started
+
+- [Setting Your Environment](skills/guide/references/setting-your-environment.md) — CLAUDE.md, permissions, model selection, MCP servers, customization
+- [Starting to Work](skills/guide/references/starting-to-work.md) — Permission modes, Plan Mode, Accept Edits, the explore-plan-implement workflow
+- [Choosing Your Model](skills/guide/references/choosing-your-model.md) — Opus 4.6, Sonnet 4.6, Haiku, effort levels, when to use each
+- [Best Practices](skills/guide/references/best-practices.md) — Self-testing loops, context management, effective prompting, common failure patterns
+
+### Automation
+
+- [Automating Your Workflows](skills/guide/references/automating-your-workflows.md) — Overview of the three automation mechanisms: Hooks, Skills, Sub Agents
+- [Hooks](skills/guide/references/hooks.md) — Lifecycle event automation — triggers, handlers, matchers, common patterns
+- [Skills](skills/guide/references/skills.md) — Creating reusable prompt workflows as Markdown skill files
+- [Sub Agents](skills/guide/references/sub-agents.md) — Specialist agent delegation with scoped permissions, worktree isolation
+- [Agent Teams](skills/guide/references/team-mode.md) — Experimental: coordinated multi-agent sessions with shared task lists
+
+### Configuration & Extensions
+
+- [Configuring Your Claude](skills/guide/references/configuring-your-claude.md) — Ongoing configuration — when to build skills, agents, hooks, and how they evolve
+- [Plugins](skills/guide/references/plugins.md) — Installing, creating, and sharing Claude Code plugins
+- [Built-ins](skills/guide/references/built-ins.md) — Built-in slash commands, bundled skills, hook events, sub agents, and tools
 
 ## Repository structure
 
