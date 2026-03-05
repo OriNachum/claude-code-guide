@@ -38,6 +38,7 @@ claude-code-guide/
 │               ├── configuring-your-claude.md
 │               ├── hooks.md
 │               ├── hooks-http.md
+│               ├── mcp.md
 │               ├── plugins.md
 │               ├── setting-your-environment.md
 │               ├── skills.md

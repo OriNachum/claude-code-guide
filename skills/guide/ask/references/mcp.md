@@ -155,34 +155,34 @@ When you have many MCP servers, tool definitions can eat context. Claude Code au
 
 Control with `ENABLE_TOOL_SEARCH`:
 - `auto` (default) — activates when tools exceed 10% of context
-- - `auto:5` — custom threshold (5%)
-  - - `true` — always on
-    - - `false` — disabled, all tools loaded upfront
-     
-      - ## Practical Tips
-     
-      - - **Check `/mcp` regularly** to verify your servers are healthy and connected
-        - - **Set `MAX_MCP_OUTPUT_TOKENS`** if you work with servers that return large results (default: 25,000 tokens, warning at 10,000)
-          - - **Import from Claude Desktop:** `claude mcp add-from-claude-desktop` brings over your existing config
-            - - **Claude.ai servers sync automatically** if you're logged in with a Claude.ai account
-              - - **Use Claude Code as an MCP server** for other apps: `claude mcp serve` exposes Claude's tools via stdio
-               
-                - ## The Decision Checklist
-               
-                - Before adding an MCP server, ask yourself:
-               
-                - 1. **Is there a CLI tool for this?** → Use the CLI instead
-                  2. 2. **Can a skill or sub agent handle it?** → Use those instead
-                     3. 3. **Is this a one-off call?** → Use `curl` or `WebFetch`
-                        4. 4. **Is the capability hosted elsewhere and constantly needed?** → MCP is a good fit
-                           5. 5. **Do I need the menu-serve pattern with streaming?** → MCP is a good fit
-                             
-                              6. If you answered yes to 4 or 5 — add the MCP server. Otherwise, keep it simple.
-                             
-                              7. ## Next Steps
-                             
-                              8. - Run `/mcp` to see your currently configured servers
-                                 - - See [Setting Your Environment](setting-your-environment.md) for initial MCP setup
-                                   - - See [Plugins](plugins.md) for bundling MCP servers in plugins
-                                     - - See [Automating Your Workflows](automating-your-workflows.md) for the bigger picture
-                                       - - See the [official MCP docs](https://code.claude.com/docs/en/mcp) for advanced configuration, managed deployments, and OAuth details
+- `auto:5` — custom threshold (5%)
+- `true` — always on
+- `false` — disabled, all tools loaded upfront
+
+## Practical Tips
+
+- **Check `/mcp` regularly** to verify your servers are healthy and connected
+- **Set `MAX_MCP_OUTPUT_TOKENS`** if you work with servers that return large results (default: 25,000 tokens, warning at 10,000)
+- **Import from Claude Desktop:** `claude mcp add-from-claude-desktop` brings over your existing config
+- **Claude.ai servers sync automatically** if you're logged in with a Claude.ai account
+- **Use Claude Code as an MCP server** for other apps: `claude mcp serve` exposes Claude's tools via stdio
+
+## The Decision Checklist
+
+Before adding an MCP server, ask yourself:
+
+1. **Is there a CLI tool for this?** → Use the CLI instead
+2. **Can a skill or sub agent handle it?** → Use those instead
+3. **Is this a one-off call?** → Use `curl` or `WebFetch`
+4. **Is the capability hosted elsewhere and constantly needed?** → MCP is a good fit
+5. **Do I need the menu-serve pattern with streaming?** → MCP is a good fit
+
+If you answered yes to 4 or 5 — add the MCP server. Otherwise, keep it simple.
+
+## Next Steps
+
+- Run `/mcp` to see your currently configured servers
+- See [Setting Your Environment](setting-your-environment.md) for initial MCP setup
+- See [Plugins](plugins.md) for bundling MCP servers in plugins
+- See [Automating Your Workflows](automating-your-workflows.md) for the bigger picture
+- See the [official MCP docs](https://code.claude.com/docs/en/mcp) for advanced configuration, managed deployments, and OAuth details
