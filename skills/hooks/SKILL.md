@@ -1,5 +1,6 @@
 ---
 description: Deep dive into Claude Code hooks — lifecycle event automation that fires automatically on PreToolUse, PostToolUse, Notification, and more. Use when a developer wants to automate actions that should happen every time a specific event occurs.
+disable-model-invocation: true
 ---
 
 # Hooks — Lifecycle Event Automation
@@ -89,7 +90,7 @@ Hooks are automatic and event-driven — they fire without being asked. Skills a
 Ask what they want to automate. Help them write and test a single hook. They can add more later.
 
 ## Related skills
-- `/onboarding-claude-code:automate` — overview of all three mechanisms
-- `/onboarding-claude-code:skills-guide` — creating reusable prompt workflows
-- `/onboarding-claude-code:sub-agents` — delegating to specialist agents
-- `/onboarding-claude-code:configure` — where hook config lives
+- `/onboarding:automate` — overview of all three mechanisms
+- `/onboarding:skills-guide` — creating reusable prompt workflows
+- `/onboarding:sub-agents` — delegating to specialist agents
+- `/onboarding:configure` — where hook config lives
