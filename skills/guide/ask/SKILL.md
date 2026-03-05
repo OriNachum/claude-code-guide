@@ -1,5 +1,5 @@
 ---
-description: Ask any question about Claude Code features — setup, best practices, automation, models, plugins, configuration, and more. Reads relevant reference docs to give accurate, detailed answers.
+description: Ask any question about Claude Code features — setup, best practices, automation, models, plugins, MCP, configuration, and more. Reads relevant reference docs to give accurate, detailed answers.
 disable-model-invocation: true
 ---
 
@@ -29,6 +29,7 @@ Read these files from the `references/` folder as needed:
 | `skills.md` | Creating reusable prompt workflows as Markdown skill files |
 | `sub-agents.md` | Specialist agent delegation with scoped permissions, worktree isolation |
 | `plugins.md` | Installing, creating, and sharing Claude Code plugins |
+| `mcp.md` | MCP (Model Context Protocol) — when to use MCP vs CLI tools/skills/sub agents, the restaurant analogy, server setup and scopes |
 | `configuring-your-claude.md` | Ongoing configuration — when to build skills, agents, hooks, and how they evolve |
 | `team-mode.md` | Experimental: coordinated multi-agent sessions with shared task lists and direct messaging |
 
