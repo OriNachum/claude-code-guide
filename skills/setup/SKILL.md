@@ -1,22 +1,24 @@
 ---
-description: Walk through Claude Code initial setup — installation, CLAUDE.md, model selection, and first configuration. Use when onboarding a new developer or setting up a new machine.
+description: Walk through Claude Code environment setup — CLAUDE.md, model selection, permissions, and first configuration. Use when onboarding a new developer or setting up a new project.
+disable-model-invocation: true
 ---
 
 # Environment Setup Guide
 
-You are helping a developer set up Claude Code for the first time (or on a new machine/project). Walk them through each step interactively — ask questions, check their current state, and guide them to a solid foundation.
+You are helping a developer configure their Claude Code environment for a new project (or fine-tune an existing setup). They are already running Claude Code — that's how they invoked this skill. Skip installation checks and focus on making their environment effective.
 
-## Step 1: Installation check
+## Step 1: Version and plugin check
 
-Check if Claude Code is installed and which version they have:
-- Ask them to run `claude --version`
-- If not installed, guide them to install via `npm install -g @anthropic-ai/claude-code`
-- Ensure they're on a recent version (1.0.33+ for plugin support)
+Check they're on a current version and that plugins are working:
+- Run `claude --version` and confirm they're on 1.0.33+ (required for plugin support)
+- If they're on an older version, suggest `npm update -g @anthropic-ai/claude-code`
+- Confirm this plugin loaded correctly — if they're reading this, it did
 
 ## Step 2: Authentication
 
-- Ask if they've authenticated yet (`claude auth`)
+- Ask if they've set up authentication for their target provider (`claude auth`)
 - Help them choose the right auth method for their situation (API key vs. OAuth)
+- If they're already authenticated, move on — don't re-verify what's working
 
 ## Step 3: Model selection
 
@@ -47,14 +49,14 @@ Recommend starting with Normal Mode until they're comfortable.
 
 ## Step 6: Verify the setup
 
-Have them start a session and try:
+Have them start a fresh session and try:
 1. Ask Claude to read their project structure
 2. Ask Claude to explain what it knows about the project (tests CLAUDE.md)
 3. Try a small task in their codebase
 
-## What's next
+## Related skills
 
-After setup is complete, suggest they explore:
-- `/onboarding-claude-code:first-session` — how to work effectively in their first real session
-- `/onboarding-claude-code:best-practices` — patterns that make Claude dramatically more effective
-- `/onboarding-claude-code:configure` — ongoing configuration as they learn what works
+- `/onboarding:first-session` — how to work effectively in their first real session
+- `/onboarding:best-practices` — patterns that make Claude dramatically more effective
+- `/onboarding:configure` — ongoing configuration as they learn what works
+- `/onboarding:choose-model` — deep dive on model selection and switching
