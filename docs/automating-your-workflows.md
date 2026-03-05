@@ -26,7 +26,7 @@ Think of it like buying furniture from IKEA:
 
 **Sub Agents** are the flat-pack bundle *plus a handyperson* who takes it to another room and builds it for you. You hand off the box, they do the work in their own space, and come back with the finished piece. Need three bookshelves? They can build them in parallel while you focus on something else.
 
-**Hooks** are the quality inspector at the warehouse. They don't build anything — they stand at checkpoints along the line and react: checking every piece before it ships, rejecting items that don't meet standards, stamping approved ones, and logging everything that passes through. You never call them directly — they just fire every time something moves past their station.
+**Hooks** are things that happen at specific moments during assembly — whether you're building it yourself or the handyperson is. When you open the package, when you pick up the screwdriver, when you start a new step, when you finish. You can attach rules to any of these moments: "every time someone picks up the screwdriver, check that the bit is correct", "when the package is opened, verify all parts are present", "when assembly finishes, inspect the result." Hooks fire the same way regardless of who's doing the building.
 
 ---
 
@@ -52,7 +52,7 @@ These mechanisms work together. A typical mature setup might include:
 - **Hooks** that auto-lint after every file edit and block dangerous commands
 - **Sub Agents** that run parallel code reviews and test suites in isolation
 
-Back to the IKEA analogy: your skills are the instruction manuals your team has written for every type of furniture. Your sub agents are the handypersons who can work from those manuals independently. And your hooks are the inspectors who check every finished piece before it leaves the workshop — regardless of who built it or which manual they followed.
+Back to the IKEA analogy: your skills are the instruction manuals your team has written for every type of furniture. Your sub agents are the handypersons who can work from those manuals independently. And your hooks are the checkpoints built into the workshop itself — every time anyone picks up a tool, opens a package, or finishes a build, the same checks fire automatically.
 
 Each page linked above walks you through how to get started, from zero to a working automation.
 
