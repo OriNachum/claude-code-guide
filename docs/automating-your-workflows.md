@@ -82,6 +82,7 @@ See [Plugins](plugins.md) for details on installing, creating, and sharing plugi
 - [Skills](skills.md) — Reusable prompts, coding standards, and slash commands
 - [Sub Agents](sub-agents.md) — Specialist assistants with isolated context
 - [Built-ins](built-ins.md) — Everything Claude Code ships with out of the box
+- [Running Multiple Agents](team-mode.md) — Worktrees, sub agents, and agent teams for parallel work
 
 ### Configuration & Extensions
 - [Configuring Your Claude](configuring-your-claude.md) — Ongoing configuration: when to build skills, agents, hooks, and plugins, and how they evolve over time
