@@ -1,5 +1,6 @@
 ---
 description: Deep dive into Claude Code sub agents — specialist agents with their own tools, permissions, and focus. Includes worktree isolation for parallel work. Use when a developer wants to delegate specialized tasks.
+disable-model-invocation: true
 ---
 
 # Sub Agents — Specialist Delegation
@@ -80,7 +81,7 @@ Follow JSDoc/docstring conventions for the language.
 ```
 
 ## Related skills
-- `/onboarding-claude-code:hooks` — automatic event-driven automation
-- `/onboarding-claude-code:skills-guide` — reusable prompt workflows
-- `/onboarding-claude-code:team-mode` — experimental multi-agent coordination
-- `/onboarding-claude-code:automate` — overview of all three mechanisms
+- `/onboarding:hooks` — automatic event-driven automation
+- `/onboarding:skills-guide` — reusable prompt workflows
+- `/onboarding:team-mode` — experimental multi-agent coordination
+- `/onboarding:automate` — overview of all three mechanisms
