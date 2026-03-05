@@ -1,5 +1,6 @@
 ---
 description: Key patterns that make Claude Code dramatically more effective — self-testing loops, context management, specificity, and course-correction. Use before starting a complex task or when results feel inconsistent.
+disable-model-invocation: true
 ---
 
 # Best Practices for Working with Claude Code
@@ -62,6 +63,6 @@ CLAUDE.md compounds — each improvement makes every future session better.
 ## Related skills
 
 Suggest these next steps based on what the developer needs:
-- `/onboarding-claude-code:automate` — when they find themselves repeating the same instructions
-- `/onboarding-claude-code:configure` — for ongoing CLAUDE.md and settings refinement
-- `/onboarding-claude-code:setup` — if they haven't done initial setup yet
+- `/onboarding:automate` — when they find themselves repeating the same instructions
+- `/onboarding:configure` — for ongoing CLAUDE.md and settings refinement
+- `/onboarding:setup` — if they haven't done initial setup yet
