@@ -104,6 +104,8 @@ Don't wait for Claude to finish before redirecting. Tight feedback loops produce
 
 **"Undo that"** — Have Claude revert its changes.
 
+**Interject mid-flight.** You don't have to wait for Claude to finish or stop it to give feedback. While Claude is working, type additional instructions — corrections, added specificity, or new requirements. Claude will read your message and incorporate it into its ongoing work. This lets you refine direction in real-time without breaking its flow. Think of it like giving guidance to someone while they're working, rather than waiting for the final result to critique it.
+
 **Start fresh after two failed corrections.** A clean session with a better prompt almost always outperforms a long session with accumulated corrections.
 
 ---
