@@ -6,11 +6,11 @@ This file tells Claude Code (and other AI agents) how to work with this reposito
 
 ## What This Repo Is
 
-An onboarding guide for Claude Code users. All documentation lives in `docs/` as Markdown files. The `README.md` serves as the entry point with a documentation map and suggested reading order.
+An interactive onboarding guide for Claude Code, packaged as a plugin. All content lives in `skills/` as SKILL.md files — interactive instructions that Claude follows when invoked.
 
-This repo serves two audiences: humans reading the docs on GitHub, and Claude Code users who install it as a plugin to get interactive onboarding skills.
+This repo serves two audiences: humans browsing the skills on GitHub, and Claude Code users who install it as a plugin to get guided onboarding.
 
-This is a **documentation-only** repo — no application code, no build system, no tests. The content is meant to be read on GitHub (rendered Markdown) or as a GitHub Pages site.
+This is a **content-only** repo — no application code, no build system, no tests. Skills are Markdown files designed to be read by Claude and followed interactively.
 
 ---
 
@@ -19,104 +19,79 @@ This is a **documentation-only** repo — no application code, no build system, 
 ```
 onboarding-claude-code/
 ├── .claude-plugin/
-│   └── plugin.json ............... Plugin manifest (name, version, metadata)
+│   └── plugin.json ............... Plugin manifest (name: "onboarding", version, metadata)
 ├── skills/
-│   ├── guide/SKILL.md ............ Skill directory — shows all skills
-│   ├── setup/SKILL.md ............ Initial setup walkthrough
-│   ├── first-session/SKILL.md .... First working session guide
-│   ├── best-practices/SKILL.md ... Self-testing, context, prompting
-│   ├── automate/SKILL.md ......... Hooks, Skills, Sub Agents overview
-│   └── configure/SKILL.md ........ Ongoing configuration guide
-├── docs/ .......................... Full documentation (human-readable)
-    ├── setting-your-environment.md ... Initial setup and installation
-    ├── choosing-your-model.md ....... Model selection and effort levels
-    ├── starting-to-work.md ......... First session — Plan Mode, Accept Edits, Normal
-    ├── configuring-your-claude.md ... Ongoing config — building agent personality
-    ├── best-practices.md ........... Self-testing, context management, prompting
-    ├── built-ins.md ................ Built-in commands, tools, defaults
-    ├── automating-your-workflows.md . Overview — three mechanisms + how they combine
-    ├── hooks.md .................... Lifecycle event automation
-    ├── skills.md ................... Reusable prompt-driven workflows
-    ├── sub-agents.md ............... Specialist agents + worktree isolation
-    ├── team-mode.md ................ Agent Teams (experimental)
-    └── plugins.md .................. Installing, creating, sharing plugins
+│   ├── automate/SKILL.md ......... Three automation mechanisms overview
+│   ├── best-practices/SKILL.md ... Self-testing, context, prompting patterns
+│   ├── built-ins/SKILL.md ........ Built-in commands and tools tour
+│   ├── choose-model/SKILL.md ..... Model selection guidance
+│   ├── configure/SKILL.md ........ Ongoing configuration guide
+│   ├── first-session/SKILL.md .... First working session walkthrough
+│   ├── guide/SKILL.md ............ Skill directory and starting point
+│   ├── hooks/SKILL.md ............ Lifecycle event automation deep dive
+│   ├── plugins-guide/SKILL.md .... Plugin installation and creation
+│   ├── setup/SKILL.md ............ Environment setup walkthrough
+│   ├── skills-guide/SKILL.md ..... Creating reusable prompt workflows
+│   ├── sub-agents/SKILL.md ....... Specialist agent delegation
+│   └── team-mode/SKILL.md ....... Experimental agent teams
+├── CLAUDE.md ..................... This file — agent instructions
+├── LICENSE ....................... CC BY 4.0
+└── README.md ..................... Human-facing entry point
 ```
 
 ---
 
-## How to Work on This Repo
+## Critical Rules for Content
 
-### Writing style
+These rules MUST be followed when editing or creating skills:
 
-- **Onboarding-focused.** Content should help someone start thinking about a topic, not be an exhaustive reference. Link to official Claude Code docs for depth.
-- **Conversational, not formal.** Second person ("you"), active voice, short paragraphs.
-- **Analogies over abstractions.** The docs use an IKEA furniture analogy to explain Hooks, Skills, and Sub Agents. Maintain this when relevant.
-- **Cross-link everything.** Every doc page should link back to its parent overview and forward to related pages. Use relative paths (`hooks.md`, not full URLs).
+1. **Slash commands are a subset of Skills** — never list them as a separate category. They are the same mechanism.
 
-### Key content rules
+2. **Three automation mechanisms only**: Hooks, Skills, Sub Agents. Agent Teams are NOT a fourth mechanism — they are architecturally distinct (separate full Claude instances) and always flagged as experimental.
 
-- **Slash commands are a subset of Skills** — never list them as a separate category.
-- **Three automation mechanisms only:** Hooks, Skills, Sub Agents. Agent Teams are an operational mode, not a fourth mechanism — they do NOT belong in the comparison table in `automating-your-workflows.md`.
-- **Worktrees are an isolation layer**, not a coordination mechanism. They work alongside both Sub Agents and Agent Teams. Worktree content lives in `sub-agents.md`.
-- **Agent Teams are experimental.** Always flag them as such. They are architecturally distinct from Sub Agents (separate full Claude instances vs. helpers within a session).
+3. **Worktrees are an isolation layer**, not a coordination mechanism. They provide git-level isolation for parallel work.
 
-### Navigation structure
+4. **Agent Teams are experimental** — always flag them with ⚠️ and note they may change.
 
-Each doc page follows this pattern:
-1. **Back link** at the top — points to parent page (usually `automating-your-workflows.md` or `README.md`)
-2. **Content** — the guide itself
-3. **Next Steps / Related** section at the bottom — links to related pages
+5. **Skills are interactive instructions**, not reference docs. Every skill starts with "You are helping a developer..." and guides Claude to interact with the user step-by-step.
 
-The `automating-your-workflows.md` page serves as the hub for all automation docs. It contains an "All Documentation" index at the bottom that lists every page. If you add a new doc, add it to that index.
-
-### Adding a new doc
-
-1. Create the file in `docs/`
-2. Add a back link at the top: `[← Back to ...](parent-page.md)`
-3. Add the file to the "All Documentation" index in `automating-your-workflows.md`
-4. Add the file to the Documentation Map tree in `README.md`
-5. Add the file to the Repository Structure tree in this file (`CLAUDE.md`)
-6. Cross-link from related pages
-
-### Editing existing docs
-
-- Read the full file before editing to understand the flow
-- Preserve existing cross-links
-- Maintain the IKEA analogy framework where it's used (Hooks = assembly events, Skills = the packages with tools, Sub Agents = the packages plus the handyperson who builds them)
-- Keep the onboarding tone — if you're writing reference material, you're probably going too deep
+6. **IKEA analogy**: Hooks = assembly events (they fire during the process), Skills = packages with instruction sheets (reusable, pre-written), Sub Agents = packages + a handyperson (delegate and they deliver).
 
 ---
 
-## Plugin skills
+## Skill File Format
 
-The `skills/` directory contains SKILL.md files that Claude Code invokes when a user types `/onboarding-claude-code:skill-name`. Each skill is a distilled, actionable version of the corresponding doc page.
+Every skill must follow this structure:
 
-When adding a new skill:
-1. Create `skills/skill-name/SKILL.md` with frontmatter (`description` is required)
-2. Write instructions Claude should follow — conversational, step-by-step, interactive
-3. End with "Related skills" linking to other `/onboarding-claude-code:*` skills
-4. Update the guide skill (`skills/guide/SKILL.md`) to list the new skill
-5. Update the skills table in `README.md`
+```markdown
+---
+description: One-line description of what this skill does and when to use it.
+disable-model-invocation: true
+---
 
-Skills are NOT reference docs. They're instructions for Claude to follow interactively with the developer. Write them as "you are helping a developer do X" — Claude becomes the guide.
+# Title
+
+You are helping a developer [do X]. [Context for Claude as the guide.]
+
+## Sections with actionable guidance
+
+[Interactive, step-by-step instructions]
+
+## Related skills
+
+- \`/onboarding:other-skill\` — brief description
+```
+
+Key requirements:
+- YAML frontmatter with `description` (required) and `disable-model-invocation: true` (required for all tutorial skills)
+- Cross-references use `/onboarding:skill-name` format
+- Content is onboarding-focused, not exhaustive reference
 
 ---
 
-## Official References
+## How to Edit
 
-When you need accurate technical details, consult the official Claude Code docs:
-
-- General: `https://docs.anthropic.com/en/docs/claude-code`
-- Agent Teams: `https://code.claude.com/docs/en/agent-teams`
-- Best Practices: `https://code.claude.com/docs/en/best-practices`
-- Common Workflows: `https://code.claude.com/docs/en/common-workflows`
-- Settings: `https://code.claude.com/docs/en/settings`
-- Memory: `https://code.claude.com/docs/en/memory`
-
----
-
-## Commit Conventions
-
-- Use clear, descriptive commit messages (e.g., "Add worktree isolation section to sub-agents.md")
-- One logical change per commit when possible
-- Commit directly to `main` — this is a docs repo, not a production application
+- Each skill is self-contained in `skills/<name>/SKILL.md`
+- The plugin manifest is at `.claude-plugin/plugin.json` (plugin name: `onboarding`)
+- README.md is the human-facing entry point — keep the skill table in sync
+- This file (CLAUDE.md) provides agent context — update the structure tree when adding skills
