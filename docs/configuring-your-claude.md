@@ -162,7 +162,66 @@ Or configure in `.mcp.json` at your project root for team sharing.
 
 Before reaching for MCP, check if a CLI tool exists. Claude works well with `gh` (GitHub), `aws`, `gcloud`, `kubectl`, and most CLI tools. Try: "Use `gh` to list open PRs."
 
-## Step 5: Install Useful Plugins
+## Step 5: Set Up Sub Agents
+
+Sub agents are specialist AI assistants that handle specific types of tasks in their own context window. They keep verbose output (test results, large file contents) out of your main conversation and return only a summary.
+
+### Create your first agent
+
+The easiest way is the interactive command:
+
+```
+/agents
+```
+
+Select **Create new agent**, choose a scope (user-level or project-level), and describe what you want. Claude generates the agent file for you.
+
+### Or write one manually
+
+Create `.claude/agents/code-reviewer.md`:
+
+```markdown
+---
+name: code-reviewer
+description: Reviews code for quality, security, and best practices
+tools: Read, Grep, Glob, Bash
+model: sonnet
+---
+
+You are a senior code reviewer. When invoked:
+
+1. Run `git diff` to see recent changes
+2. Check for: readability, error handling, security, test coverage
+3. Provide feedback organized by priority (Critical / Warnings / Suggestions)
+```
+
+### Key configuration options
+
+| Option | What it controls | Example values |
+|---|---|---|
+| `tools` | Which tools the agent can use | `Read, Grep, Glob`, `Read, Edit, Bash` |
+| `model` | Which model the agent runs on | `haiku`, `sonnet`, `opus`, `inherit` |
+| `permissionMode` | Agent's permission level | `default`, `acceptEdits`, `plan` |
+| `memory` | Persistent memory across sessions | `user`, `project` |
+| `hooks` | Agent-specific lifecycle hooks | PreToolUse/PostToolUse matchers |
+
+### Where agents live
+
+- **`.claude/agents/`** — Project-level, shared with your team via git
+- **`~/.claude/agents/`** — User-level, available in all your projects
+- **Plugin `agents/` directory** — Bundled with installed plugins
+
+### Using agents
+
+Claude automatically delegates when a task matches an agent's description, or you can be explicit:
+
+```
+Use the code-reviewer agent to review my recent changes
+```
+
+See [Sub Agents](sub-agents.md) for detailed patterns including read-only explorers, debuggers, database agents with hook validation, and agents with persistent memory.
+
+## Step 6: Install Useful Plugins
 
 Plugins bundle skills, agents, hooks, and MCP servers into installable packages.
 
@@ -177,7 +236,7 @@ Plugins bundle skills, agents, hooks, and MCP servers into installable packages.
 
 See [Plugins](plugins.md) for more details.
 
-## Step 6: Set Up Auto Memory
+## Step 7: Set Up Auto Memory
 
 Auto memory lets Claude learn from your corrections across sessions. It's on by default — Claude saves notes about build commands, debugging insights, and patterns it discovers.
 
@@ -189,7 +248,7 @@ Check what Claude has learned:
 
 You can view, edit, or delete anything Claude has saved. It's all plain Markdown in `~/.claude/projects/<project>/memory/`.
 
-## Step 7: Customize Your Experience
+## Step 8: Customize Your Experience
 
 ### Status line
 
@@ -246,6 +305,7 @@ Run `/status` to see which settings sources are active and where they come from.
 - [ ] Refine CLAUDE.md with your project's conventions and gotchas
 - [ ] Set up permission allow/deny rules in `.claude/settings.json`
 - [ ] Choose your model (`/model` or settings)
+- [ ] Set up sub agents for common tasks (`/agents`)
 - [ ] Install LSP plugin for your language (`/plugin`)
 - [ ] Install the `gh` CLI if you use GitHub
 - [ ] Run `/statusline` to set up your status line
