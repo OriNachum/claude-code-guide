@@ -86,6 +86,7 @@ See [Plugins](plugins.md) for details on installing, creating, and sharing plugi
 
 ### Automation Deep Dives
 - [Hooks](hooks.md) — Lifecycle automation, guardrails, and validation
+- [HTTP Hooks](hooks-http.md) — Dedicated guide for HTTP endpoint hook handlers
 - [Skills](skills.md) — Reusable prompts, coding standards, and slash commands
 - [Sub Agents](sub-agents.md) — Specialist assistants with isolated context
 - [Built-ins](built-ins.md) — Everything Claude Code ships with out of the box

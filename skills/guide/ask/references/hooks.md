@@ -22,7 +22,7 @@ Hooks are reactive — they fire in response to events, not in response to promp
 
 **Matchers** — You can filter which tool or event triggers your hook. For example, a `PreToolUse` hook with matcher `"Bash"` only fires before shell commands, not before file reads.
 
-**Hook handlers** — The actual code that runs. Can be a shell command (`type: "command"`), an HTTP POST (`type: "http"`), an LLM evaluation (`type: "prompt"`), or an agentic verifier (`type: "agent"`).
+**Hook handlers** — The actual code that runs. Can be a shell command (`type: "command"`), an HTTP POST (`type: "http"`), an LLM evaluation (`type: "prompt"`), or an agentic verifier (`type: "agent"`). See [HTTP Hooks](hooks-http.md) for a dedicated guide on HTTP endpoint handlers.
 
 **Decision control** — Hooks can allow, deny, or escalate actions. A `PreToolUse` hook can block a tool call; a `Stop` hook can force Claude to keep working.
 
@@ -155,4 +155,5 @@ exit 0
 - Use `/hooks` inside Claude Code to interactively manage hooks
 - Run `claude --debug` to see hook execution details
 - See the [official hooks reference](https://code.claude.com/docs/en/hooks) for full event schemas and advanced features
+- See [HTTP Hooks](hooks-http.md) for a dedicated guide on HTTP endpoint handlers
 - Return to [Automating Your Workflows](automating-your-workflows.md) to compare with Skills and Sub Agents

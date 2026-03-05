@@ -26,6 +26,7 @@ Read these files from the `references/` folder as needed:
 | `built-ins.md` | Built-in slash commands, bundled skills, hook events, sub agents, and tools |
 | `automating-your-workflows.md` | Overview of the three automation mechanisms: Hooks, Skills, Sub Agents |
 | `hooks.md` | Lifecycle event automation — triggers, handlers, matchers, common patterns |
+| `hooks-http.md` | HTTP hook handlers — configuration, request/response cycle, authentication, common patterns |
 | `skills.md` | Creating reusable prompt workflows as Markdown skill files |
 | `sub-agents.md` | Specialist agent delegation with scoped permissions, worktree isolation |
 | `plugins.md` | Installing, creating, and sharing Claude Code plugins |
