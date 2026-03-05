@@ -18,6 +18,16 @@ You have different ways to automate your workflows using Claude Code. Each appro
 | **Complexity** | Medium — requires writing shell scripts or configuring JSON | Low — write a Markdown file with optional YAML frontmatter | Medium — write a Markdown file with YAML config for tools, model, permissions |
 | **Best for** | Guardrails, validation, logging, auto-formatting, CI integration | Reusable prompts, coding standards, deployment playbooks, code generation templates | Isolated research, parallel exploration, specialized reviews, high-output tasks |
 
+### The IKEA Analogy
+
+Think of it like buying furniture from IKEA:
+
+**Skills** are the flat-pack bundle you get — the instruction sheet plus all the parts and tools. Everything you need is in the box, but *you* (Claude in your main conversation) still have to follow the steps and assemble it yourself, one piece at a time.
+
+**Sub Agents** are the flat-pack bundle *plus a handyperson* who takes it to another room and builds it for you. You hand off the box, they do the work in their own space, and come back with the finished piece. Need three bookshelves? They can build them in parallel while you focus on something else.
+
+**Hooks** are the quality inspector at the warehouse. They don't build anything — they stand at checkpoints along the line and react: checking every piece before it ships, rejecting items that don't meet standards, stamping approved ones, and logging everything that passes through. You never call them directly — they just fire every time something moves past their station.
+
 ---
 
 ## How to Start Thinking About Automation
@@ -41,6 +51,8 @@ These mechanisms work together. A typical mature setup might include:
 - **Skills** that define your team's coding conventions and deployment process
 - **Hooks** that auto-lint after every file edit and block dangerous commands
 - **Sub Agents** that run parallel code reviews and test suites in isolation
+
+Back to the IKEA analogy: your skills are the instruction manuals your team has written for every type of furniture. Your sub agents are the handypersons who can work from those manuals independently. And your hooks are the inspectors who check every finished piece before it leaves the workshop — regardless of who built it or which manual they followed.
 
 Each page linked above walks you through how to get started, from zero to a working automation.
 
