@@ -1,5 +1,6 @@
 ---
 description: Guide for your first real working session with Claude Code — permission modes, the explore→plan→code pattern, and how to course-correct. Use when a developer has Claude Code installed but hasn't done real work with it yet.
+disable-model-invocation: true
 ---
 
 # Your First Working Session
@@ -66,5 +67,5 @@ The more context in the prompt, the better the first attempt.
 After they complete (or attempt) their task:
 - Ask what surprised them
 - Ask what felt inefficient
-- Suggest they try `/onboarding-claude-code:best-practices` for patterns that make future sessions dramatically better
-- Suggest `/onboarding-claude-code:automate` when they find themselves repeating the same instructions
+- Suggest they try `/onboarding:best-practices` for patterns that make future sessions dramatically better
+- Suggest `/onboarding:automate` when they find themselves repeating the same instructions
