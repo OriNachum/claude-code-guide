@@ -46,6 +46,18 @@ Each page linked above walks you through how to get started, from zero to a work
 
 ---
 
+## Packaging with Plugins
+
+[Plugins](plugins.md) aren't a fourth automation mechanism — they're the packaging layer that sits on top of the three. A plugin is a bundle that can contain any combination of skills, sub agents, hooks, and MCP servers, distributed as a single installable package.
+
+Think of it this way: hooks, skills, and sub agents are the individual pieces you build. Plugins are how you ship them together. When you install a plugin via `/plugin`, you get all of its bundled automation at once — the skills appear in your `/` menu, the agents become available for delegation, the hooks start firing, and any MCP servers connect automatically.
+
+This matters for two reasons. First, it means you can adopt someone else's entire automation setup without configuring each piece individually. Second, once your own skills, agents, and hooks have matured, you can package them into a plugin so your team (or the community) can install everything with one command.
+
+See [Plugins](plugins.md) for details on installing, creating, and sharing plugins.
+
+---
+
 ## All Documentation
 
 ### Getting Started
@@ -60,5 +72,5 @@ Each page linked above walks you through how to get started, from zero to a work
 - [Built-ins](built-ins.md) — Everything Claude Code ships with out of the box
 
 ### Configuration & Extensions
-- [Configuring Your Claude](configuring-your-claude.md) — Ongoing configuration: building skills, agents, hooks, and plugins over time
+- [Configuring Your Claude](configuring-your-claude.md) — Ongoing configuration: when to build skills, agents, hooks, and plugins, and how they evolve over time
 - [Plugins](plugins.md) — Installing, creating, and sharing plugin packages
