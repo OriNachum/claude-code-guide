@@ -1,0 +1,12 @@
+{
+  "name": "onboarding-claude-code",
+  "description": "An interactive onboarding guide for Claude Code — skills that walk you through setup, best practices, automation, and effective workflows",
+  "version": "1.0.0",
+  "author": {
+    "name": "Ori Nachum"
+  },
+  "homepage": "https://github.com/OriNachum/onboarding-claude-code",
+  "repository": "https://github.com/OriNachum/onboarding-claude-code",
+  "license": "CC-BY-4.0",
+  "keywords": ["onboarding", "guide", "tutorial", "best-practices", "automation", "workflows"]
+}
