@@ -1,0 +1,19 @@
+{
+    "name": "onboarding-claude-code",
+    "owner": {
+          "name": "Ori Nachum"
+    },
+    "metadata": {
+          "description": "A marketplace for Claude Code onboarding and learning plugins"
+    },
+    "plugins": [
+          {
+                  "name": "onboarding",
+                  "source": ".",
+                  "description": "Interactive onboarding guide for Claude Code — skills that walk you through setup, best practices, automation, and effective workflows",
+                  "version": "1.1.0",
+                  "license": "CC-BY-4.0",
+                  "keywords": ["onboarding", "guide", "tutorial", "best-practices", "automation", "workflows"]
+          }
+    ]
+}
