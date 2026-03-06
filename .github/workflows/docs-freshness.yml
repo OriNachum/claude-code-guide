@@ -37,9 +37,8 @@ jobs:
         if: steps.check-pr.outputs.skip != 'true'
         uses: anthropics/claude-code-action@v1
         with:
-          model: sonnet
-          max_turns: 25
           anthropic_api_key: ${{ secrets.ANTHROPIC_API_KEY }}
+          claude_args: "--model sonnet --max-turns 25"
           prompt: |
             You are a docs-freshness checker. Your job is to compare our reference docs
             against Anthropic's official Claude Code documentation and fix ONLY factual
