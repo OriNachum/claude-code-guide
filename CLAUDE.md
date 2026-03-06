@@ -31,6 +31,13 @@ claude-code-guide/
 │       └── ask/
 │           ├── SKILL.md .................. Q&A against reference docs
 │           └── references/ ............... Detailed reference docs read by the ask skill as needed
+│               ├── stories/ .............. Narrative user-story walkthroughs
+│               │   ├── daily-workflow.md
+│               │   ├── starting-new-repo.md
+│               │   ├── new-project-existing-repo.md
+│               │   ├── auto-maintain-claude-md.md
+│               │   ├── context-management-and-clear.md
+│               │   └── sub-agents-in-monolith.md
 │               ├── automating-your-workflows.md
 │               ├── best-practices.md
 │               ├── built-ins.md
@@ -78,6 +85,7 @@ These rules MUST be followed when editing or creating skills:
 - The onboarding skill lives at `skills/guide/onboarding/SKILL.md`
 - The ask/Q&A skill lives at `skills/guide/ask/SKILL.md`
 - Reference docs live at `skills/guide/ask/references/` — one file per topic
+- User stories live at `skills/guide/ask/references/stories/` — narrative scenario walkthroughs
 - The plugin manifest is at `.claude-plugin/plugin.json` (plugin name: `guide`)
 - README.md is the human-facing entry point
 - This file (CLAUDE.md) provides agent context — update the structure tree when adding/removing references

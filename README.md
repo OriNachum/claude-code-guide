@@ -50,6 +50,17 @@ Once installed, two skills are available:
 - [MCP](skills/guide/ask/references/mcp.md) — MCP (Model Context Protocol) — when to use it, the restaurant analogy, server setup and scopes
 - [Built-ins](skills/guide/ask/references/built-ins.md) — Built-in slash commands, bundled skills, hook events, sub agents, and tools
 
+### User Stories
+
+Narrative walkthroughs showing Claude Code in real-world scenarios:
+
+- [Daily Workflow](skills/guide/ask/references/stories/daily-workflow.md) — A typical day using Claude Code, from morning context to end-of-day
+- [Getting Started with Claude Code](skills/guide/ask/references/stories/starting-new-repo.md) — Your first days on an existing team — /init, building skills organically
+- [New Project in Existing Repo](skills/guide/ask/references/stories/new-project-existing-repo.md) — Adding a new module/service within an existing codebase
+- [Auto-Maintain CLAUDE.md](skills/guide/ask/references/stories/auto-maintain-claude-md.md) — GitHub Actions cron job to keep CLAUDE.md fresh weekly
+- [Context Management](skills/guide/ask/references/stories/context-management-and-clear.md) — When to use /clear, /compact, and how to manage context
+- [Sub Agents in a Monolith](skills/guide/ask/references/stories/sub-agents-in-monolith.md) — Using sub agents to navigate and work within a large monolith
+
 ## Repository structure
 
 ```
