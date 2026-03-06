@@ -1,6 +1,8 @@
 name: Docs Freshness Check
 
 on:
+  push:
+    branches: ['workflow/**']
   schedule:
     # Weekdays at 06:00 UTC
     - cron: "0 6 * * 1-5"
@@ -37,7 +39,7 @@ jobs:
         if: steps.check-pr.outputs.skip != 'true'
         uses: anthropics/claude-code-action@v1.0.25
         with:
-          anthropic_api_key: ${{ secrets.ANTHROPIC_API_KEY }}
+          claude_code_oauth_token: ${{ secrets.ANTHROPIC_API_KEY }}
           claude_args: "--model sonnet"
           show_full_output: true
           prompt: |
@@ -47,13 +49,15 @@ jobs:
 
             ## Step 1: Read all reference docs
 
-            Read every file in `skills/guide/references/`:
+            Read every file in `skills/guide/ask/references/`:
             - automating-your-workflows.md
             - best-practices.md
             - built-ins.md
             - choosing-your-model.md
             - configuring-your-claude.md
             - hooks.md
+            - hooks-http.md
+            - mcp.md
             - plugins.md
             - setting-your-environment.md
             - skills.md
