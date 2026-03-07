@@ -40,5 +40,5 @@ Share the practices that make the biggest difference:
 
 Once you've walked them through the basics, let them know:
 
-- Run `/guide:onboarding` anytime to repeat this walkthrough
+- Run `/guide:onboard` anytime to repeat this walkthrough
 - Run `/guide:ask` to ask specific questions about any Claude Code feature — automation, hooks, skills, sub agents, plugins, model selection, and more

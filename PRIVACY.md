@@ -24,8 +24,8 @@ Specifically, the plugin:
 
 The plugin consists entirely of static Markdown files:
 
-- Two skills: `/guide:onboarding` (getting-started walkthrough) and `/guide:ask` (Q&A against reference docs)
-- Reference documentation in `skills/guide/ask/references/` (Markdown files)
+- Two skills: `/guide:onboard` (getting-started walkthrough) and `/guide:ask` (Q&A against reference docs)
+- Reference documentation in `skills/ask/references/` (Markdown files)
 - A plugin manifest (`.claude-plugin/plugin.json`)
 - A marketplace manifest (`.claude-plugin/marketplace.json`)
 

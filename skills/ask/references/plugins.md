@@ -15,22 +15,92 @@ Plugins are shareable bundles of skills, agents, hooks, and MCP servers packaged
 
 ## Installing Plugins
 
+> **Requires Claude Code v1.0.33 or later.** Run `claude --version` to check.
+
 ### From the built-in marketplace
 
 ```
 /plugin
 ```
 
-This opens an interactive browser where you can search, install, enable, and disable plugins.
+This opens an interactive browser where you can search, install, enable, and disable plugins. The official Anthropic marketplace (`claude-plugins-official`) is available by default.
+
+To install directly by name:
+
+```shell
+/plugin install plugin-name@claude-plugins-official
+```
+
+### From a GitHub marketplace
+
+Add a GitHub repo as a marketplace, then install plugins from it:
+
+```shell
+/plugin marketplace add owner/repo
+/plugin install plugin-name@owner-repo
+```
+
+Or from the CLI:
+
+```bash
+claude plugin marketplace add owner/repo
+claude plugin install plugin-name@owner-repo
+```
+
+### From a local directory (permanent install)
+
+Add a local plugin directory as a marketplace, then install:
+
+```shell
+/plugin marketplace add ./my-plugin
+/plugin install my-plugin@my-plugin
+```
 
 ### From a team marketplace
 
 If your team has a custom marketplace, it may be configured automatically via `extraKnownMarketplaces` in your project's `.claude/settings.json`. When you open the project, Claude Code prompts you to install the marketplace and its plugins.
 
-### From a local directory (for development/testing)
+### Load for current session only (development/testing)
 
 ```bash
 claude --plugin-dir ./my-plugin
+```
+
+This loads the plugin without installing it permanently — useful for development and testing. You can load multiple plugins at once:
+
+```bash
+claude --plugin-dir ./plugin-one --plugin-dir ./plugin-two
+```
+
+> **After installing a plugin, restart Claude Code** for its skills to become available. The `--plugin-dir` flag does not require a restart since it loads the plugin at launch.
+
+## Installation Scopes
+
+When you install a plugin, you choose where it applies:
+
+| Scope | Settings file | Use case |
+|---|---|---|
+| **User** (default) | `~/.claude/settings.json` | Personal — available across all your projects |
+| **Project** | `.claude/settings.json` | Team — shared via version control with all collaborators |
+| **Local** | `.claude/settings.local.json` | Private to you in this repo only (gitignored) |
+
+From the interactive UI (`/plugin` → Discover tab → select a plugin), you'll see all three options. From the CLI, use `--scope`:
+
+```bash
+claude plugin install my-plugin@marketplace --scope project
+claude plugin uninstall my-plugin@marketplace --scope project
+```
+
+**Managed** scope is a fourth read-only scope set by administrators via managed settings — these plugins cannot be modified by users.
+
+## Managing Installed Plugins
+
+```shell
+/plugin                    # Interactive UI — Installed tab to view/manage
+/plugin disable name@mkt   # Disable without uninstalling
+/plugin enable name@mkt    # Re-enable
+/plugin uninstall name@mkt # Remove completely
+/reload-plugins            # Apply changes without restarting
 ```
 
 ## What Plugins Can Include

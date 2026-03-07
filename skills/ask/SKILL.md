@@ -53,4 +53,4 @@ Narrative walkthroughs in the `references/stories/` folder — read these for wo
 
 - If the question spans multiple topics, read multiple reference files.
 - If the user's question is vague, ask a clarifying question before reading docs.
-- Mention `/guide:onboarding` if the user seems new and would benefit from a guided walkthrough.
+- Mention `/guide:onboard` if the user seems new and would benefit from a guided walkthrough.

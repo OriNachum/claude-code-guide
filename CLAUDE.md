@@ -8,8 +8,8 @@ This file tells Claude Code (and other AI agents) how to work with this reposito
 
 A Claude Code guide, packaged as a plugin. There are two skills:
 
-- **`/guide:onboarding`** — Interactive getting-started walkthrough for new users
-- **`/guide:ask`** — Q&A skill backed by comprehensive reference documentation in `skills/guide/ask/references/`
+- **`/guide:onboard`** — Interactive getting-started walkthrough for new users
+- **`/guide:ask`** — Q&A skill backed by comprehensive reference documentation in `skills/ask/references/`
 
 This repo serves two audiences: humans browsing the docs on GitHub, and Claude Code users who install it as a plugin to get guided help.
 
@@ -25,12 +25,11 @@ claude-code-guide/
 │   ├── plugin.json ........................ Plugin manifest (name: "guide", version, metadata)
 │   └── marketplace.json .................. Marketplace manifest
 ├── skills/
-│   └── guide/
-│       ├── onboarding/
-│       │   └── SKILL.md .................. Interactive getting-started walkthrough
-│       └── ask/
-│           ├── SKILL.md .................. Q&A against reference docs
-│           └── references/ ............... Detailed reference docs read by the ask skill as needed
+│   ├── onboard/
+│   │   └── SKILL.md ...................... Interactive getting-started walkthrough
+│   └── ask/
+│       ├── SKILL.md ...................... Q&A against reference docs
+│       └── references/ ................... Detailed reference docs read by the ask skill as needed
 │               ├── stories/ .............. Narrative user-story walkthroughs
 │               │   ├── daily-workflow.md
 │               │   ├── starting-new-repo.md
@@ -82,10 +81,10 @@ These rules MUST be followed when editing or creating skills:
 
 ## How to Edit
 
-- The onboarding skill lives at `skills/guide/onboarding/SKILL.md`
-- The ask/Q&A skill lives at `skills/guide/ask/SKILL.md`
-- Reference docs live at `skills/guide/ask/references/` — one file per topic
-- User stories live at `skills/guide/ask/references/stories/` — narrative scenario walkthroughs
+- The onboarding skill lives at `skills/onboard/SKILL.md`
+- The ask/Q&A skill lives at `skills/ask/SKILL.md`
+- Reference docs live at `skills/ask/references/` — one file per topic
+- User stories live at `skills/ask/references/stories/` — narrative scenario walkthroughs
 - The plugin manifest is at `.claude-plugin/plugin.json` (plugin name: `guide`)
 - README.md is the human-facing entry point
 - This file (CLAUDE.md) provides agent context — update the structure tree when adding/removing references
