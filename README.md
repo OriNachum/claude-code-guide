@@ -2,6 +2,8 @@
 
 A Claude Code guide — interactive onboarding and Q&A on setup, best practices, automation, and effective workflows, packaged as a plugin.
 
+> **Listen to this guide** — [NotebookLM audio overview](https://notebooklm.google.com/notebook/02354e4c-cb75-4d55-9b44-aae2abe742f8) provides an AI-generated audio reflection of the guide content.
+
 ## Install as a Claude Code Plugin
 
 This repo is a **Claude Code plugin**. Install it to get interactive guide skills directly inside Claude Code.
