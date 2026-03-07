@@ -6,10 +6,11 @@ This file tells Claude Code (and other AI agents) how to work with this reposito
 
 ## What This Repo Is
 
-A Claude Code guide, packaged as a plugin. There are two skills:
+A Claude Code guide, packaged as a plugin. There are three skills:
 
 - **`/guide:onboard`** — Interactive getting-started walkthrough for new users
 - **`/guide:ask`** — Q&A skill backed by comprehensive reference documentation in `skills/ask/references/`
+- **`/guide:game-mode`** — Gamified usage tracker that rewards feature breadth and depth with a level system
 
 This repo serves two audiences: humans browsing the docs on GitHub, and Claude Code users who install it as a plugin to get guided help.
 
@@ -19,43 +20,53 @@ This is a **content-only** repo — no application code, no build system, no tes
 
 ## Repository Structure
 
-```
+```text
 claude-code-guide/
 ├── .claude-plugin/
 │   ├── plugin.json ........................ Plugin manifest (name: "guide", version, metadata)
 │   └── marketplace.json .................. Marketplace manifest
+├── hooks/
+│   ├── hooks.json ......................... Hook event configuration (PostToolUse, Stop)
+│   └── scripts/
+│       ├── track-usage.sh ................. PostToolUse handler — tracks feature usage
+│       ├── track-stop.sh .................. Stop handler — best-effort token tracking
+│       └── statusline.sh .................. Reads game-data.json, outputs compact level string
 ├── skills/
 │   ├── onboard/
 │   │   └── SKILL.md ...................... Interactive getting-started walkthrough
-│   └── ask/
-│       ├── SKILL.md ...................... Q&A against reference docs
-│       └── references/ ................... Detailed reference docs read by the ask skill as needed
-│               ├── stories/ .............. Narrative user-story walkthroughs
-│               │   ├── daily-workflow.md
-│               │   ├── starting-new-repo.md
-│               │   ├── new-project-existing-repo.md
-│               │   ├── auto-maintain-claude-md.md
-│               │   ├── context-management-and-clear.md
-│               │   ├── discovering-plugins.md
-│               │   └── sub-agents-in-monolith.md
-│               ├── automating-your-workflows.md
-│               ├── best-practices.md
-│               ├── built-ins.md
-│               ├── choosing-your-model.md
-│               ├── configuring-your-claude.md
-│               ├── github-actions.md
-│               ├── hooks.md
-│               ├── hooks-http.md
-│               ├── marketplace.md
-│               ├── mcp.md
-│               ├── ongoing-work.md
-│               ├── plugin-examples.md
-│               ├── plugins.md
-│               ├── setting-your-environment.md
-│               ├── skills.md
-│               ├── starting-to-work.md
-│               ├── sub-agents.md
-│               └── team-mode.md
+│   ├── ask/
+│   │   ├── SKILL.md ...................... Q&A against reference docs
+│   │   └── references/ ................... Detailed reference docs read by the ask skill as needed
+│   │           ├── stories/ .............. Narrative user-story walkthroughs
+│   │           │   ├── daily-workflow.md
+│   │           │   ├── starting-new-repo.md
+│   │           │   ├── new-project-existing-repo.md
+│   │           │   ├── auto-maintain-claude-md.md
+│   │           │   ├── context-management-and-clear.md
+│   │           │   ├── discovering-plugins.md
+│   │           │   └── sub-agents-in-monolith.md
+│   │           ├── automating-your-workflows.md
+│   │           ├── best-practices.md
+│   │           ├── built-ins.md
+│   │           ├── choosing-your-model.md
+│   │           ├── configuring-your-claude.md
+│   │           ├── github-actions.md
+│   │           ├── hooks.md
+│   │           ├── hooks-http.md
+│   │           ├── marketplace.md
+│   │           ├── mcp.md
+│   │           ├── ongoing-work.md
+│   │           ├── plugin-examples.md
+│   │           ├── plugins.md
+│   │           ├── setting-your-environment.md
+│   │           ├── skills.md
+│   │           ├── starting-to-work.md
+│   │           ├── sub-agents.md
+│   │           └── team-mode.md
+│   └── game-mode/
+│       └── SKILL.md ...................... Gamified usage tracker with levels
+├── .local/ ................................ Runtime data (gitignored)
+│   └── game-data.json .................... Usage data (created at runtime)
 ├── CLAUDE.md .............................. This file — agent instructions
 ├── PRIVACY.md ............................. Privacy policy
 ├── LICENSE ................................ CC BY 4.0
