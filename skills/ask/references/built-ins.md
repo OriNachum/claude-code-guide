@@ -43,7 +43,7 @@ Type `/` in Claude Code to see all available commands. Some commands depend on y
 | `/hooks` | Manage hook configurations for tool events |
 | `/agents` | Manage agent configurations |
 | `/mcp` | Manage MCP server connections |
-| `/memory` | Edit CLAUDE.md memory files |
+| `/memory` | View and edit [auto memory](memory.md) files |
 | `/init` | Initialize project with CLAUDE.md guide |
 | `/ide` | Manage IDE integrations |
 | `/plugin` | Manage Claude Code plugins |

@@ -67,6 +67,7 @@ Once installed, two skills are available:
 - [Starting to Work](skills/ask/references/starting-to-work.md) — Permission modes, Plan Mode, Accept Edits, the explore-plan-implement workflow
 - [Choosing Your Model](skills/ask/references/choosing-your-model.md) — Opus 4.6, Sonnet 4.6, Haiku, effort levels, when to use each
 - [Best Practices](skills/ask/references/best-practices.md) — Self-testing loops, context management, effective prompting, common failure patterns
+- [Auto Memory](skills/ask/references/memory.md) — How Claude remembers across sessions, comparison with CLAUDE.md
 
 ### Automation
 
@@ -102,6 +103,7 @@ Narrative walkthroughs showing Claude Code in real-world scenarios:
 - [Context Management](skills/ask/references/stories/context-management-and-clear.md) — When to use /clear, /compact, and how to manage context
 - [Sub Agents in a Monolith](skills/ask/references/stories/sub-agents-in-monolith.md) — Using sub agents to navigate and work within a large monolith
 - [Discovering Plugins](skills/ask/references/stories/discovering-plugins.md) — Browsing marketplaces, evaluating, and installing your first plugins
+- [Memory in Practice](skills/ask/references/stories/memory-in-practice.md) — How auto memory works — corrections that stick, promoting to CLAUDE.md
 
 ## Repository structure
 

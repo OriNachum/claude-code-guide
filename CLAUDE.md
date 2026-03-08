@@ -44,6 +44,7 @@ claude-code-guide/
 │   │           │   ├── auto-maintain-claude-md.md
 │   │           │   ├── context-management-and-clear.md
 │   │           │   ├── discovering-plugins.md
+│   │           │   ├── memory-in-practice.md
 │   │           │   └── sub-agents-in-monolith.md
 │   │           ├── automating-your-workflows.md
 │   │           ├── best-practices.md
@@ -54,6 +55,7 @@ claude-code-guide/
 │   │           ├── hooks.md
 │   │           ├── hooks-http.md
 │   │           ├── marketplace.md
+│   │           ├── memory.md
 │   │           ├── mcp.md
 │   │           ├── ongoing-work.md
 │   │           ├── plugin-examples.md

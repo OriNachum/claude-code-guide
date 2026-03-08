@@ -51,7 +51,7 @@ Your automation works well. Now you focus on sharing and refining:
 
 - Package your best skills, agents, and hooks into an **internal plugin** for your team
 - New team members get your entire setup by running `/plugin`
-- Add agents with persistent memory that learn your project's style over time
+- Add agents with persistent memory that learn your project's style over time (see [Auto Memory](memory.md))
 - Review and prune — remove skills that are no longer accurate, update hooks for new workflows
 
 ---

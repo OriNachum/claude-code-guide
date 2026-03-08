@@ -24,6 +24,7 @@ Read these files from the `references/` folder as needed:
 | `choosing-your-model.md` | 🌱 | Opus 4.6, Sonnet 4.6, Haiku, effort levels, when to use each |
 | `best-practices.md` | 🌿 | Self-testing loops, context management, effective prompting, common failure patterns |
 | `built-ins.md` | 🌱 | Built-in slash commands, bundled skills, hook events, sub agents, and tools |
+| `memory.md` | 🌱 | Auto memory — how Claude remembers across sessions, comparison with CLAUDE.md, /memory command |
 | `automating-your-workflows.md` | 🌿 | Overview of the three automation mechanisms: Hooks, Skills, Sub Agents |
 | `hooks.md` | 🌿 | Lifecycle event automation — triggers, handlers, matchers, common patterns |
 | `hooks-http.md` | 🌳 | HTTP hook handlers — configuration, request/response cycle, authentication, common patterns |
@@ -51,6 +52,7 @@ Narrative walkthroughs in the `references/stories/` folder — read these for wo
 | `stories/context-management-and-clear.md` | 🌿 | When to use /clear, /compact, and how to manage context |
 | `stories/sub-agents-in-monolith.md` | 🌳 | Using sub agents to navigate and work within a large monolith |
 | `stories/discovering-plugins.md` | 🌱 | Discovering and installing plugins — browsing marketplaces, evaluating, first plugins |
+| `stories/memory-in-practice.md` | 🌱 | How auto memory works in practice — corrections that stick, explicit remembering, promoting to CLAUDE.md |
 
 ## Tips
 

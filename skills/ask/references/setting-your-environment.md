@@ -194,6 +194,8 @@ Check what Claude has learned:
 
 You can view, edit, or delete anything Claude has saved. It's all plain Markdown in `~/.claude/projects/<project>/memory/`.
 
+See [Auto Memory](memory.md) for the full guide on how memory works and how it differs from CLAUDE.md.
+
 ---
 
 ## Step 6: Customize Your Experience
@@ -253,6 +255,7 @@ Customize what Claude says while thinking:
 - See [Configuring Your Claude](configuring-your-claude.md) for building skills, agents, hooks, and plugins over time
 - See [Choosing Your Model](choosing-your-model.md) for model and effort level guidance
 - See [Starting to Work](starting-to-work.md) for permission mode selection
+- See [Auto Memory](memory.md) for how auto memory works and how it compares to CLAUDE.md
 - See [Automating Your Workflows](automating-your-workflows.md) for the automation overview
 - See the [official settings reference](https://code.claude.com/docs/en/settings) for all available settings
 - See the [official memory docs](https://code.claude.com/docs/en/memory) for CLAUDE.md and auto memory details

@@ -103,6 +103,7 @@ locally works in CI. See [GitHub Actions](github-actions.md) for setup and
 - [Starting to Work](starting-to-work.md) — When to use Plan Mode, Accept Edits, and Normal mode
 - [Choosing Your Model](choosing-your-model.md) — Opus 4.6, Sonnet 4.6, Haiku, and effort levels
 - [Best Practices](best-practices.md) — Self-testing loops, context management, and effective prompting
+- [Auto Memory](memory.md) — How Claude remembers across sessions, auto memory vs CLAUDE.md
 
 ### Automation Deep Dives
 - [Hooks](hooks.md) — Lifecycle automation, guardrails, and validation
