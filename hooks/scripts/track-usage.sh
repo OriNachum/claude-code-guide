@@ -41,11 +41,13 @@ case "$TOOL_NAME" in
   EnterPlanMode|ExitPlanMode)    CATEGORY="planning" ;;
   NotebookEdit)                  CATEGORY="notebooks" ;;
   Agent)
-    # Only count user-initiated agents (not internal built-in ones)
+    # Only count user-initiated agents (not built-in or plugin ones)
     SUBAGENT_TYPE="$(echo "$PAYLOAD" | jq -r '.tool_input.subagent_type // empty')"
     case "$SUBAGENT_TYPE" in
       Explore|Plan|general-purpose|statusline-setup)
         exit 0 ;;  # Internal agent — skip
+      *:*)
+        exit 0 ;;  # Plugin agent (e.g. superpowers:code-reviewer) — skip
       *)
         CATEGORY="agents" ;;
     esac
