@@ -29,7 +29,7 @@ Read these files from the `references/` folder as needed:
 | `hooks.md` | 🌿 | Lifecycle event automation — triggers, handlers, matchers, common patterns |
 | `hooks-http.md` | 🌳 | HTTP hook handlers — configuration, request/response cycle, authentication, common patterns |
 | `skills.md` | 🌿 | Creating reusable prompt workflows as Markdown skill files |
-| `sub-agents.md` | 🌳 | Specialist agent delegation with scoped permissions, worktree isolation |
+| `sub-agents.md` | 🌳 | Specialist agent delegation — built-in, plugin, and user-defined agents, with worktree isolation |
 | `plugins.md` | 🌿 | Installing, creating, and sharing Claude Code plugins |
 | `marketplace.md` | 🌿 | Marketplace ecosystem — discovering, browsing, evaluating, publishing, and managing plugin marketplaces |
 | `plugin-examples.md` | 🌿 | Notable plugins — curated showcase with patterns and install instructions |

@@ -6,9 +6,33 @@
 
 Sub Agents are specialized AI assistants that handle specific types of tasks. Each runs in its own context window with a custom system prompt, specific tool access, and independent permissions. They are your primary tool for **delegating self-contained tasks to focused specialists**.
 
-## When to Use Sub Agents
+## Three Types of Sub Agents
 
-Think "sub agents" when you catch yourself saying:
+| Type | Level | How you get them | Examples |
+|---|---|---|---|
+| **Built-in** | 🌱 Beginner | Ship with Claude Code — used automatically | Explore, Plan, General-purpose |
+| **Plugin** | 🌿 Intermediate | Installed via plugins — available after `/plugin add` | `superpowers:code-reviewer`, `plugin-dev:agent-creator` |
+| **User-defined** | 🌳 Expert | You create them in `.claude/agents/` | Custom reviewers, debuggers, deployers |
+
+### 🌱 Built-in agents
+
+Claude Code ships with built-in sub agents that Claude uses automatically — no configuration needed. These handle common tasks like codebase exploration (Explore agent, runs on Haiku), planning research (Plan agent), and general-purpose delegation.
+
+You benefit from built-in agents just by using Claude Code. They fire in the background when Claude needs to search, explore, or plan. See [Built-ins](built-ins.md#built-in-sub-agents) for the full list.
+
+### 🌿 Plugin agents
+
+Plugins can bundle sub agents alongside their skills and hooks. When you install a plugin via `/plugin add`, its agents become available for Claude to delegate to automatically — just like built-in agents, but provided by the plugin.
+
+Plugin agents have a namespaced type (e.g., `superpowers:code-reviewer`). You don't create or configure them — the plugin author did that. Your role is choosing which plugins to install. See [Plugins](plugins.md) for how to discover and install plugins.
+
+### User-defined agents
+
+These are the agents you create yourself — the rest of this document covers them in detail. You write a Markdown file with YAML frontmatter specifying tools, model, permissions, and a system prompt. This gives you full control over what the agent can do and how it behaves.
+
+## When to Create Your Own Agent
+
+Think "custom agent" when you catch yourself saying:
 
 - "I want a code reviewer that can only read files, not edit them"
 - "I need to run tests in isolation without cluttering my conversation"
