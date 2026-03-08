@@ -19,6 +19,7 @@ Present the available commands:
 | `/guide:game-mode help` | Show this help |
 | `/guide:game-mode off` | Pause tracking (data preserved) |
 | `/guide:game-mode reset` | Delete all game data |
+| `/guide:level-up` | Show your feature roadmap and next-step hint |
 
 ## `on` (or empty arguments)
 
@@ -67,7 +68,7 @@ Present the available commands:
 | Tier | Multiplier | Features |
 |---|---|---|
 | Beginner | x1 | shell, editing, reading, search |
-| Intermediate | x10 | skills, web, planning, notebooks, mcp |
+| Intermediate | x10 | skills, plugins, web, planning, notebooks, mcp |
 | Expert | x100 | agents |
 
 1. Compute: `raw_points = sum(feature.count * multiplier)` and `score = sqrt(raw_points)` to 2 decimal places
@@ -79,15 +80,15 @@ Present the available commands:
 | 1 | Novice | 0 | 0 |
 | 2 | Apprentice | 5.00 | 3 |
 | 3 | Practitioner | 15.00 | 5 |
-| 4 | Expert | 30.00 | 7 |
-| 5 | Master | 55.00 | 9 |
+| 4 | Expert | 30.00 | 8 |
+| 5 | Master | 55.00 | 10 |
 
 1. Present a formatted dashboard like this:
 
 ```text
 +=======================================================+
-|  GAME MODE -- Level 3: Practitioner                   |
-|  Score: 28.28  |  Active since: 2026-03-08            |
+|  GAME MODE -- Level 4: Expert                         |
+|  Score: 32.45  |  Active since: 2026-03-08            |
 +=======================================================+
 |  Feature         Tier  Count  Points  Last Used       |
 |  --------------- ----- ------ ------- ----------      |
@@ -96,16 +97,17 @@ Present the available commands:
 |  File Reading     B      28      28   30m ago         |
 |  Code Search      B      18      18   1h ago          |
 |  Skills           I       5      50   1d ago          |
+|  Plugins          I       2      20   3d ago          |
 |  Web Research     I       3      30   2d ago          |
 |  Planning         I       2      20   5d ago          |
 |  Notebooks        I       0       0   never           |
 |  Sub Agents       E       8     800   3h ago          |
-|  MCP Tools        E       1     100   7d ago          |
+|  MCP Tools        I       1      10   7d ago          |
 +=======================================================+
-|  Raw: 1123 pts | Score: sqrt(1123) = 33.51            |
-|  Features: 8/10 unlocked                              |
+|  Raw: 1053 pts | Score: sqrt(1053) = 32.45            |
+|  Features: 10/11 unlocked                             |
 |  Tokens: ~12.4K read, ~3.1K write                     |
-|  Next level: Expert (score 30+, 7+ features)          |
+|  Next level: Master (score 55+, 10+ features)         |
 +=======================================================+
 ```
 
