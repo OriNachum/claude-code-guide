@@ -58,6 +58,9 @@ Once installed, two skills are available:
 
 - **`/guide:onboard`** — Interactive getting-started walkthrough. Guides you through environment setup, your first session, and best practices.
 - **`/guide:ask`** — Ask any question about Claude Code features. Reads relevant reference docs to give accurate, detailed answers.
+- **`/guide:game-mode`** - Enable Game Mode. The guide will locally track your usage of Claude, assign a level per usage and help you master Claude code.
+
+<img width="1050" height="366" alt="image" src="https://github.com/user-attachments/assets/3643154f-00e9-4793-886e-e49adfee54ef" />
 
 ## Documentation
 
