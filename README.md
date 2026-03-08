@@ -1,8 +1,15 @@
 # Claude Code Guide
 
-A Claude Code guide — interactive onboarding and Q&A on setup, best practices, automation, and effective workflows, packaged as a plugin.
+A Claude Code Guide — interactive onboarding and Q&A on setup, best practices, automation, and effective workflows, packaged as a plugin.  
+
+**New!** Enable a proactive learning with **Game Mode**!  
+Enable with `/guide:game-mode on`
 
 > **Listen to this guide** — [NotebookLM audio overview](https://notebooklm.google.com/notebook/0b3c7c82-fbc2-4f7a-8dd4-afe60d38c642) provides an AI-generated audio reflection of the guide content.
+
+<p align="center">
+  <img width="384" height="256" alt="image" src="https://github.com/user-attachments/assets/5330f813-6539-4e15-bb94-0e1994edd94c" />
+</p>
 
 ## Install as a Claude Code Plugin
 
