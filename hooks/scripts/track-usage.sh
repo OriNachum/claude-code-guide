@@ -40,7 +40,16 @@ case "$TOOL_NAME" in
   WebFetch|WebSearch)            CATEGORY="web" ;;
   EnterPlanMode|ExitPlanMode)    CATEGORY="planning" ;;
   NotebookEdit)                  CATEGORY="notebooks" ;;
-  Agent)                         CATEGORY="agents" ;;
+  Agent)
+    # Only count user-initiated agents (not internal built-in ones)
+    SUBAGENT_TYPE="$(echo "$PAYLOAD" | jq -r '.tool_input.subagent_type // empty')"
+    case "$SUBAGENT_TYPE" in
+      Explore|Plan|general-purpose|statusline-setup)
+        exit 0 ;;  # Internal agent — skip
+      *)
+        CATEGORY="agents" ;;
+    esac
+    ;;
   mcp__*)                        CATEGORY="mcp" ;;
   *)                             exit 0 ;;  # Unknown tool, skip
 esac
