@@ -30,7 +30,8 @@ claude-code-guide/
 │   ├── hooks.json ......................... Hook event configuration (PostToolUse, Stop)
 │   └── scripts/
 │       ├── track-usage.sh ................. PostToolUse handler — tracks feature usage
-│       └── track-stop.sh .................. Stop handler — token tracking, session counting, and Fibonacci nudges
+│       ├── track-stop.sh .................. Stop handler — token tracking, session counting, and Fibonacci nudges
+│       └── migrate-data.sh ................ Lightweight schema migration on version upgrade
 ├── skills/
 │   ├── onboard/
 │   │   └── SKILL.md ...................... Interactive getting-started walkthrough

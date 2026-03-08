@@ -15,6 +15,9 @@ PAYLOAD="$(cat)"
 ENABLED="$(jq -r '.enabled' "$DATA_FILE")"
 [ "$ENABLED" = "true" ] || exit 0
 
+# Migrate schema if plugin version changed
+bash "${PLUGIN_ROOT}/hooks/scripts/migrate-data.sh"
+
 # --- Token tracking (best-effort) ---
 
 READ_TOKENS="$(echo "$PAYLOAD" | jq -r '

@@ -23,15 +23,31 @@ Present the available commands:
 
 ## `on` (or empty arguments)
 
+### Migration check (runs first if data file already exists)
+
+1. If `${CLAUDE_PLUGIN_ROOT}/.local/game-data.json` exists, read it and read the current version from `${CLAUDE_PLUGIN_ROOT}/.claude-plugin/plugin.json`
+2. If `pluginVersion` is missing or doesn't match the plugin version:
+   a. **Snapshot**: Copy `game-data.json` to `.local/game-data.pre-<new-version>.json` as a backup
+   b. **Migrate**: Add any missing feature categories with `{"count": 0, "lastUsed": null}`, add missing top-level fields (`pluginVersion`, `migrations`, `sessionCount`, `suggestedFeatures`, `tokens`) with defaults, set `pluginVersion` to the current plugin version
+   c. **Record**: Append `{"from": "<old-version-or-unknown>", "to": "<new-version>", "date": "<UTC date YYYY-MM-DD>"}` to the `migrations` array
+   d. **Inform**: Tell the user their data was migrated and a backup was saved at the snapshot path
+   e. Set `enabled` to `true` and proceed (skip creating a fresh file)
+3. If versions match: set `enabled` to `true` and proceed (skip creating a fresh file)
+
+### Fresh install (no existing data file)
+
 1. Create the directory `${CLAUDE_PLUGIN_ROOT}/.local/` if it doesn't exist
-2. Write `${CLAUDE_PLUGIN_ROOT}/.local/game-data.json` with this initial content:
+2. Read the current version from `${CLAUDE_PLUGIN_ROOT}/.claude-plugin/plugin.json`
+3. Write `${CLAUDE_PLUGIN_ROOT}/.local/game-data.json` with this initial content:
 
 ```json
 {
+  "pluginVersion": "<version from plugin.json>",
   "enabled": true,
   "startDate": "<current UTC date in YYYY-MM-DD format>",
   "sessionCount": 0,
   "suggestedFeatures": [],
+  "migrations": [],
   "features": {
     "shell":     { "count": 0, "lastUsed": null },
     "editing":   { "count": 0, "lastUsed": null },
@@ -61,9 +77,21 @@ Present the available commands:
 
 ## `stats` or `status`
 
+### Migration check (runs first)
+
 1. Read `${CLAUDE_PLUGIN_ROOT}/.local/game-data.json`
 2. If the file doesn't exist or `enabled` is false, tell the user game mode is not active and suggest `/guide:game-mode` to enable it
-3. Calculate scoring using these tier multipliers:
+3. Read the current version from `${CLAUDE_PLUGIN_ROOT}/.claude-plugin/plugin.json`
+4. If `pluginVersion` is missing or doesn't match the plugin version:
+   a. **Snapshot**: Copy `game-data.json` to `.local/game-data.pre-<new-version>.json` as a backup
+   b. **Migrate**: Add any missing feature categories with `{"count": 0, "lastUsed": null}`, add missing top-level fields with defaults, set `pluginVersion` to current
+   c. **Record**: Append `{"from": "<old-version-or-unknown>", "to": "<new-version>", "date": "<UTC date YYYY-MM-DD>"}` to the `migrations` array
+   d. **Inform**: Tell the user their data was migrated and a backup was saved
+5. If versions match: proceed normally
+
+### Calculate and display
+
+1. Calculate scoring using these tier multipliers:
 
 | Tier | Multiplier | Features |
 |---|---|---|
@@ -108,12 +136,14 @@ Present the available commands:
 |  Features: 10/11 unlocked                             |
 |  Tokens: ~12.4K read, ~3.1K write                     |
 |  Next level: Master (score 55+, 10+ features)         |
+|  Migrated: unknown → 2.2.0 (2026-03-09)              |
 +=======================================================+
 ```
 
 - For "Last Used", show relative time (e.g., "2h ago", "1d ago") or "never"
 - For tokens, use human-friendly formatting (e.g., "12.4K")
 - Show progress toward the next level, or "MAX LEVEL" if at level 5
+- If the `migrations` array is non-empty, show each migration as `Migrated: <from> → <to> (<date>)` in the dashboard footer. Omit the line if there are no migrations.
 
 ## `off`
 

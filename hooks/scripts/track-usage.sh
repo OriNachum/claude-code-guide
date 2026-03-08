@@ -15,6 +15,9 @@ PAYLOAD="$(cat)"
 ENABLED="$(jq -r '.enabled' "$DATA_FILE")"
 [ "$ENABLED" = "true" ] || exit 0
 
+# Migrate schema if plugin version changed
+bash "${PLUGIN_ROOT}/hooks/scripts/migrate-data.sh"
+
 # Extract tool name
 TOOL_NAME="$(echo "$PAYLOAD" | jq -r '.tool_name // empty')"
 [ -n "$TOOL_NAME" ] || exit 0
