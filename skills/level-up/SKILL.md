@@ -1,5 +1,6 @@
 ---
 description: See your feature roadmap and get a personalized hint on what to try next.
+disable-model-invocation: true
 allowed-tools: Read, Write, Bash
 ---
 
