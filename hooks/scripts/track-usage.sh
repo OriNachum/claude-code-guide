@@ -19,22 +19,24 @@ ENABLED="$(jq -r '.enabled' "$DATA_FILE")"
 TOOL_NAME="$(echo "$PAYLOAD" | jq -r '.tool_name // empty')"
 [ -n "$TOOL_NAME" ] || exit 0
 
-# If tool is Skill, check if it's a guide:* invocation — skip those
+# If tool is Skill, determine if it's a plugin skill (has ":") or built-in
 if [ "$TOOL_NAME" = "Skill" ]; then
   SKILL_NAME="$(echo "$PAYLOAD" | jq -r '.tool_input.skillName // .tool_input.skill_name // .tool_input.name // empty')"
   case "$SKILL_NAME" in
-    guide:*) exit 0 ;;
+    guide:*) exit 0 ;;          # Skip our own plugin skills
+    *:*)     CATEGORY="plugins"  # Plugin skill (contains ":")
+             ;;
   esac
 fi
 
-# Map tool name to feature category
-CATEGORY=""
+# Map tool name to feature category (CATEGORY may already be set by plugin detection above)
+: "${CATEGORY:=}"
 case "$TOOL_NAME" in
   Bash)                          CATEGORY="shell" ;;
   Edit|Write)                    CATEGORY="editing" ;;
   Read)                          CATEGORY="reading" ;;
   Grep|Glob)                     CATEGORY="search" ;;
-  Skill)                         CATEGORY="skills" ;;
+  Skill)                         [ -z "$CATEGORY" ] && CATEGORY="skills" ;;
   WebFetch|WebSearch)            CATEGORY="web" ;;
   EnterPlanMode|ExitPlanMode)    CATEGORY="planning" ;;
   NotebookEdit)                  CATEGORY="notebooks" ;;

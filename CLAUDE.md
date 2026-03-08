@@ -6,11 +6,12 @@ This file tells Claude Code (and other AI agents) how to work with this reposito
 
 ## What This Repo Is
 
-A Claude Code guide, packaged as a plugin. There are three skills:
+A Claude Code guide, packaged as a plugin. There are four skills:
 
 - **`/guide:onboard`** — Interactive getting-started walkthrough for new users
 - **`/guide:ask`** — Q&A skill backed by comprehensive reference documentation in `skills/ask/references/`
 - **`/guide:game-mode`** — Gamified usage tracker that rewards feature breadth and depth with a level system
+- **`/guide:level-up`** — Feature roadmap and personalized next-step coaching
 
 This repo serves two audiences: humans browsing the docs on GitHub, and Claude Code users who install it as a plugin to get guided help.
 
@@ -29,8 +30,7 @@ claude-code-guide/
 │   ├── hooks.json ......................... Hook event configuration (PostToolUse, Stop)
 │   └── scripts/
 │       ├── track-usage.sh ................. PostToolUse handler — tracks feature usage
-│       ├── track-stop.sh .................. Stop handler — best-effort token tracking
-│       └── statusline.sh .................. Reads game-data.json, outputs compact level string
+│       └── track-stop.sh .................. Stop handler — token tracking, session counting, and Fibonacci nudges
 ├── skills/
 │   ├── onboard/
 │   │   └── SKILL.md ...................... Interactive getting-started walkthrough
@@ -65,8 +65,10 @@ claude-code-guide/
 │   │           ├── starting-to-work.md
 │   │           ├── sub-agents.md
 │   │           └── team-mode.md
-│   └── game-mode/
-│       └── SKILL.md ...................... Gamified usage tracker with levels
+│   ├── game-mode/
+│   │   └── SKILL.md ...................... Gamified usage tracker with levels
+│   └── level-up/
+│       └── SKILL.md ...................... Feature roadmap and coaching hints
 ├── .local/ ................................ Runtime data (gitignored)
 │   └── game-data.json .................... Usage data (created at runtime)
 ├── CLAUDE.md .............................. This file — agent instructions

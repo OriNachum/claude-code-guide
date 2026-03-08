@@ -8,6 +8,19 @@ allowed-tools: Read, Write, Bash, Agent
 
 You are managing the game-mode feature for the guide plugin. Branch on `$ARGUMENTS`:
 
+## `help`
+
+Present the available commands:
+
+| Command | What it does |
+|---|---|
+| `/guide:game-mode` | Enable game mode and start tracking |
+| `/guide:game-mode stats` | Show your dashboard with scores and levels |
+| `/guide:game-mode help` | Show this help |
+| `/guide:game-mode off` | Pause tracking (data preserved) |
+| `/guide:game-mode reset` | Delete all game data |
+| `/guide:level-up` | Show your feature roadmap and next-step hint |
+
 ## `on` (or empty arguments)
 
 1. Create the directory `${CLAUDE_PLUGIN_ROOT}/.local/` if it doesn't exist
@@ -17,6 +30,8 @@ You are managing the game-mode feature for the guide plugin. Branch on `$ARGUMEN
 {
   "enabled": true,
   "startDate": "<current UTC date in YYYY-MM-DD format>",
+  "sessionCount": 0,
+  "suggestedFeatures": [],
   "features": {
     "shell":     { "count": 0, "lastUsed": null },
     "editing":   { "count": 0, "lastUsed": null },
@@ -24,6 +39,7 @@ You are managing the game-mode feature for the guide plugin. Branch on `$ARGUMEN
     "search":    { "count": 0, "lastUsed": null },
     "agents":    { "count": 0, "lastUsed": null },
     "skills":    { "count": 0, "lastUsed": null },
+    "plugins":   { "count": 0, "lastUsed": null },
     "web":       { "count": 0, "lastUsed": null },
     "planning":  { "count": 0, "lastUsed": null },
     "mcp":       { "count": 0, "lastUsed": null },
@@ -38,7 +54,7 @@ You are managing the game-mode feature for the guide plugin. Branch on `$ARGUMEN
 ```
 
 1. Tell the user game mode is now active. Mention:
-   - Tool usage is being tracked across 10 feature categories
+   - Tool usage is being tracked across 11 feature categories
    - Use `/guide:game-mode stats` to see their dashboard
    - Use `/guide:game-mode off` to pause tracking
    - Data is stored locally and never transmitted
@@ -52,8 +68,8 @@ You are managing the game-mode feature for the guide plugin. Branch on `$ARGUMEN
 | Tier | Multiplier | Features |
 |---|---|---|
 | Beginner | x1 | shell, editing, reading, search |
-| Intermediate | x10 | skills, web, planning, notebooks |
-| Expert | x100 | agents, mcp |
+| Intermediate | x10 | skills, plugins, web, planning, notebooks, mcp |
+| Expert | x100 | agents |
 
 1. Compute: `raw_points = sum(feature.count * multiplier)` and `score = sqrt(raw_points)` to 2 decimal places
 1. Count unique features (count > 0)
@@ -64,15 +80,15 @@ You are managing the game-mode feature for the guide plugin. Branch on `$ARGUMEN
 | 1 | Novice | 0 | 0 |
 | 2 | Apprentice | 5.00 | 3 |
 | 3 | Practitioner | 15.00 | 5 |
-| 4 | Expert | 30.00 | 7 |
-| 5 | Master | 55.00 | 9 |
+| 4 | Expert | 30.00 | 8 |
+| 5 | Master | 55.00 | 10 |
 
 1. Present a formatted dashboard like this:
 
 ```text
 +=======================================================+
-|  GAME MODE -- Level 3: Practitioner                   |
-|  Score: 28.28  |  Active since: 2026-03-08            |
+|  GAME MODE -- Level 4: Expert                         |
+|  Score: 32.45  |  Active since: 2026-03-08            |
 +=======================================================+
 |  Feature         Tier  Count  Points  Last Used       |
 |  --------------- ----- ------ ------- ----------      |
@@ -81,34 +97,23 @@ You are managing the game-mode feature for the guide plugin. Branch on `$ARGUMEN
 |  File Reading     B      28      28   30m ago         |
 |  Code Search      B      18      18   1h ago          |
 |  Skills           I       5      50   1d ago          |
+|  Plugins          I       2      20   3d ago          |
 |  Web Research     I       3      30   2d ago          |
 |  Planning         I       2      20   5d ago          |
 |  Notebooks        I       0       0   never           |
 |  Sub Agents       E       8     800   3h ago          |
-|  MCP Tools        E       1     100   7d ago          |
+|  MCP Tools        I       1      10   7d ago          |
 +=======================================================+
-|  Raw: 1123 pts | Score: sqrt(1123) = 33.51            |
-|  Features: 8/10 unlocked                              |
+|  Raw: 1053 pts | Score: sqrt(1053) = 32.45            |
+|  Features: 10/11 unlocked                             |
 |  Tokens: ~12.4K read, ~3.1K write                     |
-|  Next level: Expert (score 30+, 7+ features)          |
+|  Next level: Master (score 55+, 10+ features)         |
 +=======================================================+
 ```
 
 - For "Last Used", show relative time (e.g., "2h ago", "1d ago") or "never"
 - For tokens, use human-friendly formatting (e.g., "12.4K")
 - Show progress toward the next level, or "MAX LEVEL" if at level 5
-
-## `status-bar`
-
-Guide the user to set up the statusline. Tell them to run:
-
-```bash
-/statusline bash "${CLAUDE_PLUGIN_ROOT}/hooks/scripts/statusline.sh"
-```
-
-This will display their current level in the Claude Code status bar. The output looks like: `Lvl 3 Practitioner | 33.51 pts | 8/10`
-
-If game mode is not enabled, remind them to run `/guide:game-mode` first.
 
 ## `off`
 
