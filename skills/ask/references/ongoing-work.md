@@ -1,3 +1,10 @@
+---
+title: "Ongoing Work"
+parent: "Configuration & Extensions"
+nav_order: 7
+permalink: /ongoing-work/
+---
+
 # Ongoing Work
 
 > **Level: 🌳 Expert**

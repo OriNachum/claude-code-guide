@@ -1,3 +1,10 @@
+---
+title: "Setting Your Environment"
+parent: "Getting Started"
+nav_order: 1
+permalink: /setting-your-environment/
+---
+
 # Setting Your Environment
 
 > **Level: 🌱 Beginner**

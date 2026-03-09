@@ -1,3 +1,10 @@
+---
+title: "Hooks"
+parent: "Automation"
+nav_order: 2
+permalink: /hooks/
+---
+
 # Hooks
 
 > **Level: 🌿 Intermediate**

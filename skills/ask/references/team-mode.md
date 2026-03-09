@@ -1,3 +1,10 @@
+---
+title: "Agent Teams"
+parent: "Automation"
+nav_order: 6
+permalink: /team-mode/
+---
+
 # Agent Teams
 
 > **Level: 🌳 Expert**

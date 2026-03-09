@@ -1,3 +1,10 @@
+---
+title: "Memory in Practice"
+parent: "User Stories"
+nav_order: 8
+permalink: /stories/memory-in-practice/
+---
+
 # Memory in Practice
 
 > **Level: 🌱 Beginner**

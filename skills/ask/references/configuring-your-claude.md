@@ -1,3 +1,10 @@
+---
+title: "Configuring Your Claude"
+parent: "Configuration & Extensions"
+nav_order: 1
+permalink: /configuring-your-claude/
+---
+
 # Configuring Your Claude
 
 > **Level: 🌿 Intermediate**

@@ -1,3 +1,10 @@
+---
+title: "MCP"
+parent: "Configuration & Extensions"
+nav_order: 5
+permalink: /mcp/
+---
+
 # MCP (Model Context Protocol)
 
 > **Level: 🌿 Intermediate**

@@ -1,3 +1,10 @@
+---
+title: "Hooks HTTP"
+parent: "Automation"
+nav_order: 3
+permalink: /hooks-http/
+---
+
 # HTTP Hooks
 
 > **Level: 🌳 Expert**

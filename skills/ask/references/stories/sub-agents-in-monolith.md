@@ -1,3 +1,10 @@
+---
+title: "Sub Agents in a Monolith"
+parent: "User Stories"
+nav_order: 7
+permalink: /stories/sub-agents-in-monolith/
+---
+
 # Navigating a Monolith with Sub Agents
 
 > **Level: 🌳 Expert**

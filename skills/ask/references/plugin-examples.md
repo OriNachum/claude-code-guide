@@ -1,3 +1,10 @@
+---
+title: "Plugin Examples"
+parent: "Configuration & Extensions"
+nav_order: 4
+permalink: /plugin-examples/
+---
+
 # Plugin Examples
 
 > **Level: 🌿 Intermediate**

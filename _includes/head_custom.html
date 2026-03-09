@@ -1,0 +1,3 @@
+{% if page.path %}
+<link rel="alternate" type="text/markdown" href="{{ '/raw/' | append: page.path | relative_url }}">
+{% endif %}
