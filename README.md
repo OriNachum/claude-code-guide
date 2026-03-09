@@ -7,7 +7,9 @@ Enable with `/guide:game-mode on`
 
 > **Listen to this guide** — [NotebookLM audio overview](https://notebooklm.google.com/notebook/0b3c7c82-fbc2-4f7a-8dd4-afe60d38c642) provides an AI-generated audio reflection of the guide content.
 
- *⭐ Find this useful? Star the repo to follow updates and show support!*
+<a href="https://github.com/OriNachum/claude-code-guide/stargazers"><img src="https://img.shields.io/github/stars/OriNachum/claude-code-guide?style=social" alt="GitHub stars"></a>
+
+*⭐ Find this useful? Star the repo to follow updates and show support!*
 
 <p align="center">
   <img width="384" height="256" alt="image" src="https://github.com/user-attachments/assets/5330f813-6539-4e15-bb94-0e1994edd94c" />
