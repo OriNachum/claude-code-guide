@@ -1,0 +1,16 @@
+# _config.yml
+title: Claude Code Guide
+description: Sources, workflows and a path to start working with claude. Return here for new material, features and guides.
+baseurl: "/claude-code-guide"
+url: "https://OriNachum.github.io"
+
+plugins:
+  - jekyll-seo-tag
+
+# Exclude non-site files from build
+exclude:
+  - hooks
+  
+# Add Google Site Verification
+webmaster_verifications:
+  google: SAWMasZ1hKCZm8hnk0xFUgqnFYYPgdrKG8jKuTJa6a0
