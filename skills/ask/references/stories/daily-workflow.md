@@ -1,3 +1,10 @@
+---
+title: "Daily Workflow"
+parent: "User Stories"
+nav_order: 1
+permalink: /stories/daily-workflow/
+---
+
 # A Day in the Life: Daily Workflow with Claude Code
 
 > **Level: 🌱 Beginner**

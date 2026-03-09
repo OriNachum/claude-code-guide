@@ -1,3 +1,10 @@
+---
+title: "New Project in Existing Repo"
+parent: "User Stories"
+nav_order: 3
+permalink: /stories/new-project-existing-repo/
+---
+
 # Adding a New Module to an Existing Codebase
 
 > **Level: 🌿 Intermediate**

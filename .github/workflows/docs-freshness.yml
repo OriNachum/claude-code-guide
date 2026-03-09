@@ -121,6 +121,7 @@ jobs:
             - Do NOT rewrite sections that are accurate but worded differently from official docs
             - Do NOT change navigation links at the top of reference files
             - Do NOT make stylistic or formatting-only changes
+            - Do NOT modify or remove YAML front matter blocks at the top of reference files
 
             ## Step 6: If changes were made
 

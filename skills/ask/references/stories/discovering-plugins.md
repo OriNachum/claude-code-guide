@@ -1,3 +1,10 @@
+---
+title: "Discovering Plugins"
+parent: "User Stories"
+nav_order: 6
+permalink: /stories/discovering-plugins/
+---
+
 # Discovering and Installing Plugins
 
 > **Level: 🌱 Beginner**

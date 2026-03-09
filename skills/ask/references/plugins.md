@@ -1,3 +1,10 @@
+---
+title: "Plugins"
+parent: "Configuration & Extensions"
+nav_order: 2
+permalink: /plugins/
+---
+
 # Plugins
 
 > **Level: 🌿 Intermediate**

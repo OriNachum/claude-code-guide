@@ -1,3 +1,10 @@
+---
+title: "Auto-Maintain CLAUDE.md"
+parent: "User Stories"
+nav_order: 4
+permalink: /stories/auto-maintain-claude-md/
+---
+
 # Automated CLAUDE.md Maintenance with GitHub Actions
 
 > **Level: 🌿 Intermediate**

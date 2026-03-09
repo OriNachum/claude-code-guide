@@ -1,3 +1,10 @@
+---
+title: "Built-ins"
+parent: "Configuration & Extensions"
+nav_order: 6
+permalink: /built-ins/
+---
+
 # Built-ins
 
 > **Level: 🌱 Beginner**

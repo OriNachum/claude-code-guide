@@ -1,3 +1,10 @@
+---
+title: "Auto Memory"
+parent: "Getting Started"
+nav_order: 5
+permalink: /memory/
+---
+
 # Auto Memory
 
 > **Level: 🌱 Beginner**

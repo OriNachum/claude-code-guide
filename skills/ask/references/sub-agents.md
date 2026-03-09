@@ -1,3 +1,10 @@
+---
+title: "Sub Agents"
+parent: "Automation"
+nav_order: 5
+permalink: /sub-agents/
+---
+
 # Sub Agents
 
 > **Level: 🌳 Expert**

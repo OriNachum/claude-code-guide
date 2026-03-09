@@ -2,3 +2,5 @@
 .claude/settings.json
 .local/
 .worktrees/
+_site/
+.jekyll-cache/

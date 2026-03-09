@@ -1,3 +1,10 @@
+---
+title: "Context Management"
+parent: "User Stories"
+nav_order: 5
+permalink: /stories/context-management-and-clear/
+---
+
 # Mastering Context: When to /clear, /compact, and Manage Your Window
 
 > **Level: 🌿 Intermediate**

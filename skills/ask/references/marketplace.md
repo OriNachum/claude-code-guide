@@ -1,3 +1,10 @@
+---
+title: "Marketplace"
+parent: "Configuration & Extensions"
+nav_order: 3
+permalink: /marketplace/
+---
+
 # Marketplace
 
 > **Level: 🌿 Intermediate**

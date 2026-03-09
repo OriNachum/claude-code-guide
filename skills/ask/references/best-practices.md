@@ -1,3 +1,10 @@
+---
+title: "Best Practices"
+parent: "Getting Started"
+nav_order: 4
+permalink: /best-practices/
+---
+
 # Best Practices
 
 > **Level: 🌿 Intermediate**

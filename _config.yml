@@ -1,16 +1,63 @@
 # _config.yml
 title: Claude Code Guide
-description: Sources, workflows and a path to start working with claude. Return here for new material, features and guides.
-baseurl: "/claude-code-guide"
-url: "https://OriNachum.github.io"
+description: >-
+  Community guide to Claude Code — setup, best practices, automation,
+  and effective workflows.
+baseurl: ""
+url: "https://claude-code-guide.org"
+
+theme: just-the-docs
+color_scheme: anthropic
+
+search_enabled: true
+search:
+  button: true
+
+aux_links:
+  "GitHub":
+    - "https://github.com/OriNachum/claude-code-guide"
+aux_links_new_tab: true
+
+footer_content: >-
+  Claude and Claude Code are products of Anthropic, PBC. This guide is a
+  community project and is not affiliated with or endorsed by Anthropic.
+  Licensed under <a href="https://github.com/OriNachum/claude-code-guide/blob/main/LICENSE">CC BY 4.0</a>.
 
 plugins:
   - jekyll-seo-tag
+  - jekyll-relative-links
 
-# Exclude non-site files from build
-exclude:
-  - hooks
-  
 # Add Google Site Verification
 webmaster_verifications:
   google: SAWMasZ1hKCZm8hnk0xFUgqnFYYPgdrKG8jKuTJa6a0
+
+# jekyll-relative-links converts .md links to HTML permalinks during build
+relative_links:
+  enabled: true
+  collections: false
+
+# Apply just-the-docs default layout to all pages
+defaults:
+  - scope:
+      path: ""
+    values:
+      layout: "default"
+
+# Exclude non-site files from build
+exclude:
+  - hooks/
+  - .claude-plugin/
+  - CLAUDE.md
+  - PRIVACY.md
+  - LICENSE
+  - .local/
+  - docs/plans/
+  - skills/onboard/
+  - skills/game-mode/
+  - skills/level-up/
+  - skills/ask/SKILL.md
+  - README.md
+  - Gemfile
+  - Gemfile.lock
+  - .gitignore
+  - .github/

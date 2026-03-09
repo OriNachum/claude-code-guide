@@ -1,3 +1,10 @@
+---
+title: "Choosing Your Model"
+parent: "Getting Started"
+nav_order: 3
+permalink: /choosing-your-model/
+---
+
 # Choosing Your Model
 
 > **Level: 🌱 Beginner**

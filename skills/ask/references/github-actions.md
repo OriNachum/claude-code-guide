@@ -1,3 +1,10 @@
+---
+title: "GitHub Actions"
+parent: "CI/CD"
+nav_order: 1
+permalink: /github-actions/
+---
+
 # GitHub Actions
 
 > **Level: 🌿 Intermediate**

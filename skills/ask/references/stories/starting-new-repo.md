@@ -1,3 +1,10 @@
+---
+title: "Starting a New Repo"
+parent: "User Stories"
+nav_order: 2
+permalink: /stories/starting-new-repo/
+---
+
 # Getting Started: Your First Days with Claude Code
 
 > **Level: 🌱 Beginner**

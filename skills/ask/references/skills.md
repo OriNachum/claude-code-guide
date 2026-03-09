@@ -1,3 +1,10 @@
+---
+title: "Skills"
+parent: "Automation"
+nav_order: 4
+permalink: /skills/
+---
+
 # Skills
 
 > **Level: 🌿 Intermediate**

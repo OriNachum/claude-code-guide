@@ -1,3 +1,10 @@
+---
+title: "Starting to Work"
+parent: "Getting Started"
+nav_order: 2
+permalink: /starting-to-work/
+---
+
 # Starting to Work
 
 > **Level: 🌱 Beginner**

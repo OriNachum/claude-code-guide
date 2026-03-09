@@ -1,3 +1,10 @@
+---
+title: "Automating Your Workflows"
+parent: "Automation"
+nav_order: 1
+permalink: /automating-your-workflows/
+---
+
 # Automating Your Workflows
 
 > **Level: 🌿 Intermediate**

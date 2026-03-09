@@ -26,6 +26,16 @@ claude-code-guide/
 ├── .claude-plugin/
 │   ├── plugin.json ........................ Plugin manifest (name: "guide", version, metadata)
 │   └── marketplace.json .................. Marketplace manifest
+├── .github/
+│   └── workflows/
+│       ├── docs-freshness.yml ............. Automated docs accuracy checker
+│       └── pages.yml ...................... Jekyll build + raw markdown deploy
+├── _includes/
+│   ├── footer_custom.html ................. Disclaimer footer
+│   └── head_custom.html ................... Raw markdown <link> header
+├── _sass/
+│   └── color_schemes/
+│       └── anthropic.scss ................. Anthropic cream color scheme
 ├── hooks/
 │   ├── hooks.json ......................... Hook event configuration (PostToolUse, Stop)
 │   └── scripts/
@@ -70,12 +80,21 @@ claude-code-guide/
 │   │   └── SKILL.md ...................... Gamified usage tracker with levels
 │   └── level-up/
 │       └── SKILL.md ...................... Feature roadmap and coaching hints
+├── _config.yml ............................ Jekyll configuration (just-the-docs theme)
+├── Gemfile ................................ Ruby dependencies
+├── docs/
+│   ├── getting-started.md ................. Nav parent: Getting Started
+│   ├── automation.md ...................... Nav parent: Automation
+│   ├── configuration.md ................... Nav parent: Configuration & Extensions
+│   ├── ci-cd.md ........................... Nav parent: CI/CD
+│   └── user-stories.md .................... Nav parent: User Stories
+├── index.md ............................... Website landing page
 ├── .local/ ................................ Runtime data (gitignored)
 │   └── game-data.json .................... Usage data (created at runtime)
 ├── CLAUDE.md .............................. This file — agent instructions
 ├── PRIVACY.md ............................. Privacy policy
 ├── LICENSE ................................ CC BY 4.0
-└── README.md .............................. Human-facing entry point
+└── README.md .............................. Human-facing entry point (GitHub only)
 ```
 
 ---
