@@ -36,6 +36,13 @@ relative_links:
   enabled: true
   collections: false
 
+# Apply just-the-docs default layout to all pages
+defaults:
+  - scope:
+      path: ""
+    values:
+      layout: "default"
+
 # Exclude non-site files from build
 exclude:
   - hooks/

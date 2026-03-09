@@ -8,7 +8,8 @@ permalink: /
 
 A community guide to **Claude Code** — setup, best practices, automation, and effective workflows.
 
-*Find this useful? Star the repo to follow updates and show support!* <iframe src="https://ghbtns.com/github-btn.html?user=OriNachum&repo=claude-code-guide&type=star&count=true&size=large" frameborder="0" scrolling="0" width="170" height="30" title="Star on GitHub" style="vertical-align: middle;"></iframe>
+<p><em>Find this useful? Star the repo to follow updates and show support!</em>
+<iframe src="https://ghbtns.com/github-btn.html?user=OriNachum&repo=claude-code-guide&type=star&count=true&size=large" frameborder="0" scrolling="0" width="170" height="30" title="Star on GitHub" style="vertical-align: middle;"></iframe></p>
 
 **New!** Enable proactive learning with **Game Mode** — `/guide:game-mode on`
 
