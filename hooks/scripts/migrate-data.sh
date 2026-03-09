@@ -11,7 +11,7 @@ DATA_FILE="${PLUGIN_ROOT}/.local/game-data.json"
 [ -f "$DATA_FILE" ] || exit 0
 
 # Define expected feature categories
-EXPECTED='["shell","editing","reading","search","agents","skills","plugins","web","planning","mcp","notebooks"]'
+EXPECTED='["shell","editing","reading","search","agents","skills","plugins","web","planning","mcp","notebooks","loop"]'
 
 # Add missing fields and categories, preserve all existing data
 # Intentionally does not touch pluginVersion or migrations — those are

@@ -107,9 +107,9 @@ dep_met() {
 
 # Level gating: levels 1-2 see intermediate only; 3+ see intermediate + expert
 if [ "$LEVEL" -ge 3 ]; then
-  CANDIDATES="skills plugins web planning notebooks mcp agents"
+  CANDIDATES="skills plugins web planning notebooks mcp loop agents"
 else
-  CANDIDATES="skills plugins web planning notebooks mcp"
+  CANDIDATES="skills plugins web planning notebooks mcp loop"
 fi
 
 # Filter: unused, not yet suggested, deps met
@@ -149,6 +149,7 @@ if [ -n "$ELIGIBLE" ]; then
     planning)  TIP="Planning — enter plan mode to think before building" ;;
     notebooks) TIP="Notebooks — edit Jupyter notebooks directly with NotebookEdit" ;;
     mcp)       TIP="MCP Tools — connect external services via Model Context Protocol" ;;
+    loop)      TIP="Loop Scheduling — use /loop to monitor deploys or triage tickets on a timer" ;;
     agents)    TIP="Sub Agents — delegate complex tasks to run in parallel" ;;
     *)         TIP="$PICK" ;;
   esac
@@ -160,5 +161,5 @@ if [ -n "$ELIGIBLE" ]; then
 
   echo "🎮 Lvl ${LEVEL} ${TITLE} | ${SCORE} pts | Try: ${TIP} (/guide:level-up for more)"
 else
-  echo "🎮 Lvl ${LEVEL} ${TITLE} | ${SCORE} pts | ${UNIQUE}/11 features (/guide:level-up)"
+  echo "🎮 Lvl ${LEVEL} ${TITLE} | ${SCORE} pts | ${UNIQUE}/12 features (/guide:level-up)"
 fi

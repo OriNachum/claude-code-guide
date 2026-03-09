@@ -32,6 +32,7 @@ Using the data from `game-data.json`, present a feature progression map. Categor
 | notebooks | Intermediate | — |
 | mcp | Intermediate | skills |
 | plugins | Intermediate | skills |
+| loop | Intermediate | — |
 | agents | Expert | skills + planning |
 
 Do NOT show beginner features (shell, editing, reading, search) in the roadmap — they are discovered naturally.
@@ -47,6 +48,7 @@ Present a visual tree. Example:
   ✅ Skills (12 uses)         ⬜ Planning
   ✅ Web Research (5 uses)    ⬜ Notebooks
   ⬜ MCP Tools                ⬜ Plugins
+  ⬜ Loop/Schedule
                   ⬇️
             🔒 Sub Agents
             (needs: planning)

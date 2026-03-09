@@ -37,9 +37,10 @@ claude-code-guide/
 │   └── color_schemes/
 │       └── anthropic.scss ................. Anthropic cream color scheme
 ├── hooks/
-│   ├── hooks.json ......................... Hook event configuration (PostToolUse, Stop)
+│   ├── hooks.json ......................... Hook event configuration (PostToolUse, UserPromptSubmit, Stop)
 │   └── scripts/
 │       ├── track-usage.sh ................. PostToolUse handler — tracks feature usage
+│       ├── track-prompt.sh ................ UserPromptSubmit handler — tracks /loop usage
 │       ├── track-stop.sh .................. Stop handler — token tracking, session counting, and Fibonacci nudges
 │       └── migrate-data.sh ................ Lightweight schema migration on version upgrade
 ├── skills/

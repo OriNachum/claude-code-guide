@@ -59,7 +59,8 @@ Present the available commands:
     "web":       { "count": 0, "lastUsed": null },
     "planning":  { "count": 0, "lastUsed": null },
     "mcp":       { "count": 0, "lastUsed": null },
-    "notebooks": { "count": 0, "lastUsed": null }
+    "notebooks": { "count": 0, "lastUsed": null },
+    "loop":      { "count": 0, "lastUsed": null }
   },
   "tokens": {
     "read": 0,
@@ -70,7 +71,7 @@ Present the available commands:
 ```
 
 1. Tell the user game mode is now active. Mention:
-   - Tool usage is being tracked across 11 feature categories
+   - Tool usage is being tracked across 12 feature categories
    - Use `/guide:game-mode stats` to see their dashboard
    - Use `/guide:game-mode off` to pause tracking
    - Data is stored locally and never transmitted
@@ -96,7 +97,7 @@ Present the available commands:
 | Tier | Multiplier | Features |
 |---|---|---|
 | Beginner | x1 | shell, editing, reading, search |
-| Intermediate | x10 | skills, plugins, web, planning, notebooks, mcp |
+| Intermediate | x10 | skills, plugins, web, planning, notebooks, mcp, loop |
 | Expert | x100 | agents |
 
 1. Compute: `raw_points = sum(feature.count * multiplier)` and `score = sqrt(raw_points)` to 2 decimal places
@@ -131,9 +132,10 @@ Present the available commands:
 |  Notebooks        I       0       0   never           |
 |  Sub Agents       E       8     800   3h ago          |
 |  MCP Tools        I       1      10   7d ago          |
+|  Loop/Schedule    I       0       0   never           |
 +=======================================================+
 |  Raw: 1053 pts | Score: sqrt(1053) = 32.45            |
-|  Features: 10/11 unlocked                             |
+|  Features: 10/12 unlocked                             |
 |  Tokens: ~12.4K read, ~3.1K write                     |
 |  Next level: Master (score 55+, 10+ features)         |
 |  Migrated: unknown → 2.2.0 (2026-03-09)              |
