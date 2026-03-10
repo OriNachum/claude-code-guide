@@ -41,26 +41,20 @@ jobs:
 
       - name: Copy raw markdown files
         run: |
-          mkdir -p _site/raw/skills/ask/references/stories
-          for f in skills/ask/references/*.md; do
-            # Strip YAML front matter (everything between first --- and second ---)
+          mkdir -p _site/raw/skills/ask/references/{beginner,intermediate,expert}
+          strip_frontmatter() {
             awk '
               NR == 1 && $0 != "---" { print; next }
               NR == 1 && $0 == "---" { in_front = 1; next }
               in_front && $0 == "---" { in_front = 0; next }
               in_front { next }
               { print }
-            ' "$f" > "_site/raw/$f"
-          done
-          for f in skills/ask/references/stories/*.md; do
-            awk '
-              NR == 1 && $0 != "---" { print; next }
-              NR == 1 && $0 == "---" { in_front = 1; next }
-              in_front && $0 == "---" { in_front = 0; next }
-              in_front { next }
-              { print }
-            ' "$f" > "_site/raw/$f"
-          done
+            ' "$1" > "_site/raw/$1"
+          }
+          for f in skills/ask/references/beginner/*.md; do strip_frontmatter "$f"; done
+          for f in skills/ask/references/intermediate/*.md; do strip_frontmatter "$f"; done
+          for f in skills/ask/references/expert/*.md; do strip_frontmatter "$f"; done
+          for f in skills/ask/references/*.md; do strip_frontmatter "$f"; done
 
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3

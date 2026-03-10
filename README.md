@@ -79,50 +79,50 @@ Once installed, four skills are available:
 
 Learn by example — these narrative walkthroughs show Claude Code in realistic, end-to-end scenarios where multiple features come together. Each story follows a developer through a real workflow, so you can see how the pieces fit.
 
-- [Daily Workflow](skills/ask/references/stories/daily-workflow.md) — A typical day using Claude Code, from morning context to end-of-day
-- [Getting Started with Claude Code](skills/ask/references/stories/starting-new-repo.md) — Your first days on an existing team — /init, building skills organically
-- [New Project in Existing Repo](skills/ask/references/stories/new-project-existing-repo.md) — Adding a new module/service within an existing codebase
-- [Auto-Maintain CLAUDE.md](skills/ask/references/stories/auto-maintain-claude-md.md) — GitHub Actions cron job to keep CLAUDE.md fresh weekly
-- [Context Management](skills/ask/references/stories/context-management-and-clear.md) — When to use /clear, /compact, and how to manage context
-- [Sub Agents in a Monolith](skills/ask/references/stories/sub-agents-in-monolith.md) — Using sub agents to navigate and work within a large monolith
-- [Discovering Plugins](skills/ask/references/stories/discovering-plugins.md) — Browsing marketplaces, evaluating, and installing your first plugins
-- [Memory in Practice](skills/ask/references/stories/memory-in-practice.md) — How auto memory works — corrections that stick, promoting to CLAUDE.md
-- [Automated Briefings](skills/ask/references/stories/automated-briefings.md) — Production monitoring with /loop — deploys, post-deploy validation, on-call triage
+- [Daily Workflow](skills/ask/references/daily-workflow.md) — A typical day using Claude Code, from morning context to end-of-day
+- [Getting Started with Claude Code](skills/ask/references/starting-new-repo.md) — Your first days on an existing team — /init, building skills organically
+- [New Project in Existing Repo](skills/ask/references/new-project-existing-repo.md) — Adding a new module/service within an existing codebase
+- [Auto-Maintain CLAUDE.md](skills/ask/references/auto-maintain-claude-md.md) — GitHub Actions cron job to keep CLAUDE.md fresh weekly
+- [Context Management](skills/ask/references/context-management-and-clear.md) — When to use /clear, /compact, and how to manage context
+- [Sub Agents in a Monolith](skills/ask/references/sub-agents-in-monolith.md) — Using sub agents to navigate and work within a large monolith
+- [Discovering Plugins](skills/ask/references/discovering-plugins.md) — Browsing marketplaces, evaluating, and installing your first plugins
+- [Memory in Practice](skills/ask/references/memory-in-practice.md) — How auto memory works — corrections that stick, promoting to CLAUDE.md
+- [Automated Briefings](skills/ask/references/automated-briefings.md) — Production monitoring with /loop — deploys, post-deploy validation, on-call triage
 
 ### Getting Started
 
-- [Setting Your Environment](skills/ask/references/setting-your-environment.md) — CLAUDE.md, permissions, model selection, MCP servers, customization
-- [Starting to Work](skills/ask/references/starting-to-work.md) — Permission modes, Plan Mode, Accept Edits, the explore-plan-implement workflow
-- [Choosing Your Model](skills/ask/references/choosing-your-model.md) — Opus 4.6, Sonnet 4.6, Haiku, effort levels, when to use each
-- [Best Practices](skills/ask/references/best-practices.md) — Self-testing loops, context management, effective prompting, common failure patterns
-- [Auto Memory](skills/ask/references/memory.md) — How Claude remembers across sessions, comparison with CLAUDE.md
+- [Setting Your Environment](skills/ask/references/beginner/setting-your-environment.md) — CLAUDE.md, permissions, model selection, MCP servers, customization
+- [Starting to Work](skills/ask/references/beginner/starting-to-work.md) — Permission modes, Plan Mode, Accept Edits, the explore-plan-implement workflow
+- [Choosing Your Model](skills/ask/references/beginner/choosing-your-model.md) — Opus 4.6, Sonnet 4.6, Haiku, effort levels, when to use each
+- [Best Practices](skills/ask/references/intermediate/best-practices.md) — Self-testing loops, context management, effective prompting, common failure patterns
+- [Auto Memory](skills/ask/references/beginner/memory.md) — How Claude remembers across sessions, comparison with CLAUDE.md
 
 ### Automation
 
-- [Automating Your Workflows](skills/ask/references/automating-your-workflows.md) — Overview of the three automation mechanisms: Hooks, Skills, Sub Agents
-- [Hooks](skills/ask/references/hooks.md) — Lifecycle event automation — triggers, handlers, matchers, common patterns
-- [Hooks HTTP](skills/ask/references/hooks-http.md) — HTTP-based hook patterns and integrations
-- [Skills](skills/ask/references/skills.md) — Creating reusable prompt workflows as Markdown skill files
-- [Sub Agents](skills/ask/references/sub-agents.md) — Specialist agent delegation with scoped permissions, worktree isolation
-- [Agent Teams](skills/ask/references/team-mode.md) — ⚠️ Experimental: coordinated multi-agent sessions with shared task lists
+- [Automating Your Workflows](skills/ask/references/intermediate/automating-your-workflows.md) — Overview of the three automation mechanisms: Hooks, Skills, Sub Agents
+- [Hooks](skills/ask/references/intermediate/hooks.md) — Lifecycle event automation — triggers, handlers, matchers, common patterns
+- [Hooks HTTP](skills/ask/references/expert/hooks-http.md) — HTTP-based hook patterns and integrations
+- [Skills](skills/ask/references/intermediate/skills.md) — Creating reusable prompt workflows as Markdown skill files
+- [Sub Agents](skills/ask/references/expert/sub-agents.md) — Specialist agent delegation with scoped permissions, worktree isolation
+- [Agent Teams](skills/ask/references/expert/team-mode.md) — ⚠️ Experimental: coordinated multi-agent sessions with shared task lists
 
 ### Configuration & Extensions
 
-- [Configuring Your Claude](skills/ask/references/configuring-your-claude.md) — Ongoing configuration — when to build skills, agents, hooks, and how they evolve
-- [Plugins](skills/ask/references/plugins.md) — Installing, creating, and sharing Claude Code plugins
-- [Marketplace](skills/ask/references/marketplace.md) — Discovering, browsing, evaluating, publishing, and managing plugin marketplaces
-- [Plugin Examples](skills/ask/references/plugin-examples.md) — Curated showcase of notable plugins with patterns and install instructions
-- [MCP](skills/ask/references/mcp.md) — MCP (Model Context Protocol) — when to use it, the restaurant analogy, server setup and scopes
-- [Built-ins](skills/ask/references/built-ins.md) — Built-in slash commands, bundled skills, hook events, sub agents, and tools
-- [Ongoing Work](skills/ask/references/ongoing-work.md) — Managing long-running tasks, resuming work, and session continuity
+- [Configuring Your Claude](skills/ask/references/intermediate/configuring-your-claude.md) — Ongoing configuration — when to build skills, agents, hooks, and how they evolve
+- [Plugins](skills/ask/references/intermediate/plugins.md) — Installing, creating, and sharing Claude Code plugins
+- [Marketplace](skills/ask/references/intermediate/marketplace.md) — Discovering, browsing, evaluating, publishing, and managing plugin marketplaces
+- [Plugin Examples](skills/ask/references/intermediate/plugin-examples.md) — Curated showcase of notable plugins with patterns and install instructions
+- [MCP](skills/ask/references/intermediate/mcp.md) — MCP (Model Context Protocol) — when to use it, the restaurant analogy, server setup and scopes
+- [Built-ins](skills/ask/references/beginner/built-ins.md) — Built-in slash commands, bundled skills, hook events, sub agents, and tools
+- [Ongoing Work](skills/ask/references/expert/ongoing-work.md) — Managing long-running tasks, resuming work, and session continuity
 
 ### CI/CD
 
-- [GitHub Actions](skills/ask/references/github-actions.md) — Running Claude Code in CI/CD pipelines with GitHub Actions
+- [GitHub Actions](skills/ask/references/intermediate/github-actions.md) — Running Claude Code in CI/CD pipelines with GitHub Actions
 
 ### Other
 
-- [Loop](skills/ask/references/loop.md) — Running recurring tasks with /loop — polling, deploy monitoring, on-call triage
+- [Loop](skills/ask/references/intermediate/loop.md) — Running recurring tasks with /loop — polling, deploy monitoring, on-call triage
 
 ## Repository structure
 
@@ -142,9 +142,10 @@ claude-code-guide/
 │   └── color_schemes/
 │       └── anthropic.scss ................. Anthropic cream color scheme
 ├── hooks/
-│   ├── hooks.json ......................... Hook event configuration (PostToolUse, Stop)
+│   ├── hooks.json ......................... Hook event configuration (PostToolUse, UserPromptSubmit, Stop)
 │   └── scripts/
 │       ├── track-usage.sh ................. PostToolUse handler — tracks feature usage
+│       ├── track-prompt.sh ................ UserPromptSubmit handler — tracks /loop usage
 │       ├── track-stop.sh .................. Stop handler — token tracking, session counting, and Fibonacci nudges
 │       └── migrate-data.sh ................ Lightweight schema migration on version upgrade
 ├── skills/
@@ -152,9 +153,11 @@ claude-code-guide/
 │   │   └── SKILL.md ...................... Interactive getting-started walkthrough
 │   ├── ask/
 │   │   ├── SKILL.md ...................... Q&A against reference docs
-│   │   └── references/ ................... Detailed reference docs read by the ask skill as needed
-│   │           ├── stories/ .............. Narrative user-story walkthroughs (9 files)
-│   │           └── ...  .................. Reference docs (20 files)
+│   │   └── references/ ................... Reference docs organized by tier
+│   │           ├── beginner/ ............. 🌱 Beginner feature docs (5 files)
+│   │           ├── intermediate/ ......... 🌿 Intermediate feature docs (11 files)
+│   │           ├── expert/ ............... 🌳 Expert feature docs (4 files)
+│   │           └── *.md .................. Story walkthroughs (9 files)
 │   ├── game-mode/
 │   │   └── SKILL.md ...................... Gamified usage tracker with levels
 │   └── level-up/

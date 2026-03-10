@@ -48,41 +48,45 @@ claude-code-guide/
 │   │   └── SKILL.md ...................... Interactive getting-started walkthrough
 │   ├── ask/
 │   │   ├── SKILL.md ...................... Q&A against reference docs
-│   │   └── references/ ................... Detailed reference docs read by the ask skill as needed
-│   │           ├── stories/ .............. Narrative user-story walkthroughs
-│   │           │   ├── daily-workflow.md
-│   │           │   ├── starting-new-repo.md
-│   │           │   ├── new-project-existing-repo.md
-│   │           │   ├── auto-maintain-claude-md.md
-│   │           │   ├── context-management-and-clear.md
-│   │           │   ├── discovering-plugins.md
-│   │           │   ├── memory-in-practice.md
-│   │           │   ├── sub-agents-in-monolith.md
-│   │           │   └── automated-briefings.md
-│   │           ├── automating-your-workflows.md
-│   │           ├── best-practices.md
-│   │           ├── built-ins.md
-│   │           ├── choosing-your-model.md
-│   │           ├── configuring-your-claude.md
-│   │           ├── github-actions.md
-│   │           ├── hooks.md
-│   │           ├── hooks-http.md
-│   │           ├── loop.md
-│   │           ├── marketplace.md
-│   │           ├── memory.md
-│   │           ├── mcp.md
-│   │           ├── ongoing-work.md
-│   │           ├── plugin-examples.md
-│   │           ├── plugins.md
-│   │           ├── setting-your-environment.md
-│   │           ├── skills.md
-│   │           ├── starting-to-work.md
-│   │           ├── sub-agents.md
-│   │           └── team-mode.md
+│   │   └── references/ ................... Reference docs organized by difficulty tier
+│   │           ├── beginner/ ............. 🌱 Beginner feature docs
+│   │           │   ├── built-ins.md
+│   │           │   ├── choosing-your-model.md
+│   │           │   ├── memory.md
+│   │           │   ├── setting-your-environment.md
+│   │           │   └── starting-to-work.md
+│   │           ├── intermediate/ ......... 🌿 Intermediate feature docs
+│   │           │   ├── automating-your-workflows.md
+│   │           │   ├── best-practices.md
+│   │           │   ├── configuring-your-claude.md
+│   │           │   ├── github-actions.md
+│   │           │   ├── hooks.md
+│   │           │   ├── loop.md
+│   │           │   ├── marketplace.md
+│   │           │   ├── mcp.md
+│   │           │   ├── plugin-examples.md
+│   │           │   ├── plugins.md
+│   │           │   └── skills.md
+│   │           ├── expert/ ............... 🌳 Expert feature docs
+│   │           │   ├── hooks-http.md
+│   │           │   ├── ongoing-work.md
+│   │           │   ├── sub-agents.md
+│   │           │   └── team-mode.md
+│   │           ├── daily-workflow.md ...... Story walkthrough
+│   │           ├── starting-new-repo.md
+│   │           ├── new-project-existing-repo.md
+│   │           ├── auto-maintain-claude-md.md
+│   │           ├── context-management-and-clear.md
+│   │           ├── discovering-plugins.md
+│   │           ├── memory-in-practice.md
+│   │           ├── sub-agents-in-monolith.md
+│   │           └── automated-briefings.md
 │   ├── game-mode/
 │   │   └── SKILL.md ...................... Gamified usage tracker with levels
 │   └── level-up/
 │       └── SKILL.md ...................... Feature roadmap and coaching hints
+├── agents/
+│   └── doc-verifier.md .................... On-demand reference doc accuracy verifier (Sonnet agent)
 ├── _config.yml ............................ Jekyll configuration (just-the-docs theme)
 ├── Gemfile ................................ Ruby dependencies
 ├── docs/
@@ -126,8 +130,8 @@ These rules MUST be followed when editing or creating skills:
 
 - The onboarding skill lives at `skills/onboard/SKILL.md`
 - The ask/Q&A skill lives at `skills/ask/SKILL.md`
-- Reference docs live at `skills/ask/references/` — one file per topic
-- User stories live at `skills/ask/references/stories/` — narrative scenario walkthroughs
+- Reference docs live at `skills/ask/references/beginner/`, `intermediate/`, and `expert/` — organized by difficulty tier
+- User stories live at `skills/ask/references/` (root level) — narrative scenario walkthroughs
 - The plugin manifest is at `.claude-plugin/plugin.json` (plugin name: `guide`)
 - README.md is the human-facing entry point
 - This file (CLAUDE.md) provides agent context — update the structure tree when adding/removing references
