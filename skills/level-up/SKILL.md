@@ -127,15 +127,28 @@ Adapt the layout to the user's actual data. Keep features in dependency-table or
 
 ## Step 3 — Give a hint
 
-Pick the single best feature to try next from the unlocked features. Prefer features at lower belt ranks (White or Yellow) — these have the most room to grow. Among ties, prefer higher-tier features when the user's level supports it.
+From all **unlocked** features (not `🔒`), pick the single best one to recommend using this priority:
+
+1. **Sort by belt rank ascending** — White < Yellow < Orange < Green < Blue < Brown < Black. Lower belt = higher priority.
+2. **Break ties by tier descending** — Expert features are worth more than Intermediate, so suggest them first when belt ranks are equal.
+3. **Break remaining ties by count ascending** — the least-used feature among same belt + same tier wins.
+
+This means: untouched features (White, 0 uses) surface first, heavily-used features (Brown/Black) sink to the bottom. A user who has maxed out Skills at Black Belt won't keep getting told to use Skills.
+
+### Hint format
 
 Present a short, positive recommendation:
 
-- Name the feature
+- Name the feature and its current belt
 - Explain why it's useful (one sentence)
 - Give a concrete example of how to use it
+- If the feature is already Yellow+, frame the hint as "deepen" rather than "try"
 
-Example: "**Try MCP Tools** — connect external services like databases or APIs directly into your workflow. Start by adding an MCP server config to your project."
+**Examples:**
+
+- White Belt: "**Try Planning** ⚪ — structure complex tasks before diving in. Ask Claude to make a plan for your next feature."
+- Yellow Belt: "**Deepen MCP Tools** 🟡 — you've started exploring external integrations. Try connecting a database or API server to unlock more power."
+- All features Green+: "**Level up Sub Agents** 🟢 — your weakest area. Delegate a research task to a sub-agent while you keep working."
 
 ## Game Mode Pitch
 
