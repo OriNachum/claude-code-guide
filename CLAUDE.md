@@ -128,7 +128,7 @@ These rules MUST be followed when editing or creating skills:
 
 ## Versioning
 
-The plugin version lives in `.claude-plugin/plugin.json` (`"version": "X.Y.Z"`). **Bump it on every change** so the installed plugin cache stays in sync:
+The plugin version lives in `.claude-plugin/plugin.json` **and** `.claude-plugin/marketplace.json` (`"version": "X.Y.Z"`). **Bump both on every change** so the installed plugin cache stays in sync:
 
 | Change type | Bump | Examples |
 |---|---|---|

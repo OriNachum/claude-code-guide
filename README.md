@@ -172,6 +172,8 @@ claude-code-guide/
 │   │   └── SKILL.md ...................... Gamified usage tracker with levels
 │   └── level-up/
 │       └── SKILL.md ...................... Feature roadmap and coaching hints
+├── agents/
+│   └── doc-verifier.md .................... On-demand reference doc accuracy verifier (Sonnet agent)
 ├── docs/
 │   ├── getting-started.md ................. Nav parent: Getting Started
 │   ├── automation.md ...................... Nav parent: Automation

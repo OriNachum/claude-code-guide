@@ -15,6 +15,10 @@ PAYLOAD="$(cat)"
 ENABLED="$(jq -r '.enabled' "$DATA_FILE")"
 [ "$ENABLED" = "true" ] || exit 0
 
+# Acquire exclusive lock to prevent race conditions between concurrent hooks
+exec 9>"${DATA_FILE}.lock"
+flock 9
+
 # Migrate schema if plugin version changed
 bash "${PLUGIN_ROOT}/hooks/scripts/migrate-data.sh"
 

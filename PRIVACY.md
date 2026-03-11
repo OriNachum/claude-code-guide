@@ -1,39 +1,51 @@
 # Privacy Policy
 
 **Claude Code Guide Plugin**
-**Last updated:** March 5, 2026
+**Last updated:** March 12, 2026
 
 ## Overview
 
-The Claude Code Guide plugin is an open-source, content-only plugin that provides interactive guidance for Claude Code. This privacy policy explains what data the plugin does and does not collect.
+The Claude Code Guide plugin is an open-source plugin that provides interactive guidance for Claude Code. This privacy policy explains what data the plugin collects and how it is handled.
 
 ## Data Collection
 
-**This plugin does not collect, store, transmit, or process any user data.**
+### Game Mode (opt-in)
 
-Specifically, the plugin:
+When you enable Game Mode (`/guide:game-mode on`), the plugin tracks your usage of Claude Code features **locally on your machine**:
 
-- Does **not** collect personal information
-- Does **not** collect usage analytics or telemetry
-- Does **not** make network requests
-- Does **not** use cookies or local storage
-- Does **not** include any executable scripts, hooks, or MCP servers
-- Does **not** communicate with any external services
+- **Feature usage counts** — which categories of tools you use (e.g., shell, editing, search) and how many times
+- **Session count** — how many Claude Code sessions you've completed
+- **Token usage** — approximate input/output tokens per session (best-effort, from hook payload)
+- **Suggested features** — which feature suggestions have been shown to you
+
+This data is stored in `.local/game-data.json` within the plugin directory. This file is gitignored and **never leaves your machine**.
+
+### What Is NOT Collected
+
+- No personal information
+- No network requests are made
+- No data is transmitted to any server, API, or third party
+- No cookies or browser storage
+- No telemetry or analytics
 
 ## What the Plugin Contains
 
-The plugin consists entirely of static Markdown files:
+The plugin includes:
 
-- Two skills: `/guide:onboard` (getting-started walkthrough) and `/guide:ask` (Q&A against reference docs)
-- Reference documentation in `skills/ask/references/` (Markdown files)
-- A plugin manifest (`.claude-plugin/plugin.json`)
-- A marketplace manifest (`.claude-plugin/marketplace.json`)
+- **Four skills:** `/guide:onboard` (getting-started walkthrough), `/guide:ask` (Q&A against reference docs), `/guide:game-mode` (gamified usage tracker), `/guide:level-up` (feature roadmap and coaching)
+- **Reference documentation** in `skills/ask/references/` (Markdown files)
+- **Three hook events** that power Game Mode:
+  - `PostToolUse` — detects which tool category was used ([track-usage.sh](hooks/scripts/track-usage.sh))
+  - `UserPromptSubmit` — detects slash-command usage ([track-prompt.sh](hooks/scripts/track-prompt.sh))
+  - `Stop` — counts sessions, tracks tokens, and shows Fibonacci-spaced nudges ([track-stop.sh](hooks/scripts/track-stop.sh))
+- **A data migration script** ([migrate-data.sh](hooks/scripts/migrate-data.sh)) for schema upgrades
+- Plugin and marketplace manifests (`.claude-plugin/`)
 
-All content is read-only and runs entirely within your local Claude Code session. No data leaves your machine as a result of using this plugin.
+Hooks only run when Game Mode is enabled. When disabled, each hook script exits immediately after checking the enabled flag.
 
 ## Third-Party Services
 
-This plugin does not integrate with any third-party services. It has no MCP servers, no hooks, and no external dependencies.
+This plugin does not integrate with any third-party services. It has no MCP servers and no external dependencies.
 
 ## Open Source
 
