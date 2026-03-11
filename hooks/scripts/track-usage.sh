@@ -24,7 +24,7 @@ TOOL_NAME="$(echo "$PAYLOAD" | jq -r '.tool_name // empty')"
 
 # If tool is Skill, determine if it's a plugin skill (has ":") or built-in
 if [ "$TOOL_NAME" = "Skill" ]; then
-  SKILL_NAME="$(echo "$PAYLOAD" | jq -r '.tool_input.skillName // .tool_input.skill_name // .tool_input.name // empty')"
+  SKILL_NAME="$(echo "$PAYLOAD" | jq -r '.tool_input.skill // .tool_input.skillName // .tool_input.skill_name // .tool_input.name // empty')"
   case "$SKILL_NAME" in
     guide:*) exit 0 ;;          # Skip our own plugin skills
     *:*)     CATEGORY="plugins"  # Plugin skill (contains ":")

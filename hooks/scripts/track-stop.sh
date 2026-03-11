@@ -99,7 +99,6 @@ fi
 dep_met() {
   local feature="$1"
   case "$feature" in
-    mcp|plugins)  jq -e '.features.skills.count > 0' "$DATA_FILE" >/dev/null 2>&1 ;;
     agents)       jq -e '.features.skills.count > 0 and .features.planning.count > 0' "$DATA_FILE" >/dev/null 2>&1 ;;
     *)            return 0 ;;
   esac

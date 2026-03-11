@@ -30,8 +30,8 @@ Using the data from `game-data.json`, present a feature progression map. Categor
 | web | Intermediate | — |
 | planning | Intermediate | — |
 | notebooks | Intermediate | — |
-| mcp | Intermediate | skills |
-| plugins | Intermediate | skills |
+| mcp | Intermediate | — |
+| plugins | Intermediate | — |
 | loop | Intermediate | — |
 | agents | Expert | skills + planning |
 
