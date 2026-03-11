@@ -140,6 +140,12 @@ Always bump the version in the same commit as the change itself — never leave 
 
 ---
 
+## Git Workflow
+
+Before staging or committing changes, check the current branch. If you are on `main`, create a new descriptive branch first — never commit directly to `main`.
+
+---
+
 ## How to Edit
 
 - The onboarding skill lives at `skills/onboard/SKILL.md`
