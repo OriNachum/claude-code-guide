@@ -45,7 +45,7 @@ Hooks only run when Game Mode is enabled. When disabled, each hook script exits 
 
 ## Third-Party Services
 
-This plugin does not integrate with any third-party services. It has no MCP servers and no external dependencies.
+This plugin does not integrate with any third-party services. It has no MCP servers and makes no network requests. Hook scripts use standard system utilities (`jq`, `flock`) when available.
 
 ## Open Source
 
