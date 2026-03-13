@@ -62,6 +62,7 @@ Compare key factual claims: model names, model IDs, CLI flags, default values, f
 | expert/hooks-http.md | https://docs.anthropic.com/en/docs/claude-code/hooks, https://docs.anthropic.com/en/docs/claude-code/hooks-guide |
 | expert/ongoing-work.md | https://docs.anthropic.com/en/docs/claude-code/scheduled-tasks |
 | expert/sub-agents.md | https://docs.anthropic.com/en/docs/claude-code/sub-agents |
+| expert/agent-sdk.md | https://docs.anthropic.com/en/docs/claude-code/sdk |
 | expert/team-mode.md | https://docs.anthropic.com/en/docs/claude-code/agent-teams |
 
 <!-- markdownlint-enable MD034 -->

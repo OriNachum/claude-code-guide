@@ -24,7 +24,7 @@ A community guide to **Claude Code** — setup, best practices, automation, and 
 - **[Getting Started](getting-started)** — Environment setup, first session, model selection, best practices, and auto memory
 - **[Automation](automation)** — Hooks, skills, and sub agents — the three automation mechanisms
 - **[Configuration & Extensions](configuration)** — CLAUDE.md, plugins, marketplace, MCP, and built-in tools
-- **[CI/CD](ci-cd)** — Running Claude Code in GitHub Actions pipelines
+- **[Integrations](integrations)** — Claude Agent SDK, GitHub Actions, and other integration methods
 - **[User Stories](user-stories)** — Narrative walkthroughs of real-world scenarios
 
 ## About This Guide

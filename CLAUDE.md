@@ -68,6 +68,7 @@ claude-code-guide/
 │   │           │   ├── plugins.md
 │   │           │   └── skills.md
 │   │           ├── expert/ ............... 🌳 Expert feature docs
+│   │           │   ├── agent-sdk.md
 │   │           │   ├── hooks-http.md
 │   │           │   ├── ongoing-work.md
 │   │           │   ├── sub-agents.md
@@ -94,7 +95,7 @@ claude-code-guide/
 │   ├── getting-started.md ................. Nav parent: Getting Started
 │   ├── automation.md ...................... Nav parent: Automation
 │   ├── configuration.md ................... Nav parent: Configuration & Extensions
-│   ├── ci-cd.md ........................... Nav parent: CI/CD
+│   ├── integrations.md .................... Nav parent: Integrations
 │   └── user-stories.md .................... Nav parent: User Stories
 ├── index.md ............................... Website landing page
 ├── .local/ ................................ Runtime data (gitignored)

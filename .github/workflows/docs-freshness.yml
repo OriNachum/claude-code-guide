@@ -78,6 +78,7 @@ jobs:
             - skills.md
 
             **Expert** (`skills/ask/references/expert/`):
+            - agent-sdk.md
             - hooks-http.md
             - ongoing-work.md
             - sub-agents.md
@@ -106,6 +107,7 @@ jobs:
             | intermediate/plugin-examples.md              | https://docs.anthropic.com/en/docs/claude-code/plugins |
             | intermediate/mcp.md                          | https://docs.anthropic.com/en/docs/claude-code/mcp |
             | intermediate/github-actions.md               | https://docs.anthropic.com/en/docs/claude-code/github-actions |
+            | expert/agent-sdk.md                          | https://docs.anthropic.com/en/docs/claude-code/sdk |
             | expert/sub-agents.md                         | https://docs.anthropic.com/en/docs/claude-code/sub-agents |
             | expert/team-mode.md                          | https://docs.anthropic.com/en/docs/claude-code/agent-teams |
             | expert/hooks-http.md                         | https://docs.anthropic.com/en/docs/claude-code/hooks |

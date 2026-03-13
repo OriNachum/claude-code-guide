@@ -132,5 +132,8 @@ on-call triage. For unattended, recurring automation, see [GitHub Actions](githu
 ### Configuration & Extensions
 - [Configuring Your Claude](configuring-your-claude.md) — Ongoing configuration: when to build skills, agents, hooks, and plugins, and how they evolve over time
 - [Plugins](plugins.md) — Installing, creating, and sharing plugin packages
-- [GitHub Actions](github-actions.md) — Running Claude Code in CI
 - [Ongoing Work](../expert/ongoing-work.md) — Automated maintenance patterns
+
+### Integrations
+- [Claude Agent SDK](../expert/agent-sdk.md) — TypeScript and Python SDKs for programmatic Claude Code integration
+- [GitHub Actions](github-actions.md) — Running Claude Code in CI

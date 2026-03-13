@@ -1,7 +1,7 @@
 ---
 title: "GitHub Actions"
-parent: "CI/CD"
-nav_order: 1
+parent: "Integrations"
+nav_order: 2
 permalink: /github-actions/
 ---
 

@@ -47,6 +47,7 @@ Read these files from the `references/` subfolders as needed:
 
 | Reference file | Topic |
 |---|---|
+| `expert/agent-sdk.md` | Claude Agent SDK — TypeScript and Python SDKs for programmatic Claude Code integration |
 | `expert/hooks-http.md` | HTTP hook handlers — configuration, request/response cycle, authentication, common patterns |
 | `expert/ongoing-work.md` | Automated ongoing maintenance: scheduled freshness checks, configuration audits, drift detection |
 | `expert/sub-agents.md` | Specialist agent delegation — built-in, plugin, and user-defined agents, with worktree isolation |

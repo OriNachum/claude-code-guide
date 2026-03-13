@@ -138,8 +138,9 @@ Learn by example — these narrative walkthroughs show Claude Code in realistic,
 - [Built-ins](skills/ask/references/beginner/built-ins.md) — Built-in slash commands, bundled skills, hook events, sub agents, and tools
 - [Ongoing Work](skills/ask/references/expert/ongoing-work.md) — Managing long-running tasks, resuming work, and session continuity
 
-### CI/CD
+### Integrations
 
+- [Claude Agent SDK](skills/ask/references/expert/agent-sdk.md) — TypeScript and Python SDKs for programmatic Claude Code integration
 - [GitHub Actions](skills/ask/references/intermediate/github-actions.md) — Running Claude Code in CI/CD pipelines with GitHub Actions
 
 ### Other
@@ -178,7 +179,7 @@ claude-code-guide/
 │   │   └── references/ ................... Reference docs organized by tier
 │   │           ├── beginner/ ............. 🌱 Beginner feature docs (5 files)
 │   │           ├── intermediate/ ......... 🌿 Intermediate feature docs (11 files)
-│   │           ├── expert/ ............... 🌳 Expert feature docs (4 files)
+│   │           ├── expert/ ............... 🌳 Expert feature docs (5 files)
 │   │           └── *.md .................. Story walkthroughs (9 files)
 │   ├── game-mode/
 │   │   └── SKILL.md ...................... Gamified usage tracker with levels
@@ -190,7 +191,7 @@ claude-code-guide/
 │   ├── getting-started.md ................. Nav parent: Getting Started
 │   ├── automation.md ...................... Nav parent: Automation
 │   ├── configuration.md ................... Nav parent: Configuration & Extensions
-│   ├── ci-cd.md ........................... Nav parent: CI/CD
+│   ├── integrations.md .................... Nav parent: Integrations
 │   └── user-stories.md .................... Nav parent: User Stories
 ├── _config.yml ............................ Jekyll configuration (just-the-docs theme)
 ├── Gemfile ................................ Ruby dependencies
