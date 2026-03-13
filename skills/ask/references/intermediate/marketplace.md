@@ -151,7 +151,7 @@ When team members open the project, Claude Code prompts them to install the mark
 
 To submit a plugin to Anthropic's official marketplace:
 
-1. Ensure your plugin has a complete `plugin.json` manifest (name, description, version ([see versioning](plugins.md#-versioning-your-plugin)), author)
+1. Ensure your plugin has a complete `plugin.json` manifest (name, description, version ([see versioning](plugins.md#versioning-your-plugin)), author)
 2. Test it thoroughly with `claude --plugin-dir ./your-plugin`
 3. Submit via the [official submission page](https://claude.ai/settings/plugins/submit)
 4. Anthropic reviews the plugin before it appears in the official catalog

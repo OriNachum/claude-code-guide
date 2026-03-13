@@ -35,9 +35,9 @@ If the changes are ambiguous, default to **patch**.
 
 Parse the current version as `X.Y.Z` and increment the appropriate component:
 
-- **Major**: `X+1.0.0`
-- **Minor**: `X.Y+1.0`
-- **Patch**: `X.Y.Z+1`
+- **Major**: `(X+1).0.0`
+- **Minor**: `X.(Y+1).0`
+- **Patch**: `X.Y.(Z+1)`
 
 ## Step 4: Apply the bump
 

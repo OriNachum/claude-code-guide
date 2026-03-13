@@ -241,9 +241,9 @@ Without a version bump, Claude Code has no way to know that anything changed. **
 
 | Bump | When | Examples |
 |---|---|---|
-| **Major** (X.0.0) | Breaking changes, structural redesigns | Removing a skill, renaming hook events, incompatible schema changes |
-| **Minor** (0.X.0) | New features, new reference docs, new behaviors | Adding a skill, new tracking category, new reference doc |
-| **Patch** (0.0.X) | Bug fixes, wording tweaks, small improvements | Fixing a regex in a hook, typo in a doc, adjusting a case branch |
+| **Major** (X) | Breaking changes, structural redesigns | Removing a skill, renaming hook events, incompatible schema changes |
+| **Minor** (Y) | New features, new reference docs, new behaviors | Adding a skill, new tracking category, new reference doc |
+| **Patch** (Z) | Bug fixes, wording tweaks, small improvements | Fixing a regex in a hook, typo in a doc, adjusting a case branch |
 
 ### Where the version lives
 
