@@ -62,6 +62,18 @@ From within Claude Code:
 
 > **After installing, restart Claude Code** for the plugin skills to become available.
 
+### Updating
+
+```shell
+/plugin update guide@claude-code-guide
+```
+
+Or from the CLI:
+
+```bash
+claude plugin update guide@claude-code-guide
+```
+
 ### Usage
 
 Once installed, four skills are available:

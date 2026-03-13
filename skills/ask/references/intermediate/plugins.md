@@ -109,6 +109,7 @@ claude plugin uninstall my-plugin@marketplace --scope project
 /plugin disable name@mkt   # Disable without uninstalling
 /plugin enable name@mkt    # Re-enable
 /plugin uninstall name@mkt # Remove completely
+/plugin update name@mkt    # Update to latest version from marketplace
 /reload-plugins            # Apply changes without restarting
 ```
 
@@ -221,6 +222,57 @@ For detailed descriptions, install instructions, and the patterns each plugin de
 Push your plugin to a Git repository and share it through a marketplace. You can submit to the [official Anthropic marketplace](https://claude.ai/settings/plugins/submit), create your own community marketplace on GitHub, or distribute via your team's internal marketplace using `extraKnownMarketplaces`.
 
 For the full guide to marketplace creation, publishing, and discovery, see [Marketplace](marketplace.md).
+
+## 🌳 Versioning Your Plugin
+
+> **Source:** [Plugins Reference — Version Management](https://code.claude.com/docs/en/plugins-reference#version-management)
+
+### Plugin cache
+
+Marketplace plugins are **not** used in-place. When you install a plugin, Claude Code copies it to `~/.claude/plugins/cache`. All subsequent reads come from that cache — changes to the source directory have no effect on installed users until an update occurs.
+
+### Version is the cache key
+
+> If you change your plugin's code but don't bump the version in `plugin.json`, your plugin's existing users won't see your changes due to caching.
+
+Without a version bump, Claude Code has no way to know that anything changed. **Always bump the version when you ship changes.**
+
+### Semantic versioning
+
+| Bump | When | Examples |
+|---|---|---|
+| **Major** (X) | Breaking changes, structural redesigns | Removing a skill, renaming hook events, incompatible schema changes |
+| **Minor** (Y) | New features, new reference docs, new behaviors | Adding a skill, new tracking category, new reference doc |
+| **Patch** (Z) | Bug fixes, wording tweaks, small improvements | Fixing a regex in a hook, typo in a doc, adjusting a case branch |
+
+### Where the version lives
+
+The version field can be set in:
+
+- **`plugin.json`** (`"version": "X.Y.Z"`) — the plugin manifest
+- **`marketplace.json`** (inside a plugin entry) — the marketplace listing
+
+If both are set, **`plugin.json` takes priority**. Keep them in sync to avoid confusion.
+
+### Update workflow
+
+After bumping your version and pushing to the marketplace repository:
+
+1. Users run `/plugin update name@mkt` (or `claude plugin update name@mkt` from the CLI)
+2. Claude Code pulls the latest version into `~/.claude/plugins/cache`, replacing the old copy
+3. A restart (or `/reload-plugins`) picks up the new version
+
+### Development shortcut
+
+During local development, `--plugin-dir` bypasses the cache entirely — Claude Code reads directly from the directory you point to. Use `/reload-plugins` to pick up mid-session changes without restarting:
+
+```bash
+claude --plugin-dir ./my-plugin   # reads live from disk, no cache
+```
+
+### Automating version bumps
+
+This repository includes a `version-bump` agent (`agents/version-bump.md`) that bumps the version in both `plugin.json` and `marketplace.json` in a single step, keeping them in sync.
 
 ## Next Steps
 

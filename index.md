@@ -15,6 +15,7 @@ A community guide to **Claude Code** — setup, best practices, automation, and 
 
 > **Plugin available** — This guide is also available as a **Claude Code plugin**. Install it for interactive onboarding and in-context Q&A.
 > See the [GitHub repo](https://github.com/OriNachum/claude-code-guide) for install instructions.
+> Already installed? Update with `/plugin update guide@claude-code-guide`.
 
 <img width="384" alt="Claude Code Guide overview" src="https://github.com/user-attachments/assets/5330f813-6539-4e15-bb94-0e1994edd94c" />
 

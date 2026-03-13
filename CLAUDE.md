@@ -86,7 +86,8 @@ claude-code-guide/
 │   └── level-up/
 │       └── SKILL.md ...................... Feature roadmap and coaching hints
 ├── agents/
-│   └── doc-verifier.md .................... On-demand reference doc accuracy verifier (Sonnet agent)
+│   ├── doc-verifier.md .................... On-demand reference doc accuracy verifier (Sonnet agent)
+│   └── version-bump.md .................... Synced version bumper for plugin.json + marketplace.json (Haiku agent)
 ├── _config.yml ............................ Jekyll configuration (just-the-docs theme)
 ├── Gemfile ................................ Ruby dependencies
 ├── docs/
