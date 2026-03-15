@@ -88,7 +88,12 @@ claude-code-guide/
 │   ├── level-up/
 │   │   └── SKILL.md ...................... Feature roadmap and coaching hints
 │   └── visualize-setup/
-│       └── SKILL.md ...................... Interactive HTML setup dashboard generator
+│       ├── SKILL.md ...................... Interactive HTML setup dashboard generator
+│       ├── scripts/
+│       │   ├── discover.sh ............... Discovers skills, MCP servers, game data → JSON
+│       │   └── build-dashboard.sh ........ Runs discover, injects into template, opens browser
+│       └── assets/
+│           └── template.html ............. Complete HTML/CSS/JS with data placeholders
 ├── agents/
 │   ├── doc-verifier.md .................... On-demand reference doc accuracy verifier (Sonnet agent)
 │   └── version-bump.md .................... Synced version bumper for plugin.json + marketplace.json (Haiku agent)

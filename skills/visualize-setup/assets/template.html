@@ -1,0 +1,432 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Claude Code Skills Dashboard</title>
+<style>
+  *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+  body{background:#FFFAF5;color:#1A1A1A;font-family:system-ui,-apple-system,sans-serif;line-height:1.6}
+  main{max-width:1200px;margin:0 auto;padding:2rem 1.5rem}
+  .header{text-align:center;margin-bottom:2rem}
+  .header h1{font-size:2.5rem;font-weight:800;background:linear-gradient(135deg,#D97706,#B45309);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+  .header p{color:#6B6560;margin-top:0.5rem}
+  .search-bar{width:100%;padding:0.875rem 1.25rem;background:#FFF8F0;border:1px solid #E5DDD4;border-radius:12px;font-size:1rem;color:#1A1A1A;outline:none;transition:all 0.2s ease;margin-bottom:1rem}
+  .search-bar:focus{border-color:#D97706;box-shadow:0 0 0 3px rgba(217,119,6,0.15)}
+  .search-bar::placeholder{color:#6B6560}
+  .filter-bar{display:flex;gap:1.5rem;flex-wrap:wrap;margin-bottom:1rem;align-items:center}
+  .filter-group{display:flex;gap:0.25rem;align-items:center}
+  .filter-group-label{font-size:0.75rem;color:#6B6560;margin-right:0.5rem;font-weight:600;text-transform:uppercase;letter-spacing:0.05em}
+  .pill{padding:0.375rem 0.875rem;border-radius:20px;border:none;cursor:pointer;font-size:0.8125rem;font-weight:500;transition:all 0.2s ease;background:#F5EDE4;color:#6B6560}
+  .pill.active{background:#D97706;color:#fff}
+  .pill:hover:not(.active){background:#EDE5DA}
+  .stats-ribbon{display:grid;grid-template-columns:repeat(auto-fill,minmax(130px,1fr));gap:0.75rem;margin-bottom:2rem}
+  .stat-box{background:#F5F0EB;border-radius:10px;padding:1rem;text-align:center}
+  .stat-box .stat-number{font-size:1.75rem;font-weight:700;color:#1A1A1A}
+  .stat-box .stat-label{font-size:0.75rem;color:#6B6560;margin-top:0.25rem;text-transform:uppercase;letter-spacing:0.05em}
+  .category-section{margin-bottom:2rem}
+  .category-header{display:flex;align-items:center;gap:0.75rem;padding:0.75rem 1rem;border-radius:8px;margin-bottom:1rem}
+  .category-header h2{font-size:1.125rem;font-weight:700;color:#1A1A1A}
+  .category-badge{background:rgba(0,0,0,0.08);padding:0.125rem 0.625rem;border-radius:12px;font-size:0.75rem;font-weight:600;color:#6B6560}
+  .cards-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(340px,1fr));gap:1rem}
+  .card{background:#FFFFFF;border:1px solid #E5DDD4;border-radius:12px;padding:1.25rem;position:relative;transition:all 0.2s ease;opacity:0;animation:fadeInUp 0.4s ease forwards}
+  .card:hover{transform:translateY(-4px);box-shadow:0 8px 25px rgba(0,0,0,0.08)}
+  .scope-badge{position:absolute;top:0.75rem;right:0.75rem;padding:0.125rem 0.5rem;border-radius:8px;font-size:0.6875rem;font-weight:600}
+  .scope-badge.global{background:#FFF7ED;color:#B45309}
+  .scope-badge.project{background:#F0FDF4;color:#15803D}
+  .scope-badge.plugin{background:#F5F3FF;color:#7C3AED}
+  .card-name{font-size:1rem;font-weight:700;color:#2D2B27;margin-bottom:0.5rem;padding-right:4rem}
+  .card-desc{font-size:0.875rem;color:#6B6560;margin-bottom:0.75rem;line-height:1.5}
+  .card-desc-full{display:none}
+  .card-desc-toggle{color:#D97706;cursor:pointer;font-size:0.8125rem;font-weight:500;border:none;background:none;padding:0}
+  .card-desc-toggle:hover{text-decoration:underline}
+  .cap-tags{display:flex;flex-wrap:wrap;gap:0.375rem;margin-bottom:0.75rem}
+  .cap-tag{padding:0.125rem 0.5rem;border-radius:6px;font-size:0.6875rem;font-weight:500;background:#F5EDE4;color:#6B6560}
+  .cmd-block{display:flex;align-items:center;gap:0.5rem;background:#FFF8F0;border:1px solid #E5DDD4;border-radius:8px;padding:0.5rem 0.75rem;margin-bottom:0.75rem}
+  .cmd-text{font-family:'SF Mono',Monaco,Consolas,monospace;font-size:0.8125rem;color:#B45309;flex:1}
+  .copy-btn{background:none;border:none;cursor:pointer;padding:0.25rem;color:#6B6560;font-size:0.875rem;position:relative}
+  .copy-btn:hover{color:#D97706}
+  .copy-tooltip{position:absolute;top:-1.75rem;left:50%;transform:translateX(-50%);background:#1A1A1A;color:#fff;padding:0.125rem 0.5rem;border-radius:4px;font-size:0.6875rem;white-space:nowrap;opacity:0;transition:opacity 0.2s}
+  .copy-tooltip.show{opacity:1}
+  .card-footer{display:flex;flex-wrap:wrap;gap:0.5rem;align-items:center}
+  .footer-badge{padding:0.125rem 0.5rem;border-radius:6px;font-size:0.6875rem;font-weight:500}
+  .badge-license{background:#F0FDF4;color:#15803D}
+  .badge-scripts{background:#FFF7ED;color:#B45309}
+  .badge-belt{padding:0.125rem 0.5rem;border-radius:6px;font-size:0.6875rem;font-weight:500}
+  .belt-uses{font-size:0.625rem;color:#6B6560;margin-left:0.25rem}
+  .mcp-type-badge{background:#92400E;color:#FFFFFF;padding:0.125rem 0.5rem;border-radius:6px;font-size:0.6875rem;font-weight:600}
+  .mcp-env-tag{padding:0.125rem 0.5rem;border-radius:6px;font-size:0.6875rem;font-weight:500;background:#FEF3C7;color:#92400E}
+  .mastery-section{margin-bottom:2rem}
+  .mastery-header{display:flex;align-items:center;gap:0.75rem;padding:0.75rem 1rem;border-radius:8px;margin-bottom:1rem;border-left:4px solid #D97706;background:#FFF8F0}
+  .mastery-header h2{font-size:1.125rem;font-weight:700;color:#1A1A1A}
+  .tier-subheader{font-size:0.875rem;font-weight:600;color:#6B6560;margin:1rem 0 0.5rem;padding-left:0.25rem}
+  .mastery-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:0.75rem;margin-bottom:0.5rem}
+  .mastery-card{background:#FFFFFF;border:1px solid #E5DDD4;border-radius:8px;padding:0.75rem 1rem;position:relative;transition:all 0.2s ease}
+  .mastery-card:hover{transform:translateY(-2px);box-shadow:0 4px 12px rgba(0,0,0,0.06)}
+  .mastery-name{font-size:0.875rem;font-weight:600;color:#2D2B27}
+  .mastery-belt{font-size:0.8125rem;color:#6B6560;margin-top:0.25rem}
+  .mastery-count{font-size:0.75rem;color:#6B6560}
+  .mastery-tier{font-size:0.6875rem;color:#6B6560;margin-top:0.25rem}
+  .hidden{display:none!important}
+  @keyframes fadeInUp{
+    from{opacity:0;transform:translateY(20px)}
+    to{opacity:1;transform:translateY(0)}
+  }
+  @media(max-width:768px){
+    main{padding:1rem}
+    .header h1{font-size:1.75rem}
+    .cards-grid{grid-template-columns:1fr}
+    .mastery-grid{grid-template-columns:1fr 1fr}
+  }
+  @media(max-width:480px){
+    .header h1{font-size:1.5rem}
+    .filter-bar{flex-direction:column;gap:0.75rem}
+    .stat-box .stat-number{font-size:1.25rem}
+    .mastery-grid{grid-template-columns:1fr}
+  }
+</style>
+</head>
+<body>
+<main>
+  <header class="header">
+    <h1>Claude Code Skills Dashboard</h1>
+    <p>All installed skills, plugins, and MCP servers at a glance</p>
+  </header>
+  <input type="text" class="search-bar" id="searchInput" placeholder="Search skills, plugins, and MCP servers...">
+  <div class="filter-bar">
+    <div class="filter-group">
+      <span class="filter-group-label">Scope</span>
+      <button class="pill active" data-filter="scope" data-value="all">All</button>
+      <button class="pill" data-filter="scope" data-value="global">Global</button>
+      <button class="pill" data-filter="scope" data-value="project">Project</button>
+      <button class="pill" data-filter="scope" data-value="plugin">Plugin</button>
+    </div>
+    <div class="filter-group">
+      <span class="filter-group-label">Type</span>
+      <button class="pill active" data-filter="type" data-value="all">All</button>
+      <button class="pill" data-filter="type" data-value="skill">Skills</button>
+      <button class="pill" data-filter="type" data-value="mcp">MCPs</button>
+    </div>
+  </div>
+  <div class="stats-ribbon" id="statsRibbon"></div>
+  <div id="categorySections"></div>
+  <section class="category-section" id="mcpSection">
+    <div class="category-header" style="border-left:4px solid #D97706">
+      <h2>MCP Servers</h2>
+      <span class="category-badge" id="mcpCount">0</span>
+    </div>
+    <div class="cards-grid" id="mcpGrid"></div>
+  </section>
+  <section class="mastery-section hidden" id="masterySection">
+    <div class="mastery-header">
+      <h2>&#x1F94B; Feature Mastery</h2>
+    </div>
+    <div id="masteryContent"></div>
+  </section>
+</main>
+<script>
+const skills = __SKILLS_DATA__;
+const mcpServers = __MCP_DATA__;
+const gameData = __GAME_DATA__;
+
+// Belt system
+function getBelt(count) {
+  if (count >= 16384) return {emoji:'\u26ab',name:'Black Belt',color:'#1F2937',dans:'\u25fb\u25fb\u25fb\u25fb\u25fb'};
+  if (count >= 8192) return {emoji:'\u26ab',name:'Black Belt',color:'#1F2937',dans:'\u25fb\u25fb\u25fb\u25fb'};
+  if (count >= 4096) return {emoji:'\u26ab',name:'Black Belt',color:'#1F2937',dans:'\u25fb\u25fb\u25fb'};
+  if (count >= 2048) return {emoji:'\u26ab',name:'Black Belt',color:'#1F2937',dans:'\u25fb\u25fb'};
+  if (count >= 1024) return {emoji:'\u26ab',name:'Black Belt',color:'#1F2937',dans:'\u25fb'};
+  if (count >= 512) return {emoji:'\u26ab',name:'Black Belt',color:'#1F2937',dans:''};
+  if (count >= 256) return {emoji:'\ud83d\udfe4',name:'Brown Belt',color:'#A16207',dans:''};
+  if (count >= 128) return {emoji:'\ud83d\udfe2',name:'Blue Belt',color:'#60A5FA',dans:''};
+  if (count >= 64) return {emoji:'\ud83d\udfe2',name:'Green Belt',color:'#4ADE80',dans:''};
+  if (count >= 32) return {emoji:'\ud83d\udfe0',name:'Orange Belt',color:'#FB923C',dans:''};
+  if (count >= 16) return {emoji:'\ud83d\udfe1',name:'Yellow Belt',color:'#FDE047',dans:''};
+  return {emoji:'\u26aa',name:'White Belt',color:'#E5E7EB',dans:''};
+}
+
+function getSkillUsage(skill) {
+  if (!gameData || !gameData.skillUsage) return {count:0,lastUsed:null};
+  var key = skill.pluginName ? skill.pluginName+':'+skill.name : skill.name;
+  var u = gameData.skillUsage[key];
+  return u || {count:0,lastUsed:null};
+}
+
+// Group skills by category
+var categoryOrder = ['Communication','DevOps & CI/CD','Project Management','Browser & Testing','Utilities','Other'];
+var categoryGroups = {};
+skills.forEach(function(s) {
+  if (!categoryGroups[s.category]) categoryGroups[s.category] = [];
+  categoryGroups[s.category].push(s);
+});
+
+// Render categories
+var sectionsContainer = document.getElementById('categorySections');
+var cardIndex = 0;
+
+categoryOrder.forEach(function(cat) {
+  var group = categoryGroups[cat];
+  if (!group || group.length === 0) return;
+  var section = document.createElement('section');
+  section.className = 'category-section';
+  section.dataset.category = cat;
+
+  var color = group[0].categoryColor;
+  section.innerHTML = '<div class="category-header" style="border-left:4px solid '+color+'"><h2>'+cat+'</h2><span class="category-badge">'+group.length+'</span></div><div class="cards-grid"></div>';
+  var grid = section.querySelector('.cards-grid');
+
+  group.forEach(function(skill) {
+    var card = document.createElement('article');
+    card.className = 'card';
+    card.dataset.scope = skill.scope;
+    card.dataset.type = 'skill';
+    card.dataset.name = skill.name.toLowerCase();
+    card.dataset.desc = skill.description.toLowerCase();
+    card.dataset.cat = skill.category.toLowerCase();
+    card.style.animationDelay = (cardIndex * 0.05) + 's';
+    cardIndex++;
+
+    var descShort = skill.description.length > 120 ? skill.description.slice(0,120)+'\u2026' : skill.description;
+    var hasLongDesc = skill.description.length > 120;
+
+    var scopeClass = skill.scope;
+    var scopeLabel = skill.scope.charAt(0).toUpperCase()+skill.scope.slice(1);
+
+    var capTagsHtml = skill.capTags.map(function(t){return '<span class="cap-tag">'+t+'</span>'}).join('');
+
+    var footerHtml = '';
+    if (skill.license !== '\u2014') footerHtml += '<span class="footer-badge badge-license">'+skill.license+'</span>';
+    if (skill.has_scripts) footerHtml += '<span class="footer-badge badge-scripts">Has Scripts</span>';
+
+    if (gameData) {
+      var usage = getSkillUsage(skill);
+      var belt = getBelt(usage.count);
+      var beltBg = belt.color + '26';
+      footerHtml += '<span class="badge-belt" style="background:'+beltBg+';color:'+belt.color+'">'+belt.emoji+' '+belt.name+(belt.dans ? ' '+belt.dans : '')+'</span><span class="belt-uses">('+usage.count+' uses)</span>';
+    }
+
+    var descHtml = '<span class="card-desc-short">'+descShort+'</span>';
+    if (hasLongDesc) descHtml += '<span class="card-desc-full">'+skill.description+'</span><button class="card-desc-toggle" onclick="toggleDesc(this)">Show more</button>';
+
+    card.innerHTML = '<span class="scope-badge '+scopeClass+'">'+scopeLabel+'</span>'
+      +'<div class="card-name">'+skill.name+'</div>'
+      +'<div class="card-desc">'+descHtml+'</div>'
+      +(capTagsHtml ? '<div class="cap-tags">'+capTagsHtml+'</div>' : '')
+      +'<div class="cmd-block"><span class="cmd-text">'+skill.cmd+'</span><button class="copy-btn" onclick="copyCmd(this,\''+skill.cmd.replace(/'/g,"\\'")+'\')">&#x1F4CB;<span class="copy-tooltip">Copied!</span></button></div>'
+      +'<div class="card-footer">'+footerHtml+'</div>';
+    grid.appendChild(card);
+  });
+
+  sectionsContainer.appendChild(section);
+});
+
+// MCP section
+var mcpGrid = document.getElementById('mcpGrid');
+var mcpSection = document.getElementById('mcpSection');
+if (mcpServers.length === 0) {
+  mcpSection.classList.add('hidden');
+} else {
+  document.getElementById('mcpCount').textContent = mcpServers.length;
+  mcpServers.forEach(function(srv) {
+    var card = document.createElement('article');
+    card.className = 'card';
+    card.dataset.scope = srv.scope;
+    card.dataset.type = 'mcp';
+    card.dataset.name = srv.name.toLowerCase();
+    card.dataset.desc = '';
+    card.dataset.cat = 'mcp';
+    card.style.animationDelay = (cardIndex * 0.05) + 's';
+    cardIndex++;
+
+    var scopeClass = srv.scope;
+    var scopeLabel = srv.scope.charAt(0).toUpperCase()+srv.scope.slice(1);
+    var envHtml = srv.env.map(function(k){return '<span class="mcp-env-tag">'+k+'</span>'}).join('');
+
+    card.innerHTML = '<span class="scope-badge '+scopeClass+'">'+scopeLabel+'</span>'
+      +'<div class="card-name">'+srv.name+'</div>'
+      +'<span class="mcp-type-badge">MCP</span>'
+      +'<div class="cmd-block" style="margin-top:0.75rem"><span class="cmd-text">'+srv.command+' '+srv.args+'</span><button class="copy-btn" onclick="copyCmd(this,\''+srv.command+' '+srv.args+'\')">&#x1F4CB;<span class="copy-tooltip">Copied!</span></button></div>'
+      +(envHtml ? '<div class="cap-tags">'+envHtml+'</div>' : '');
+    mcpGrid.appendChild(card);
+  });
+}
+
+// Feature Mastery section
+var featureNames = {
+  shell:'Shell',editing:'Editing',reading:'Reading',search:'Search',
+  btw:'Quick Aside',skills:'Skills',plugins:'Plugins',web:'Web',
+  planning:'Planning',notebooks:'Notebooks',agents:'Sub Agents',mcp:'MCP',loop:'Loop'
+};
+var featureTiers = {
+  '\ud83c\udf31 Beginner':['shell','editing','reading','search','btw'],
+  '\ud83c\udf3f Intermediate':['skills','plugins','web','planning','notebooks','mcp','loop'],
+  '\ud83c\udf33 Expert':['agents']
+};
+
+function renderFeatureMastery() {
+  if (!gameData) {
+    document.getElementById('masterySection').classList.add('hidden');
+    return;
+  }
+  document.getElementById('masterySection').classList.remove('hidden');
+  var content = document.getElementById('masteryContent');
+  content.innerHTML = '';
+
+  Object.entries(featureTiers).forEach(function(entry) {
+    var tierLabel = entry[0];
+    var keys = entry[1];
+    var sub = document.createElement('div');
+    sub.innerHTML = '<div class="tier-subheader">'+tierLabel+'</div>';
+    var grid = document.createElement('div');
+    grid.className = 'mastery-grid';
+
+    keys.forEach(function(key) {
+      var feat = gameData.features[key] || {count:0};
+      var belt = getBelt(feat.count);
+      var card = document.createElement('div');
+      card.className = 'mastery-card';
+      card.style.borderLeft = '4px solid '+belt.color;
+      card.innerHTML = '<div class="mastery-name">'+(featureNames[key] || key)+'</div>'
+        +'<div class="mastery-belt">'+belt.emoji+' '+belt.name+(belt.dans ? ' '+belt.dans : '')+'</div>'
+        +'<div class="mastery-count">'+feat.count+' uses</div>'
+        +'<div class="mastery-tier">'+tierLabel.split(' ')[0]+'</div>';
+      grid.appendChild(card);
+    });
+
+    sub.appendChild(grid);
+    content.appendChild(sub);
+  });
+}
+renderFeatureMastery();
+
+// Stats ribbon
+function updateStats() {
+  var ribbon = document.getElementById('statsRibbon');
+  var visibleSkills = document.querySelectorAll('[data-type="skill"]:not(.hidden)');
+  var visibleMcp = document.querySelectorAll('[data-type="mcp"]:not(.hidden)');
+
+  var totalSkills = visibleSkills.length;
+  var catSet = new Set();
+  visibleSkills.forEach(function(c) {
+    var sec = c.closest('.category-section');
+    if (sec && sec.dataset.category) catSet.add(sec.dataset.category);
+  });
+  var withScripts = 0;
+  var licensed = 0;
+  var pluginCount = 0;
+  visibleSkills.forEach(function(c) {
+    var nm = c.dataset.name;
+    var s = skills.find(function(sk){return sk.name.toLowerCase() === nm && sk.scope === c.dataset.scope});
+    if (s) {
+      if (s.has_scripts) withScripts++;
+      if (s.license !== '\u2014') licensed++;
+    }
+    if (c.dataset.scope === 'plugin') pluginCount++;
+  });
+
+  var stats = [
+    {num:totalSkills,label:'Total Skills'},
+    {num:catSet.size,label:'Categories'},
+    {num:withScripts,label:'With Scripts'},
+    {num:licensed,label:'Licensed'},
+    {num:visibleMcp.length,label:'MCP Servers'},
+    {num:pluginCount,label:'Plugin Skills'}
+  ];
+
+  if (gameData) {
+    stats.push({num:gameData.sessionCount,label:'Sessions'});
+    var totalUses = 0;
+    if (gameData.skillUsage) {
+      Object.values(gameData.skillUsage).forEach(function(v){totalUses += v.count || 0});
+    }
+    stats.push({num:totalUses,label:'Total Uses'});
+  }
+
+  ribbon.innerHTML = stats.map(function(s){
+    return '<div class="stat-box"><div class="stat-number">'+s.num+'</div><div class="stat-label">'+s.label+'</div></div>';
+  }).join('');
+}
+
+// Filtering
+var activeScope = 'all';
+var activeType = 'all';
+
+function filterAll() {
+  var query = document.getElementById('searchInput').value.toLowerCase();
+  var allCards = document.querySelectorAll('.card');
+
+  allCards.forEach(function(card) {
+    var matchScope = activeScope === 'all' || card.dataset.scope === activeScope;
+    var matchType = activeType === 'all' || card.dataset.type === activeType;
+    var matchSearch = !query || card.dataset.name.indexOf(query) !== -1 || card.dataset.desc.indexOf(query) !== -1 || card.dataset.cat.indexOf(query) !== -1;
+    if (matchScope && matchType && matchSearch) {
+      card.classList.remove('hidden');
+    } else {
+      card.classList.add('hidden');
+    }
+  });
+
+  // Hide empty category sections
+  document.querySelectorAll('.category-section').forEach(function(section) {
+    var visCards = section.querySelectorAll('.card:not(.hidden)');
+    if (visCards.length === 0) {
+      section.classList.add('hidden');
+    } else {
+      section.classList.remove('hidden');
+    }
+    var badge = section.querySelector('.category-badge');
+    if (badge) badge.textContent = visCards.length;
+  });
+
+  updateStats();
+}
+
+// Pill clicks
+document.querySelectorAll('.pill[data-filter="scope"]').forEach(function(btn) {
+  btn.addEventListener('click', function() {
+    document.querySelectorAll('.pill[data-filter="scope"]').forEach(function(b){b.classList.remove('active')});
+    btn.classList.add('active');
+    activeScope = btn.dataset.value;
+    filterAll();
+  });
+});
+document.querySelectorAll('.pill[data-filter="type"]').forEach(function(btn) {
+  btn.addEventListener('click', function() {
+    document.querySelectorAll('.pill[data-filter="type"]').forEach(function(b){b.classList.remove('active')});
+    btn.classList.add('active');
+    activeType = btn.dataset.value;
+    filterAll();
+  });
+});
+
+document.getElementById('searchInput').addEventListener('input', filterAll);
+
+// Copy button
+function copyCmd(btn, text) {
+  navigator.clipboard.writeText(text);
+  var tooltip = btn.querySelector('.copy-tooltip');
+  tooltip.classList.add('show');
+  setTimeout(function(){tooltip.classList.remove('show')}, 1200);
+}
+
+// Toggle description
+function toggleDesc(btn) {
+  var desc = btn.closest('.card-desc');
+  var short = desc.querySelector('.card-desc-short');
+  var full = desc.querySelector('.card-desc-full');
+  if (full.style.display === 'inline') {
+    full.style.display = 'none';
+    short.style.display = 'inline';
+    btn.textContent = 'Show more';
+  } else {
+    full.style.display = 'inline';
+    short.style.display = 'none';
+    btn.textContent = 'Show less';
+  }
+}
+
+// Initial render
+filterAll();
+</script>
+</body>
+</html>
