@@ -76,12 +76,13 @@ claude plugin update guide@claude-code-guide
 
 ### Usage
 
-Once installed, four skills are available:
+Once installed, five skills are available:
 
 - **`/guide:onboard`** — Interactive getting-started walkthrough. Guides you through environment setup, your first session, and best practices.
 - **`/guide:ask`** — Ask any question about Claude Code features. Reads relevant reference docs to give accurate, detailed answers.
 - **`/guide:game-mode`** — Enable Game Mode. The guide locally tracks your usage of Claude, assigns a level per feature area, and helps you master Claude Code.
 - **`/guide:level-up`** — Feature roadmap and personalized next-step coaching. Shows what to learn next based on your current skill level.
+- **`/guide:visualize-setup`** — Interactive dashboard of all installed skills, MCP servers, and setup configuration.
 
 <img width="1050" height="366" alt="image" src="https://github.com/user-attachments/assets/3643154f-00e9-4793-886e-e49adfee54ef" />
 
@@ -183,8 +184,10 @@ claude-code-guide/
 │   │           └── *.md .................. Story walkthroughs (9 files)
 │   ├── game-mode/
 │   │   └── SKILL.md ...................... Gamified usage tracker with levels
-│   └── level-up/
-│       └── SKILL.md ...................... Feature roadmap and coaching hints
+│   ├── level-up/
+│   │   └── SKILL.md ...................... Feature roadmap and coaching hints
+│   └── visualize-setup/
+│       └── SKILL.md ...................... Interactive HTML setup dashboard generator
 ├── agents/
 │   └── doc-verifier.md .................... On-demand reference doc accuracy verifier (Sonnet agent)
 ├── docs/
@@ -210,7 +213,7 @@ claude-code-guide/
 
 ## Contributing
 
-Contributions welcome! The four skills live at `skills/onboard/`, `skills/ask/`, `skills/game-mode/`, and `skills/level-up/`. Reference docs are in `skills/ask/references/` and hooks are in `hooks/`.
+Contributions welcome! The five skills live at `skills/onboard/`, `skills/ask/`, `skills/game-mode/`, `skills/level-up/`, and `skills/visualize-setup/`. Reference docs are in `skills/ask/references/` and hooks are in `hooks/`.
 
 ## License
 

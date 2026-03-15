@@ -80,7 +80,7 @@ project skills):
 | DevOps & CI/CD     | #f97316 | automate, az-devops                   |
 | Project Management | #3b82f6 | jira, confluence                      |
 | Browser & Testing  | #a855f7 | playwright-mcp                        |
-| Utilities          | #f59e0b | count-tokens, visualize-skills        |
+| Utilities          | #f59e0b | count-tokens, visualize-setup         |
 
 Any skill not in the mapping goes into an **Other**
 category with color `#6b7280`.
@@ -109,12 +109,12 @@ must be inlined.
 
 **Theme & layout:**
 
-- Background: `#0a0a0f`
-- Card background: `#12121a`
-- Card border: `1px solid rgba(255,255,255,0.06)`
-- Text: `#e2e8f0` (body), `#94a3b8` (secondary)
+- Background: `#FFFAF5`
+- Card background: `#FFFFFF`
+- Card border: `1px solid #E5DDD4`
+- Text: `#1A1A1A` (body), `#6B6560` (secondary)
 - Header: large title with gradient text
-  (`#667eea` to `#764ba2`)
+  (`#D97706` to `#B45309`)
 - Font: system-ui / -apple-system / sans-serif stack
 - Max content width: `1200px`, centered
 
@@ -123,7 +123,7 @@ must be inlined.
 - Full-width input at the top, below the header
 - Filters cards in real-time by name, description,
   or category
-- Styled with dark input (`#1a1a2e` background),
+- Styled with warm input (`#FFF8F0` background),
   rounded corners, subtle border glow on focus
 
 **Filter bar (between search bar and stats ribbon):**
@@ -134,8 +134,8 @@ must be inlined.
   radio behavior (one active at a time)
 - **Type group:** `All` | `Skills` | `MCPs` —
   radio behavior (one active at a time)
-- Active pill: `#667eea` background, white text
-- Inactive pill: `#1a1a2e` background, `#94a3b8` text
+- Active pill: `#D97706` background, white text
+- Inactive pill: `#F5EDE4` background, `#6B6560` text
 - Rounded corners, smooth transitions
 - Filters combine with search bar as AND conditions
 
@@ -154,7 +154,7 @@ must be inlined.
   6. **Project Items** — count of visible items with
      scope `"project"`
 - Grid: `repeat(auto-fill, minmax(150px, 1fr))`
-- Each stat box: subtle background (`#1a1a2e`), large
+- Each stat box: subtle background (`#F5F0EB`), large
   number, small label below
 
 **Category sections:**
@@ -172,10 +172,10 @@ must be inlined.
 - Add `data-scope` and `data-type="skill"` attributes
   to each card element
 - **Scope badge** in top-right corner:
-  - Global: `#1e3a5f` bg, `#60a5fa` text
-  - Project: `#1e3a2e` bg, `#4ade80` text
+  - Global: `#FFF7ED` bg, `#B45309` text
+  - Project: `#F0FDF4` bg, `#15803D` text
 - Card shows:
-  - Skill name (bold, white)
+  - Skill name (bold, `#2D2B27`)
   - Description (first 120 chars visible;
     "Show more" toggle if longer)
   - Capability tags extracted from the body (look for
@@ -193,17 +193,17 @@ must be inlined.
 
 **MCP Server section (below all skill categories):**
 
-- Header: "MCP Servers" with `#06b6d4` left-border
+- Header: "MCP Servers" with `#D97706` left-border
   bar + count badge
 - Same responsive grid as skill categories
 - Section hidden entirely when zero MCP servers are
   visible
 - **MCP card** shows:
-  - Server name (bold, white)
+  - Server name (bold, `#2D2B27`)
   - Scope badge in top-right corner (same colors as
     skill scope badges)
-  - Type badge: "MCP" pill in cyan (`#06b6d4` bg,
-    white text)
+  - Type badge: "MCP" pill (`#92400E` bg,
+    `#FFFFFF` text)
   - Command block: `command args...` in monospace
     with a copy-to-clipboard button
   - Env var keys as pill badges (keys only, never
@@ -256,7 +256,7 @@ open /tmp/claude-skills-dashboard.html
 
 - Always re-scan skills and MCPs fresh each invocation
   (don't cache)
-- Include `visualize-skills` itself in the dashboard
+- Include `visualize-setup` itself in the dashboard
 - The HTML must be fully self-contained with zero
   external requests
 - Use semantic HTML (`<main>`, `<section>`,
