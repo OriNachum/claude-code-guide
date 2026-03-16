@@ -282,6 +282,24 @@ extract_mcp_servers "$PWD/.mcp.json" "project" ".mcpServers"
 # --- Game data ---
 
 GAME_FILE="${CLAUDE_PLUGIN_ROOT:-.}/.local/game-data.json"
+
+# Fallback: search older cached plugin versions if current game data missing
+if [ ! -f "$GAME_FILE" ]; then
+  CACHE_BASE="$HOME/.claude/plugins/cache/claude-code-guide/guide"
+  if [ -d "$CACHE_BASE" ]; then
+    for dir in "$CACHE_BASE"/*/; do
+      candidate="${dir}.local/game-data.json"
+      [ -f "$candidate" ] || continue
+      if [ "$(jq -r '.enabled' "$candidate" 2>/dev/null)" = "true" ]; then
+        if [ -z "${GAME_FILE_FALLBACK:-}" ] || [ "$candidate" -nt "$GAME_FILE_FALLBACK" ]; then
+          GAME_FILE_FALLBACK="$candidate"
+        fi
+      fi
+    done
+    [ -n "${GAME_FILE_FALLBACK:-}" ] && GAME_FILE="$GAME_FILE_FALLBACK"
+  fi
+fi
+
 GAME_JSON="null"
 if [ -f "$GAME_FILE" ] && [ "$(jq -r '.enabled' "$GAME_FILE" 2>/dev/null)" = "true" ]; then
   GAME_JSON="$(jq '{ features, skillUsage, mcpUsage, agentUsage, sessionCount }' "$GAME_FILE")"
