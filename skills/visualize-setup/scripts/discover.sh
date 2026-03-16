@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 set -euo pipefail
 
-# Discovers skills, MCP servers, and game data → outputs JSON to stdout.
+# Discovers skills, MCP servers, sub agents, and game data → outputs JSON to stdout.
 # Requires: jq, awk
 
 # --- Helpers ---
@@ -112,6 +112,10 @@ process_skill_file() {
     }'
 }
 
+# --- Shared constants ---
+
+INSTALLED_PLUGINS="$HOME/.claude/plugins/installed_plugins.json"
+
 # --- Collect skills ---
 
 SKILLS_ARRAY="[]"
@@ -135,7 +139,6 @@ if [ -d "$PWD/.claude/skills" ]; then
 fi
 
 # Step 1e — Plugin-installed skills
-INSTALLED_PLUGINS="$HOME/.claude/plugins/installed_plugins.json"
 if [ -f "$INSTALLED_PLUGINS" ]; then
   while IFS= read -r install_path; do
     [ -n "$install_path" ] || continue
@@ -154,6 +157,82 @@ if [ -f "$INSTALLED_PLUGINS" ]; then
         [ -f "$file" ] || continue
         skill_json="$(process_skill_file "$file" "plugin" "$plugin_name")"
         SKILLS_ARRAY="$(echo "$SKILLS_ARRAY" | jq --argjson s "$skill_json" '. + [$s]')"
+      done
+    fi
+  done < <(jq -r '.plugins | to_entries[] | .value[0].installPath // empty' "$INSTALLED_PLUGINS" 2>/dev/null)
+fi
+
+# --- Collect agents ---
+
+AGENTS_ARRAY="[]"
+
+process_agent_file() {
+  local file="$1" scope="$2" plugin_name="${3:-}"
+
+  local agent_name
+  agent_name="$(basename "$file" .md)"
+
+  # Parse YAML frontmatter fields
+  local DESC MODEL TOOLS
+  DESC="$(get_frontmatter_field "$file" "description")"
+  MODEL="$(get_frontmatter_field "$file" "model")"
+  MODEL="${MODEL:-sonnet}"
+  TOOLS="$(get_frontmatter_field "$file" "allowed-tools")"
+
+  jq -n \
+    --arg name "$agent_name" \
+    --arg description "$DESC" \
+    --arg model "$MODEL" \
+    --arg tools "$TOOLS" \
+    --arg scope "$scope" \
+    --arg type "agent" \
+    --arg pluginName "$plugin_name" \
+    '{
+      name: $name,
+      description: $description,
+      model: $model,
+      tools: $tools,
+      scope: $scope,
+      type: $type,
+      pluginName: (if $pluginName == "" then null else $pluginName end)
+    }'
+}
+
+# Global agents
+if [ -d "$HOME/.claude/agents" ]; then
+  for file in "$HOME"/.claude/agents/*.md; do
+    [ -f "$file" ] || continue
+    agent_json="$(process_agent_file "$file" "global")"
+    AGENTS_ARRAY="$(echo "$AGENTS_ARRAY" | jq --argjson a "$agent_json" '. + [$a]')"
+  done
+fi
+
+# Project-level agents
+if [ -d "$PWD/.claude/agents" ]; then
+  for file in "$PWD"/.claude/agents/*.md; do
+    [ -f "$file" ] || continue
+    agent_json="$(process_agent_file "$file" "project")"
+    AGENTS_ARRAY="$(echo "$AGENTS_ARRAY" | jq --argjson a "$agent_json" '. + [$a]')"
+  done
+fi
+
+# Plugin-installed agents
+if [ -f "$INSTALLED_PLUGINS" ]; then
+  while IFS= read -r install_path; do
+    [ -n "$install_path" ] || continue
+    [ -d "$install_path" ] || continue
+
+    local_plugin_json="${install_path}/.claude-plugin/plugin.json"
+    plugin_name=""
+    if [ -f "$local_plugin_json" ]; then
+      plugin_name="$(jq -r '.name // ""' "$local_plugin_json")"
+    fi
+
+    if [ -d "${install_path}/agents" ]; then
+      for file in "${install_path}"/agents/*.md; do
+        [ -f "$file" ] || continue
+        agent_json="$(process_agent_file "$file" "plugin" "$plugin_name")"
+        AGENTS_ARRAY="$(echo "$AGENTS_ARRAY" | jq --argjson a "$agent_json" '. + [$a]')"
       done
     fi
   done < <(jq -r '.plugins | to_entries[] | .value[0].installPath // empty' "$INSTALLED_PLUGINS" 2>/dev/null)
@@ -205,7 +284,7 @@ extract_mcp_servers "$PWD/.mcp.json" "project" ".mcpServers"
 GAME_FILE="${CLAUDE_PLUGIN_ROOT:-.}/.local/game-data.json"
 GAME_JSON="null"
 if [ -f "$GAME_FILE" ] && [ "$(jq -r '.enabled' "$GAME_FILE" 2>/dev/null)" = "true" ]; then
-  GAME_JSON="$(jq '{ features, skillUsage, sessionCount }' "$GAME_FILE")"
+  GAME_JSON="$(jq '{ features, skillUsage, mcpUsage, agentUsage, sessionCount }' "$GAME_FILE")"
 fi
 
 # --- Final output ---
@@ -213,5 +292,6 @@ fi
 jq -n \
   --argjson skills "$SKILLS_ARRAY" \
   --argjson mcpServers "$MCP_ARRAY" \
+  --argjson agents "$AGENTS_ARRAY" \
   --argjson gameData "$GAME_JSON" \
-  '{ skills: $skills, mcpServers: $mcpServers, gameData: $gameData }'
+  '{ skills: $skills, mcpServers: $mcpServers, agents: $agents, gameData: $gameData }'

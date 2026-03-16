@@ -55,6 +55,8 @@
   .badge-belt{padding:0.125rem 0.5rem;border-radius:6px;font-size:0.6875rem;font-weight:500}
   .belt-uses{font-size:0.625rem;color:#6B6560;margin-left:0.25rem}
   .mcp-type-badge{background:#92400E;color:#FFFFFF;padding:0.125rem 0.5rem;border-radius:6px;font-size:0.6875rem;font-weight:600}
+  .agent-model-badge{background:#7C3AED;color:#FFFFFF;padding:0.125rem 0.5rem;border-radius:6px;font-size:0.6875rem;font-weight:600}
+  .agent-tools-tag{padding:0.125rem 0.5rem;border-radius:6px;font-size:0.6875rem;font-weight:500;background:#F5F3FF;color:#7C3AED}
   .mcp-env-tag{padding:0.125rem 0.5rem;border-radius:6px;font-size:0.6875rem;font-weight:500;background:#FEF3C7;color:#92400E}
   .mastery-section{margin-bottom:2rem}
   .mastery-header{display:flex;align-items:center;gap:0.75rem;padding:0.75rem 1rem;border-radius:8px;margin-bottom:1rem;border-left:4px solid #D97706;background:#FFF8F0}
@@ -90,9 +92,9 @@
 <main>
   <header class="header">
     <h1>Claude Code Skills Dashboard</h1>
-    <p>All installed skills, plugins, and MCP servers at a glance</p>
+    <p>All installed skills, plugins, MCP servers, and sub agents at a glance</p>
   </header>
-  <input type="text" class="search-bar" id="searchInput" placeholder="Search skills, plugins, and MCP servers...">
+  <input type="text" class="search-bar" id="searchInput" placeholder="Search skills, plugins, MCP servers, and sub agents...">
   <div class="filter-bar">
     <div class="filter-group">
       <span class="filter-group-label">Scope</span>
@@ -106,6 +108,7 @@
       <button class="pill active" data-filter="type" data-value="all">All</button>
       <button class="pill" data-filter="type" data-value="skill">Skills</button>
       <button class="pill" data-filter="type" data-value="mcp">MCPs</button>
+      <button class="pill" data-filter="type" data-value="agent">Agents</button>
     </div>
   </div>
   <div class="stats-ribbon" id="statsRibbon"></div>
@@ -117,6 +120,13 @@
     </div>
     <div class="cards-grid" id="mcpGrid"></div>
   </section>
+  <section class="category-section" id="agentsSection">
+    <div class="category-header" style="border-left:4px solid #7C3AED">
+      <h2>Sub Agents</h2>
+      <span class="category-badge" id="agentsCount">0</span>
+    </div>
+    <div class="cards-grid" id="agentsGrid"></div>
+  </section>
   <section class="mastery-section hidden" id="masterySection">
     <div class="mastery-header">
       <h2>&#x1F94B; Feature Mastery</h2>
@@ -127,6 +137,7 @@
 <script>
 const skills = __SKILLS_DATA__;
 const mcpServers = __MCP_DATA__;
+const agents = __AGENTS_DATA__;
 const gameData = __GAME_DATA__;
 
 // Belt system
@@ -150,6 +161,16 @@ function getSkillUsage(skill) {
   var key = skill.pluginName ? skill.pluginName+':'+skill.name : skill.name;
   var u = gameData.skillUsage[key];
   return u || {count:0,lastUsed:null};
+}
+
+function getMcpUsage(name) {
+  if (!gameData || !gameData.mcpUsage) return {count:0,lastUsed:null};
+  return gameData.mcpUsage[name] || {count:0,lastUsed:null};
+}
+
+function getAgentUsage(name) {
+  if (!gameData || !gameData.agentUsage) return {count:0,lastUsed:null};
+  return gameData.agentUsage[name] || {count:0,lastUsed:null};
 }
 
 // Group skills by category
@@ -242,12 +263,65 @@ if (mcpServers.length === 0) {
     var scopeLabel = srv.scope.charAt(0).toUpperCase()+srv.scope.slice(1);
     var envHtml = srv.env.map(function(k){return '<span class="mcp-env-tag">'+k+'</span>'}).join('');
 
+    var mcpFooter = '';
+    if (gameData) {
+      var mcpUse = getMcpUsage(srv.name);
+      var mcpBelt = getBelt(mcpUse.count);
+      var mcpBeltBg = mcpBelt.color + '26';
+      mcpFooter = '<div class="card-footer" style="margin-top:0.75rem"><span class="badge-belt" style="background:'+mcpBeltBg+';color:'+mcpBelt.color+'">'+mcpBelt.emoji+' '+mcpBelt.name+(mcpBelt.dans ? ' '+mcpBelt.dans : '')+'</span><span class="belt-uses">('+mcpUse.count+' uses)</span></div>';
+    }
+
     card.innerHTML = '<span class="scope-badge '+scopeClass+'">'+scopeLabel+'</span>'
       +'<div class="card-name">'+srv.name+'</div>'
       +'<span class="mcp-type-badge">MCP</span>'
       +'<div class="cmd-block" style="margin-top:0.75rem"><span class="cmd-text">'+srv.command+' '+srv.args+'</span><button class="copy-btn" onclick="copyCmd(this,\''+srv.command+' '+srv.args+'\')">&#x1F4CB;<span class="copy-tooltip">Copied!</span></button></div>'
-      +(envHtml ? '<div class="cap-tags">'+envHtml+'</div>' : '');
+      +(envHtml ? '<div class="cap-tags">'+envHtml+'</div>' : '')
+      +mcpFooter;
     mcpGrid.appendChild(card);
+  });
+}
+
+// Agents section
+var agentsGrid = document.getElementById('agentsGrid');
+var agentsSection = document.getElementById('agentsSection');
+if (agents.length === 0) {
+  agentsSection.classList.add('hidden');
+} else {
+  document.getElementById('agentsCount').textContent = agents.length;
+  agents.forEach(function(agt) {
+    var card = document.createElement('article');
+    card.className = 'card';
+    card.dataset.scope = agt.scope;
+    card.dataset.type = 'agent';
+    card.dataset.name = agt.name.toLowerCase();
+    card.dataset.desc = (agt.description || '').toLowerCase();
+    card.dataset.cat = 'agent';
+    card.style.animationDelay = (cardIndex * 0.05) + 's';
+    cardIndex++;
+
+    var scopeClass = agt.scope;
+    var scopeLabel = agt.scope.charAt(0).toUpperCase()+agt.scope.slice(1);
+
+    var toolsHtml = '';
+    if (agt.tools) {
+      toolsHtml = agt.tools.split(',').map(function(t){return '<span class="agent-tools-tag">'+t.trim()+'</span>'}).join('');
+    }
+
+    var agtFooter = '';
+    if (gameData) {
+      var agtUse = getAgentUsage(agt.name);
+      var agtBelt = getBelt(agtUse.count);
+      var agtBeltBg = agtBelt.color + '26';
+      agtFooter = '<span class="badge-belt" style="background:'+agtBeltBg+';color:'+agtBelt.color+'">'+agtBelt.emoji+' '+agtBelt.name+(agtBelt.dans ? ' '+agtBelt.dans : '')+'</span><span class="belt-uses">('+agtUse.count+' uses)</span>';
+    }
+
+    card.innerHTML = '<span class="scope-badge '+scopeClass+'">'+scopeLabel+'</span>'
+      +'<div class="card-name">'+agt.name+'</div>'
+      +'<div class="card-desc">'+((agt.description || '').length > 120 ? agt.description.slice(0,120)+'\u2026' : (agt.description || ''))+'</div>'
+      +'<span class="agent-model-badge">'+agt.model+'</span>'
+      +(toolsHtml ? '<div class="cap-tags" style="margin-top:0.5rem">'+toolsHtml+'</div>' : '')
+      +'<div class="card-footer" style="margin-top:0.75rem">'+agtFooter+'</div>';
+    agentsGrid.appendChild(card);
   });
 }
 
@@ -304,6 +378,7 @@ function updateStats() {
   var ribbon = document.getElementById('statsRibbon');
   var visibleSkills = document.querySelectorAll('[data-type="skill"]:not(.hidden)');
   var visibleMcp = document.querySelectorAll('[data-type="mcp"]:not(.hidden)');
+  var visibleAgents = document.querySelectorAll('[data-type="agent"]:not(.hidden)');
 
   var totalSkills = visibleSkills.length;
   var catSet = new Set();
@@ -330,6 +405,7 @@ function updateStats() {
     {num:withScripts,label:'With Scripts'},
     {num:licensed,label:'Licensed'},
     {num:visibleMcp.length,label:'MCP Servers'},
+    {num:visibleAgents.length,label:'Sub Agents'},
     {num:pluginCount,label:'Plugin Skills'}
   ];
 

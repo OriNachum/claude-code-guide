@@ -9,18 +9,20 @@ OUTPUT="/tmp/claude-skills-dashboard.html"
 # Run discovery
 DATA="$("${SCRIPT_DIR}/discover.sh")"
 
-# Extract the three data pieces
+# Extract the four data pieces
 SKILLS_JSON="$(echo "$DATA" | jq -c '.skills')"
 MCP_JSON="$(echo "$DATA" | jq -c '.mcpServers')"
+AGENTS_JSON="$(echo "$DATA" | jq -c '.agents')"
 GAME_JSON="$(echo "$DATA" | jq -c '.gameData')"
 
 # Inject into template — use ENVIRON to avoid awk -v escape processing,
 # and printf+substr to avoid gsub & replacement issues.
-export SKILLS_JSON MCP_JSON GAME_JSON
+export SKILLS_JSON MCP_JSON AGENTS_JSON GAME_JSON
 awk '
   BEGIN {
     skills = ENVIRON["SKILLS_JSON"]
     mcp    = ENVIRON["MCP_JSON"]
+    agents = ENVIRON["AGENTS_JSON"]
     game   = ENVIRON["GAME_JSON"]
   }
   function replace(line, placeholder, value,    p, len) {
@@ -33,6 +35,7 @@ awk '
   {
     $0 = replace($0, "__SKILLS_DATA__", skills)
     $0 = replace($0, "__MCP_DATA__", mcp)
+    $0 = replace($0, "__AGENTS_DATA__", agents)
     $0 = replace($0, "__GAME_DATA__", game)
     printf "%s\n", $0
   }

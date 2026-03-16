@@ -73,3 +73,29 @@ jq --arg cat "$CATEGORY" --arg now "$NOW" '
   .features[$cat].count += 1 |
   .features[$cat].lastUsed = $now
 ' "$DATA_FILE" > "$TMPFILE" && mv "$TMPFILE" "$DATA_FILE"
+
+# Per-item MCP server tracking (mcp__<server>__<tool> → server)
+if [[ "$TOOL_NAME" == mcp__* ]]; then
+  SERVER_NAME="${TOOL_NAME#mcp__}"
+  SERVER_NAME="${SERVER_NAME%%__*}"
+  if [ -n "$SERVER_NAME" ]; then
+    TMPFILE="$(mktemp "${DATA_FILE}.XXXXXX")"
+    jq --arg srv "$SERVER_NAME" --arg now "$NOW" '
+      .mcpUsage[$srv] //= {"count":0,"lastUsed":null} |
+      .mcpUsage[$srv].count += 1 |
+      .mcpUsage[$srv].lastUsed = $now
+    ' "$DATA_FILE" > "$TMPFILE" && mv "$TMPFILE" "$DATA_FILE"
+  fi
+fi
+
+# Per-item agent tracking (only user-defined agents, not built-in)
+if [ "$TOOL_NAME" = "Agent" ] && [ "$CATEGORY" = "agents" ]; then
+  if [ -n "$SUBAGENT_TYPE" ]; then
+    TMPFILE="$(mktemp "${DATA_FILE}.XXXXXX")"
+    jq --arg agt "$SUBAGENT_TYPE" --arg now "$NOW" '
+      .agentUsage[$agt] //= {"count":0,"lastUsed":null} |
+      .agentUsage[$agt].count += 1 |
+      .agentUsage[$agt].lastUsed = $now
+    ' "$DATA_FILE" > "$TMPFILE" && mv "$TMPFILE" "$DATA_FILE"
+  fi
+fi
