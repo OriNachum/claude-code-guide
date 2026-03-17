@@ -6,6 +6,8 @@ set -euo pipefail
 
 # --- Helpers ---
 
+SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+
 get_frontmatter_field() {
   local file="$1" field="$2"
   awk -v f="$field" '
@@ -57,6 +59,10 @@ process_skill_file() {
   local has_scripts=false
   [ -d "$skill_dir/scripts" ] && has_scripts=true
 
+  # Context cost (file size in bytes)
+  local context_bytes
+  context_bytes="$(wc -c < "$file" | tr -d ' ')"
+
   # Extract body (after second ---)
   local body
   body="$(awk '/^---$/{n++;next} n>=2' "$file")"
@@ -96,6 +102,7 @@ process_skill_file() {
     --arg type "skill" \
     --arg pluginName "$plugin_name" \
     --arg cmd "$cmd" \
+    --argjson contextBytes "$context_bytes" \
     '{
       name: $name,
       description: $description,
@@ -108,7 +115,8 @@ process_skill_file() {
       scope: $scope,
       type: $type,
       pluginName: (if $pluginName == "" then null else $pluginName end),
-      cmd: $cmd
+      cmd: $cmd,
+      contextBytes: $contextBytes
     }'
 }
 
@@ -179,6 +187,10 @@ process_agent_file() {
   MODEL="${MODEL:-sonnet}"
   TOOLS="$(get_frontmatter_field "$file" "allowed-tools")"
 
+  # Context cost (file size in bytes)
+  local context_bytes
+  context_bytes="$(wc -c < "$file" | tr -d ' ')"
+
   jq -n \
     --arg name "$agent_name" \
     --arg description "$DESC" \
@@ -187,6 +199,7 @@ process_agent_file() {
     --arg scope "$scope" \
     --arg type "agent" \
     --arg pluginName "$plugin_name" \
+    --argjson contextBytes "$context_bytes" \
     '{
       name: $name,
       description: $description,
@@ -194,7 +207,8 @@ process_agent_file() {
       tools: $tools,
       scope: $scope,
       type: $type,
-      pluginName: (if $pluginName == "" then null else $pluginName end)
+      pluginName: (if $pluginName == "" then null else $pluginName end),
+      contextBytes: $contextBytes
     }'
 }
 
@@ -254,20 +268,28 @@ extract_mcp_servers() {
     local decoded
     decoded="$(echo "$entry" | base64 --decode)"
 
-    local name command args env_keys
+    local name command args_str env_keys
     name="$(echo "$decoded" | jq -r '.key')"
     command="$(echo "$decoded" | jq -r '.value.command // ""')"
-    args="$(echo "$decoded" | jq -r '.value.args // [] | join(" ")')"
+    args_str="$(echo "$decoded" | jq -r '.value.args // [] | join(" ")')"
     env_keys="$(echo "$decoded" | jq '[.value.env // {} | keys[]]')"
+
+    # Query MCP server for tool schema size
+    local context_bytes
+    local args_array
+    args_array="$(echo "$decoded" | jq -r '.value.args // [] | .[]')"
+    # shellcheck disable=SC2086
+    context_bytes="$("${SCRIPT_DIR}/query-mcp.sh" "$command" $args_array 2>/dev/null || echo "-1")"
 
     local srv
     srv="$(jq -n \
       --arg name "$name" \
       --arg command "$command" \
-      --arg args "$args" \
+      --arg args "$args_str" \
       --argjson env "$env_keys" \
       --arg scope "$scope" \
-      '{name: $name, command: $command, args: $args, env: $env, scope: $scope}')"
+      --argjson contextBytes "$context_bytes" \
+      '{name: $name, command: $command, args: $args, env: $env, scope: $scope, contextBytes: $contextBytes}')"
 
     MCP_ARRAY="$(echo "$MCP_ARRAY" | jq --argjson s "$srv" '. + [$s]')"
   done

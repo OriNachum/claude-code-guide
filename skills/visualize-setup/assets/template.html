@@ -69,6 +69,20 @@
   .mastery-belt{font-size:0.8125rem;color:#6B6560;margin-top:0.25rem}
   .mastery-count{font-size:0.75rem;color:#6B6560}
   .mastery-tier{font-size:0.6875rem;color:#6B6560;margin-top:0.25rem}
+  .context-badge{display:inline-flex;align-items:center;gap:0.25rem;padding:0.125rem 0.5rem;border-radius:6px;font-size:0.6875rem;font-weight:600}
+  .context-badge.tier-low{background:#F0FDF4;color:#15803D}
+  .context-badge.tier-medium{background:#FFFBEB;color:#B45309}
+  .context-badge.tier-high{background:#FEF2F2;color:#DC2626}
+  .context-badge.tier-unknown{background:#F5F0EB;color:#6B6560}
+  .context-summary{background:#FFFFFF;border:1px solid #E5DDD4;border-radius:12px;padding:1.5rem;margin-bottom:2rem}
+  .context-summary h3{font-size:1rem;font-weight:700;color:#2D2B27;margin-bottom:1rem}
+  .context-summary-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(140px,1fr));gap:0.75rem;margin-bottom:1rem}
+  .context-summary-item{text-align:center}
+  .context-summary-item .ctx-num{font-size:1.5rem;font-weight:700;color:#1A1A1A}
+  .context-summary-item .ctx-label{font-size:0.75rem;color:#6B6560;text-transform:uppercase;letter-spacing:0.05em}
+  .context-bar{width:100%;height:8px;background:#F5F0EB;border-radius:4px;overflow:hidden}
+  .context-bar-fill{height:100%;border-radius:4px;transition:width 0.4s ease}
+  .context-bar-label{display:flex;justify-content:space-between;font-size:0.75rem;color:#6B6560;margin-top:0.375rem}
   .hidden{display:none!important}
   @keyframes fadeInUp{
     from{opacity:0;transform:translateY(20px)}
@@ -110,8 +124,15 @@
       <button class="pill" data-filter="type" data-value="mcp">MCPs</button>
       <button class="pill" data-filter="type" data-value="agent">Agents</button>
     </div>
+    <div class="filter-group">
+      <span class="filter-group-label">Sort</span>
+      <button class="pill active" data-filter="sort" data-value="default">Default</button>
+      <button class="pill" data-filter="sort" data-value="cost-asc">Cost &#x2191;</button>
+      <button class="pill" data-filter="sort" data-value="cost-desc">Cost &#x2193;</button>
+    </div>
   </div>
   <div class="stats-ribbon" id="statsRibbon"></div>
+  <div class="context-summary hidden" id="contextSummary"></div>
   <div id="categorySections"></div>
   <section class="category-section" id="mcpSection">
     <div class="category-header" style="border-left:4px solid #D97706">
@@ -154,6 +175,23 @@ function getBelt(count) {
   if (count >= 32) return {emoji:'\ud83d\udfe0',name:'Orange Belt',color:'#FB923C',dans:''};
   if (count >= 16) return {emoji:'\ud83d\udfe1',name:'Yellow Belt',color:'#FDE047',dans:''};
   return {emoji:'\u26aa',name:'White Belt',color:'#E5E7EB',dans:''};
+}
+
+var CHARS_PER_TOKEN = 4;
+function bytesToTokens(b) { return Math.ceil(b / CHARS_PER_TOKEN); }
+function formatTokens(t) {
+  if (t >= 1000) return (t / 1000).toFixed(1).replace(/\.0$/, '') + 'K';
+  return '' + t;
+}
+function formatBytes(b) {
+  if (b >= 1024) return (b / 1024).toFixed(1).replace(/\.0$/, '') + ' KB';
+  return b + ' B';
+}
+function contextTier(bytes) {
+  var tokens = bytesToTokens(bytes);
+  if (tokens <= 500) return 'low';
+  if (tokens <= 2000) return 'medium';
+  return 'high';
 }
 
 function getSkillUsage(skill) {
@@ -204,6 +242,7 @@ categoryOrder.forEach(function(cat) {
     card.dataset.name = skill.name.toLowerCase();
     card.dataset.desc = skill.description.toLowerCase();
     card.dataset.cat = skill.category.toLowerCase();
+    card.dataset.contextBytes = skill.contextBytes || 0;
     card.style.animationDelay = (cardIndex * 0.05) + 's';
     cardIndex++;
 
@@ -215,7 +254,12 @@ categoryOrder.forEach(function(cat) {
 
     var capTagsHtml = skill.capTags.map(function(t){return '<span class="cap-tag">'+t+'</span>'}).join('');
 
+    var skillCtxBytes = skill.contextBytes || 0;
+    var skillCtxTokens = bytesToTokens(skillCtxBytes);
+    var skillCtxTier = contextTier(skillCtxBytes);
+
     var footerHtml = '';
+    footerHtml += '<span class="context-badge tier-'+skillCtxTier+'">\ud83d\udcca '+formatTokens(skillCtxTokens)+' tokens</span>';
     if (skill.license !== '\u2014') footerHtml += '<span class="footer-badge badge-license">'+skill.license+'</span>';
     if (skill.has_scripts) footerHtml += '<span class="footer-badge badge-scripts">Has Scripts</span>';
 
@@ -256,12 +300,22 @@ if (mcpServers.length === 0) {
     card.dataset.name = srv.name.toLowerCase();
     card.dataset.desc = '';
     card.dataset.cat = 'mcp';
+    card.dataset.contextBytes = srv.contextBytes != null ? srv.contextBytes : -1;
     card.style.animationDelay = (cardIndex * 0.05) + 's';
     cardIndex++;
 
     var scopeClass = srv.scope;
     var scopeLabel = srv.scope.charAt(0).toUpperCase()+srv.scope.slice(1);
     var envHtml = srv.env.map(function(k){return '<span class="mcp-env-tag">'+k+'</span>'}).join('');
+
+    var mcpCtxBadge = '';
+    if (srv.contextBytes != null && srv.contextBytes > 0) {
+      var mcpCtxTokens = bytesToTokens(srv.contextBytes);
+      var mcpCtxTier = contextTier(srv.contextBytes);
+      mcpCtxBadge = '<span class="context-badge tier-'+mcpCtxTier+'">\ud83d\udcca '+formatTokens(mcpCtxTokens)+' tokens</span>';
+    } else {
+      mcpCtxBadge = '<span class="context-badge tier-unknown" title="Server was unreachable or timed out">\ud83d\udcca ? tokens</span>';
+    }
 
     var mcpFooter = '';
     if (gameData) {
@@ -273,7 +327,7 @@ if (mcpServers.length === 0) {
 
     card.innerHTML = '<span class="scope-badge '+scopeClass+'">'+scopeLabel+'</span>'
       +'<div class="card-name">'+srv.name+'</div>'
-      +'<span class="mcp-type-badge">MCP</span>'
+      +'<span class="mcp-type-badge">MCP</span> '+mcpCtxBadge
       +'<div class="cmd-block" style="margin-top:0.75rem"><span class="cmd-text">'+srv.command+' '+srv.args+'</span><button class="copy-btn" onclick="copyCmd(this,\''+srv.command+' '+srv.args+'\')">&#x1F4CB;<span class="copy-tooltip">Copied!</span></button></div>'
       +(envHtml ? '<div class="cap-tags">'+envHtml+'</div>' : '')
       +mcpFooter;
@@ -296,11 +350,16 @@ if (agents.length === 0) {
     card.dataset.name = agt.name.toLowerCase();
     card.dataset.desc = (agt.description || '').toLowerCase();
     card.dataset.cat = 'agent';
+    card.dataset.contextBytes = agt.contextBytes || 0;
     card.style.animationDelay = (cardIndex * 0.05) + 's';
     cardIndex++;
 
     var scopeClass = agt.scope;
     var scopeLabel = agt.scope.charAt(0).toUpperCase()+agt.scope.slice(1);
+
+    var agtCtxBytes = agt.contextBytes || 0;
+    var agtCtxTokens = bytesToTokens(agtCtxBytes);
+    var agtCtxTier = contextTier(agtCtxBytes);
 
     var toolsHtml = '';
     if (agt.tools) {
@@ -308,11 +367,12 @@ if (agents.length === 0) {
     }
 
     var agtFooter = '';
+    agtFooter += '<span class="context-badge tier-'+agtCtxTier+'">\ud83d\udcca '+formatTokens(agtCtxTokens)+' tokens</span>';
     if (gameData) {
       var agtUse = getAgentUsage(agt.name);
       var agtBelt = getBelt(agtUse.count);
       var agtBeltBg = agtBelt.color + '26';
-      agtFooter = '<span class="badge-belt" style="background:'+agtBeltBg+';color:'+agtBelt.color+'">'+agtBelt.emoji+' '+agtBelt.name+(agtBelt.dans ? ' '+agtBelt.dans : '')+'</span><span class="belt-uses">('+agtUse.count+' uses)</span>';
+      agtFooter += '<span class="badge-belt" style="background:'+agtBeltBg+';color:'+agtBelt.color+'">'+agtBelt.emoji+' '+agtBelt.name+(agtBelt.dans ? ' '+agtBelt.dans : '')+'</span><span class="belt-uses">('+agtUse.count+' uses)</span>';
     }
 
     card.innerHTML = '<span class="scope-badge '+scopeClass+'">'+scopeLabel+'</span>'
@@ -373,6 +433,44 @@ function renderFeatureMastery() {
 }
 renderFeatureMastery();
 
+// Context summary
+function updateContextSummary() {
+  var container = document.getElementById('contextSummary');
+  var skillsBytes = 0;
+  skills.forEach(function(s) { skillsBytes += s.contextBytes || 0; });
+  var agentsBytes = 0;
+  agents.forEach(function(a) { agentsBytes += a.contextBytes || 0; });
+  var mcpBytes = 0;
+  var mcpUnknown = 0;
+  mcpServers.forEach(function(s) {
+    if (s.contextBytes != null && s.contextBytes > 0) {
+      mcpBytes += s.contextBytes;
+    } else {
+      mcpUnknown++;
+    }
+  });
+
+  var totalBytes = skillsBytes + agentsBytes + mcpBytes;
+  var totalTokens = bytesToTokens(totalBytes);
+  var windowSize = 200000;
+  var pct = Math.min((totalTokens / windowSize) * 100, 100);
+  var barColor = pct < 10 ? '#15803D' : pct < 25 ? '#B45309' : '#DC2626';
+
+  var mcpNote = mcpUnknown > 0 ? ' <span style="font-size:0.75rem;color:#6B6560">(' + mcpUnknown + ' unknown)</span>' : '';
+
+  container.classList.remove('hidden');
+  container.innerHTML = '<h3>\ud83d\udcca Context Cost Overview</h3>'
+    + '<div class="context-summary-grid">'
+    + '<div class="context-summary-item"><div class="ctx-num">' + formatTokens(totalTokens) + '</div><div class="ctx-label">Total Tokens</div></div>'
+    + '<div class="context-summary-item"><div class="ctx-num">' + formatTokens(bytesToTokens(skillsBytes)) + '</div><div class="ctx-label">Skills</div></div>'
+    + '<div class="context-summary-item"><div class="ctx-num">' + formatTokens(bytesToTokens(agentsBytes)) + '</div><div class="ctx-label">Agents</div></div>'
+    + '<div class="context-summary-item"><div class="ctx-num">' + formatTokens(bytesToTokens(mcpBytes)) + mcpNote + '</div><div class="ctx-label">MCP Servers</div></div>'
+    + '</div>'
+    + '<div class="context-bar"><div class="context-bar-fill" style="width:' + pct.toFixed(1) + '%;background:' + barColor + '"></div></div>'
+    + '<div class="context-bar-label"><span>' + pct.toFixed(1) + '% of 200K context window</span><span>' + formatTokens(totalTokens) + ' / 200K tokens</span></div>';
+}
+updateContextSummary();
+
 // Stats ribbon
 function updateStats() {
   var ribbon = document.getElementById('statsRibbon');
@@ -418,6 +516,14 @@ function updateStats() {
     stats.push({num:totalUses,label:'Total Uses'});
   }
 
+  // Context cost stat from visible cards
+  var visibleCtxBytes = 0;
+  document.querySelectorAll('.card:not(.hidden)').forEach(function(c) {
+    var cb = parseInt(c.dataset.contextBytes, 10);
+    if (cb > 0) visibleCtxBytes += cb;
+  });
+  stats.push({num:formatTokens(bytesToTokens(visibleCtxBytes)),label:'Context Cost'});
+
   ribbon.innerHTML = stats.map(function(s){
     return '<div class="stat-box"><div class="stat-number">'+s.num+'</div><div class="stat-label">'+s.label+'</div></div>';
   }).join('');
@@ -426,6 +532,29 @@ function updateStats() {
 // Filtering
 var activeScope = 'all';
 var activeType = 'all';
+var activeSort = 'default';
+
+function sortCards() {
+  if (activeSort === 'default') return;
+  document.querySelectorAll('.cards-grid').forEach(function(grid) {
+    var cards = Array.from(grid.querySelectorAll('.card:not(.hidden)'));
+    if (cards.length === 0) return;
+    cards.sort(function(a, b) {
+      var aBytes = parseInt(a.dataset.contextBytes, 10) || 0;
+      var bBytes = parseInt(b.dataset.contextBytes, 10) || 0;
+      // Treat -1 (unknown) as max for ascending, 0 for descending
+      if (aBytes < 0) aBytes = activeSort === 'cost-asc' ? 999999999 : 0;
+      if (bBytes < 0) bBytes = activeSort === 'cost-asc' ? 999999999 : 0;
+      return activeSort === 'cost-asc' ? aBytes - bBytes : bBytes - aBytes;
+    });
+    cards.forEach(function(card) { grid.appendChild(card); });
+  });
+}
+
+function sortAndFilter() {
+  filterAll();
+  sortCards();
+}
 
 function filterAll() {
   var query = document.getElementById('searchInput').value.toLowerCase();
@@ -463,7 +592,7 @@ document.querySelectorAll('.pill[data-filter="scope"]').forEach(function(btn) {
     document.querySelectorAll('.pill[data-filter="scope"]').forEach(function(b){b.classList.remove('active')});
     btn.classList.add('active');
     activeScope = btn.dataset.value;
-    filterAll();
+    sortAndFilter();
   });
 });
 document.querySelectorAll('.pill[data-filter="type"]').forEach(function(btn) {
@@ -471,11 +600,19 @@ document.querySelectorAll('.pill[data-filter="type"]').forEach(function(btn) {
     document.querySelectorAll('.pill[data-filter="type"]').forEach(function(b){b.classList.remove('active')});
     btn.classList.add('active');
     activeType = btn.dataset.value;
-    filterAll();
+    sortAndFilter();
+  });
+});
+document.querySelectorAll('.pill[data-filter="sort"]').forEach(function(btn) {
+  btn.addEventListener('click', function() {
+    document.querySelectorAll('.pill[data-filter="sort"]').forEach(function(b){b.classList.remove('active')});
+    btn.classList.add('active');
+    activeSort = btn.dataset.value;
+    sortAndFilter();
   });
 });
 
-document.getElementById('searchInput').addEventListener('input', filterAll);
+document.getElementById('searchInput').addEventListener('input', sortAndFilter);
 
 // Copy button
 function copyCmd(btn, text) {
@@ -502,7 +639,7 @@ function toggleDesc(btn) {
 }
 
 // Initial render
-filterAll();
+sortAndFilter();
 </script>
 </body>
 </html>
