@@ -51,8 +51,11 @@ allowed-tools|hooks|mcp|ide|fast|slow|context)
 
   NOW="$(date -u +%Y-%m-%dT%H:%M:%SZ)"
   TMPFILE="$(mktemp "${DATA_FILE}.XXXXXX")"
-  jq --arg cat "$CATEGORY" --arg now "$NOW" '
+  jq --arg cat "$CATEGORY" --arg cmd "$SLASH_CMD" --arg now "$NOW" '
     .features[$cat].count += 1 |
-    .features[$cat].lastUsed = $now
+    .features[$cat].lastUsed = $now |
+    .skillUsage[$cmd] //= {"count": 0, "lastUsed": null} |
+    .skillUsage[$cmd].count += 1 |
+    .skillUsage[$cmd].lastUsed = $now
   ' "$DATA_FILE" > "$TMPFILE" && mv "$TMPFILE" "$DATA_FILE"
 fi

@@ -1,0 +1,645 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Claude Code Skills Dashboard</title>
+<style>
+  *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+  body{background:#FFFAF5;color:#1A1A1A;font-family:system-ui,-apple-system,sans-serif;line-height:1.6}
+  main{max-width:1200px;margin:0 auto;padding:2rem 1.5rem}
+  .header{text-align:center;margin-bottom:2rem}
+  .header h1{font-size:2.5rem;font-weight:800;background:linear-gradient(135deg,#D97706,#B45309);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+  .header p{color:#6B6560;margin-top:0.5rem}
+  .search-bar{width:100%;padding:0.875rem 1.25rem;background:#FFF8F0;border:1px solid #E5DDD4;border-radius:12px;font-size:1rem;color:#1A1A1A;outline:none;transition:all 0.2s ease;margin-bottom:1rem}
+  .search-bar:focus{border-color:#D97706;box-shadow:0 0 0 3px rgba(217,119,6,0.15)}
+  .search-bar::placeholder{color:#6B6560}
+  .filter-bar{display:flex;gap:1.5rem;flex-wrap:wrap;margin-bottom:1rem;align-items:center}
+  .filter-group{display:flex;gap:0.25rem;align-items:center}
+  .filter-group-label{font-size:0.75rem;color:#6B6560;margin-right:0.5rem;font-weight:600;text-transform:uppercase;letter-spacing:0.05em}
+  .pill{padding:0.375rem 0.875rem;border-radius:20px;border:none;cursor:pointer;font-size:0.8125rem;font-weight:500;transition:all 0.2s ease;background:#F5EDE4;color:#6B6560}
+  .pill.active{background:#D97706;color:#fff}
+  .pill:hover:not(.active){background:#EDE5DA}
+  .stats-ribbon{display:grid;grid-template-columns:repeat(auto-fill,minmax(130px,1fr));gap:0.75rem;margin-bottom:2rem}
+  .stat-box{background:#F5F0EB;border-radius:10px;padding:1rem;text-align:center}
+  .stat-box .stat-number{font-size:1.75rem;font-weight:700;color:#1A1A1A}
+  .stat-box .stat-label{font-size:0.75rem;color:#6B6560;margin-top:0.25rem;text-transform:uppercase;letter-spacing:0.05em}
+  .category-section{margin-bottom:2rem}
+  .category-header{display:flex;align-items:center;gap:0.75rem;padding:0.75rem 1rem;border-radius:8px;margin-bottom:1rem}
+  .category-header h2{font-size:1.125rem;font-weight:700;color:#1A1A1A}
+  .category-badge{background:rgba(0,0,0,0.08);padding:0.125rem 0.625rem;border-radius:12px;font-size:0.75rem;font-weight:600;color:#6B6560}
+  .cards-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(340px,1fr));gap:1rem}
+  .card{background:#FFFFFF;border:1px solid #E5DDD4;border-radius:12px;padding:1.25rem;position:relative;transition:all 0.2s ease;opacity:0;animation:fadeInUp 0.4s ease forwards}
+  .card:hover{transform:translateY(-4px);box-shadow:0 8px 25px rgba(0,0,0,0.08)}
+  .scope-badge{position:absolute;top:0.75rem;right:0.75rem;padding:0.125rem 0.5rem;border-radius:8px;font-size:0.6875rem;font-weight:600}
+  .scope-badge.global{background:#FFF7ED;color:#B45309}
+  .scope-badge.project{background:#F0FDF4;color:#15803D}
+  .scope-badge.plugin{background:#F5F3FF;color:#7C3AED}
+  .card-name{font-size:1rem;font-weight:700;color:#2D2B27;margin-bottom:0.5rem;padding-right:4rem}
+  .card-desc{font-size:0.875rem;color:#6B6560;margin-bottom:0.75rem;line-height:1.5}
+  .card-desc-full{display:none}
+  .card-desc-toggle{color:#D97706;cursor:pointer;font-size:0.8125rem;font-weight:500;border:none;background:none;padding:0}
+  .card-desc-toggle:hover{text-decoration:underline}
+  .cap-tags{display:flex;flex-wrap:wrap;gap:0.375rem;margin-bottom:0.75rem}
+  .cap-tag{padding:0.125rem 0.5rem;border-radius:6px;font-size:0.6875rem;font-weight:500;background:#F5EDE4;color:#6B6560}
+  .cmd-block{display:flex;align-items:center;gap:0.5rem;background:#FFF8F0;border:1px solid #E5DDD4;border-radius:8px;padding:0.5rem 0.75rem;margin-bottom:0.75rem}
+  .cmd-text{font-family:'SF Mono',Monaco,Consolas,monospace;font-size:0.8125rem;color:#B45309;flex:1}
+  .copy-btn{background:none;border:none;cursor:pointer;padding:0.25rem;color:#6B6560;font-size:0.875rem;position:relative}
+  .copy-btn:hover{color:#D97706}
+  .copy-tooltip{position:absolute;top:-1.75rem;left:50%;transform:translateX(-50%);background:#1A1A1A;color:#fff;padding:0.125rem 0.5rem;border-radius:4px;font-size:0.6875rem;white-space:nowrap;opacity:0;transition:opacity 0.2s}
+  .copy-tooltip.show{opacity:1}
+  .card-footer{display:flex;flex-wrap:wrap;gap:0.5rem;align-items:center}
+  .footer-badge{padding:0.125rem 0.5rem;border-radius:6px;font-size:0.6875rem;font-weight:500}
+  .badge-license{background:#F0FDF4;color:#15803D}
+  .badge-scripts{background:#FFF7ED;color:#B45309}
+  .badge-belt{padding:0.125rem 0.5rem;border-radius:6px;font-size:0.6875rem;font-weight:500}
+  .belt-uses{font-size:0.625rem;color:#6B6560;margin-left:0.25rem}
+  .mcp-type-badge{background:#92400E;color:#FFFFFF;padding:0.125rem 0.5rem;border-radius:6px;font-size:0.6875rem;font-weight:600}
+  .agent-model-badge{background:#7C3AED;color:#FFFFFF;padding:0.125rem 0.5rem;border-radius:6px;font-size:0.6875rem;font-weight:600}
+  .agent-tools-tag{padding:0.125rem 0.5rem;border-radius:6px;font-size:0.6875rem;font-weight:500;background:#F5F3FF;color:#7C3AED}
+  .mcp-env-tag{padding:0.125rem 0.5rem;border-radius:6px;font-size:0.6875rem;font-weight:500;background:#FEF3C7;color:#92400E}
+  .mastery-section{margin-bottom:2rem}
+  .mastery-header{display:flex;align-items:center;gap:0.75rem;padding:0.75rem 1rem;border-radius:8px;margin-bottom:1rem;border-left:4px solid #D97706;background:#FFF8F0}
+  .mastery-header h2{font-size:1.125rem;font-weight:700;color:#1A1A1A}
+  .tier-subheader{font-size:0.875rem;font-weight:600;color:#6B6560;margin:1rem 0 0.5rem;padding-left:0.25rem}
+  .mastery-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:0.75rem;margin-bottom:0.5rem}
+  .mastery-card{background:#FFFFFF;border:1px solid #E5DDD4;border-radius:8px;padding:0.75rem 1rem;position:relative;transition:all 0.2s ease}
+  .mastery-card:hover{transform:translateY(-2px);box-shadow:0 4px 12px rgba(0,0,0,0.06)}
+  .mastery-name{font-size:0.875rem;font-weight:600;color:#2D2B27}
+  .mastery-belt{font-size:0.8125rem;color:#6B6560;margin-top:0.25rem}
+  .mastery-count{font-size:0.75rem;color:#6B6560}
+  .mastery-tier{font-size:0.6875rem;color:#6B6560;margin-top:0.25rem}
+  .context-badge{display:inline-flex;align-items:center;gap:0.25rem;padding:0.125rem 0.5rem;border-radius:6px;font-size:0.6875rem;font-weight:600}
+  .context-badge.tier-low{background:#F0FDF4;color:#15803D}
+  .context-badge.tier-medium{background:#FFFBEB;color:#B45309}
+  .context-badge.tier-high{background:#FEF2F2;color:#DC2626}
+  .context-badge.tier-unknown{background:#F5F0EB;color:#6B6560}
+  .context-summary{background:#FFFFFF;border:1px solid #E5DDD4;border-radius:12px;padding:1.5rem;margin-bottom:2rem}
+  .context-summary h3{font-size:1rem;font-weight:700;color:#2D2B27;margin-bottom:1rem}
+  .context-summary-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(140px,1fr));gap:0.75rem;margin-bottom:1rem}
+  .context-summary-item{text-align:center}
+  .context-summary-item .ctx-num{font-size:1.5rem;font-weight:700;color:#1A1A1A}
+  .context-summary-item .ctx-label{font-size:0.75rem;color:#6B6560;text-transform:uppercase;letter-spacing:0.05em}
+  .context-bar{width:100%;height:8px;background:#F5F0EB;border-radius:4px;overflow:hidden}
+  .context-bar-fill{height:100%;border-radius:4px;transition:width 0.4s ease}
+  .context-bar-label{display:flex;justify-content:space-between;font-size:0.75rem;color:#6B6560;margin-top:0.375rem}
+  .hidden{display:none!important}
+  @keyframes fadeInUp{
+    from{opacity:0;transform:translateY(20px)}
+    to{opacity:1;transform:translateY(0)}
+  }
+  @media(max-width:768px){
+    main{padding:1rem}
+    .header h1{font-size:1.75rem}
+    .cards-grid{grid-template-columns:1fr}
+    .mastery-grid{grid-template-columns:1fr 1fr}
+  }
+  @media(max-width:480px){
+    .header h1{font-size:1.5rem}
+    .filter-bar{flex-direction:column;gap:0.75rem}
+    .stat-box .stat-number{font-size:1.25rem}
+    .mastery-grid{grid-template-columns:1fr}
+  }
+</style>
+</head>
+<body>
+<main>
+  <header class="header">
+    <h1>Claude Code Skills Dashboard</h1>
+    <p>All installed skills, plugins, MCP servers, and sub agents at a glance</p>
+  </header>
+  <input type="text" class="search-bar" id="searchInput" placeholder="Search skills, plugins, MCP servers, and sub agents...">
+  <div class="filter-bar">
+    <div class="filter-group">
+      <span class="filter-group-label">Scope</span>
+      <button class="pill active" data-filter="scope" data-value="all">All</button>
+      <button class="pill" data-filter="scope" data-value="global">Global</button>
+      <button class="pill" data-filter="scope" data-value="project">Project</button>
+      <button class="pill" data-filter="scope" data-value="plugin">Plugin</button>
+    </div>
+    <div class="filter-group">
+      <span class="filter-group-label">Type</span>
+      <button class="pill active" data-filter="type" data-value="all">All</button>
+      <button class="pill" data-filter="type" data-value="skill">Skills</button>
+      <button class="pill" data-filter="type" data-value="mcp">MCPs</button>
+      <button class="pill" data-filter="type" data-value="agent">Agents</button>
+    </div>
+    <div class="filter-group">
+      <span class="filter-group-label">Sort</span>
+      <button class="pill active" data-filter="sort" data-value="default">Default</button>
+      <button class="pill" data-filter="sort" data-value="cost-asc">Cost &#x2191;</button>
+      <button class="pill" data-filter="sort" data-value="cost-desc">Cost &#x2193;</button>
+    </div>
+  </div>
+  <div class="stats-ribbon" id="statsRibbon"></div>
+  <div class="context-summary hidden" id="contextSummary"></div>
+  <div id="categorySections"></div>
+  <section class="category-section" id="mcpSection">
+    <div class="category-header" style="border-left:4px solid #D97706">
+      <h2>MCP Servers</h2>
+      <span class="category-badge" id="mcpCount">0</span>
+    </div>
+    <div class="cards-grid" id="mcpGrid"></div>
+  </section>
+  <section class="category-section" id="agentsSection">
+    <div class="category-header" style="border-left:4px solid #7C3AED">
+      <h2>Sub Agents</h2>
+      <span class="category-badge" id="agentsCount">0</span>
+    </div>
+    <div class="cards-grid" id="agentsGrid"></div>
+  </section>
+  <section class="mastery-section hidden" id="masterySection">
+    <div class="mastery-header">
+      <h2>&#x1F94B; Feature Mastery</h2>
+    </div>
+    <div id="masteryContent"></div>
+  </section>
+</main>
+<script>
+const skills = __SKILLS_DATA__;
+const mcpServers = __MCP_DATA__;
+const agents = __AGENTS_DATA__;
+const gameData = __GAME_DATA__;
+
+// Belt system
+function getBelt(count) {
+  if (count >= 16384) return {emoji:'\u26ab',name:'Black Belt',color:'#1F2937',dans:'\u25fb\u25fb\u25fb\u25fb\u25fb'};
+  if (count >= 8192) return {emoji:'\u26ab',name:'Black Belt',color:'#1F2937',dans:'\u25fb\u25fb\u25fb\u25fb'};
+  if (count >= 4096) return {emoji:'\u26ab',name:'Black Belt',color:'#1F2937',dans:'\u25fb\u25fb\u25fb'};
+  if (count >= 2048) return {emoji:'\u26ab',name:'Black Belt',color:'#1F2937',dans:'\u25fb\u25fb'};
+  if (count >= 1024) return {emoji:'\u26ab',name:'Black Belt',color:'#1F2937',dans:'\u25fb'};
+  if (count >= 512) return {emoji:'\u26ab',name:'Black Belt',color:'#1F2937',dans:''};
+  if (count >= 256) return {emoji:'\ud83d\udfe4',name:'Brown Belt',color:'#A16207',dans:''};
+  if (count >= 128) return {emoji:'\ud83d\udfe2',name:'Blue Belt',color:'#60A5FA',dans:''};
+  if (count >= 64) return {emoji:'\ud83d\udfe2',name:'Green Belt',color:'#4ADE80',dans:''};
+  if (count >= 32) return {emoji:'\ud83d\udfe0',name:'Orange Belt',color:'#FB923C',dans:''};
+  if (count >= 16) return {emoji:'\ud83d\udfe1',name:'Yellow Belt',color:'#FDE047',dans:''};
+  return {emoji:'\u26aa',name:'White Belt',color:'#E5E7EB',dans:''};
+}
+
+var CHARS_PER_TOKEN = 4;
+function bytesToTokens(b) { return Math.ceil(b / CHARS_PER_TOKEN); }
+function formatTokens(t) {
+  if (t >= 1000) return (t / 1000).toFixed(1).replace(/\.0$/, '') + 'K';
+  return '' + t;
+}
+function formatBytes(b) {
+  if (b >= 1024) return (b / 1024).toFixed(1).replace(/\.0$/, '') + ' KB';
+  return b + ' B';
+}
+function contextTier(bytes) {
+  var tokens = bytesToTokens(bytes);
+  if (tokens <= 500) return 'low';
+  if (tokens <= 2000) return 'medium';
+  return 'high';
+}
+
+function getSkillUsage(skill) {
+  if (!gameData || !gameData.skillUsage) return {count:0,lastUsed:null};
+  var key = skill.pluginName ? skill.pluginName+':'+skill.name : skill.name;
+  var u = gameData.skillUsage[key];
+  return u || {count:0,lastUsed:null};
+}
+
+function getMcpUsage(name) {
+  if (!gameData || !gameData.mcpUsage) return {count:0,lastUsed:null};
+  return gameData.mcpUsage[name] || {count:0,lastUsed:null};
+}
+
+function getAgentUsage(name) {
+  if (!gameData || !gameData.agentUsage) return {count:0,lastUsed:null};
+  return gameData.agentUsage[name] || {count:0,lastUsed:null};
+}
+
+// Group skills by category
+var categoryOrder = ['Communication','DevOps & CI/CD','Project Management','Browser & Testing','Utilities','Other'];
+var categoryGroups = {};
+skills.forEach(function(s) {
+  if (!categoryGroups[s.category]) categoryGroups[s.category] = [];
+  categoryGroups[s.category].push(s);
+});
+
+// Render categories
+var sectionsContainer = document.getElementById('categorySections');
+var cardIndex = 0;
+
+categoryOrder.forEach(function(cat) {
+  var group = categoryGroups[cat];
+  if (!group || group.length === 0) return;
+  var section = document.createElement('section');
+  section.className = 'category-section';
+  section.dataset.category = cat;
+
+  var color = group[0].categoryColor;
+  section.innerHTML = '<div class="category-header" style="border-left:4px solid '+color+'"><h2>'+cat+'</h2><span class="category-badge">'+group.length+'</span></div><div class="cards-grid"></div>';
+  var grid = section.querySelector('.cards-grid');
+
+  group.forEach(function(skill) {
+    var card = document.createElement('article');
+    card.className = 'card';
+    card.dataset.scope = skill.scope;
+    card.dataset.type = 'skill';
+    card.dataset.name = skill.name.toLowerCase();
+    card.dataset.desc = skill.description.toLowerCase();
+    card.dataset.cat = skill.category.toLowerCase();
+    card.dataset.contextBytes = skill.contextBytes || 0;
+    card.style.animationDelay = (cardIndex * 0.05) + 's';
+    cardIndex++;
+
+    var descShort = skill.description.length > 120 ? skill.description.slice(0,120)+'\u2026' : skill.description;
+    var hasLongDesc = skill.description.length > 120;
+
+    var scopeClass = skill.scope;
+    var scopeLabel = skill.scope.charAt(0).toUpperCase()+skill.scope.slice(1);
+
+    var capTagsHtml = skill.capTags.map(function(t){return '<span class="cap-tag">'+t+'</span>'}).join('');
+
+    var skillCtxBytes = skill.contextBytes || 0;
+    var skillCtxTokens = bytesToTokens(skillCtxBytes);
+    var skillCtxTier = contextTier(skillCtxBytes);
+
+    var footerHtml = '';
+    footerHtml += '<span class="context-badge tier-'+skillCtxTier+'">\ud83d\udcca '+formatTokens(skillCtxTokens)+' tokens</span>';
+    if (skill.license !== '\u2014') footerHtml += '<span class="footer-badge badge-license">'+skill.license+'</span>';
+    if (skill.has_scripts) footerHtml += '<span class="footer-badge badge-scripts">Has Scripts</span>';
+
+    if (gameData) {
+      var usage = getSkillUsage(skill);
+      var belt = getBelt(usage.count);
+      var beltBg = belt.color + '26';
+      footerHtml += '<span class="badge-belt" style="background:'+beltBg+';color:'+belt.color+'">'+belt.emoji+' '+belt.name+(belt.dans ? ' '+belt.dans : '')+'</span><span class="belt-uses">('+usage.count+' uses)</span>';
+    }
+
+    var descHtml = '<span class="card-desc-short">'+descShort+'</span>';
+    if (hasLongDesc) descHtml += '<span class="card-desc-full">'+skill.description+'</span><button class="card-desc-toggle" onclick="toggleDesc(this)">Show more</button>';
+
+    card.innerHTML = '<span class="scope-badge '+scopeClass+'">'+scopeLabel+'</span>'
+      +'<div class="card-name">'+skill.name+'</div>'
+      +'<div class="card-desc">'+descHtml+'</div>'
+      +(capTagsHtml ? '<div class="cap-tags">'+capTagsHtml+'</div>' : '')
+      +'<div class="cmd-block"><span class="cmd-text">'+skill.cmd+'</span><button class="copy-btn" onclick="copyCmd(this,\''+skill.cmd.replace(/'/g,"\\'")+'\')">&#x1F4CB;<span class="copy-tooltip">Copied!</span></button></div>'
+      +'<div class="card-footer">'+footerHtml+'</div>';
+    grid.appendChild(card);
+  });
+
+  sectionsContainer.appendChild(section);
+});
+
+// MCP section
+var mcpGrid = document.getElementById('mcpGrid');
+var mcpSection = document.getElementById('mcpSection');
+if (mcpServers.length === 0) {
+  mcpSection.classList.add('hidden');
+} else {
+  document.getElementById('mcpCount').textContent = mcpServers.length;
+  mcpServers.forEach(function(srv) {
+    var card = document.createElement('article');
+    card.className = 'card';
+    card.dataset.scope = srv.scope;
+    card.dataset.type = 'mcp';
+    card.dataset.name = srv.name.toLowerCase();
+    card.dataset.desc = '';
+    card.dataset.cat = 'mcp';
+    card.dataset.contextBytes = srv.contextBytes != null ? srv.contextBytes : -1;
+    card.style.animationDelay = (cardIndex * 0.05) + 's';
+    cardIndex++;
+
+    var scopeClass = srv.scope;
+    var scopeLabel = srv.scope.charAt(0).toUpperCase()+srv.scope.slice(1);
+    var envHtml = srv.env.map(function(k){return '<span class="mcp-env-tag">'+k+'</span>'}).join('');
+
+    var mcpCtxBadge = '';
+    if (srv.contextBytes != null && srv.contextBytes > 0) {
+      var mcpCtxTokens = bytesToTokens(srv.contextBytes);
+      var mcpCtxTier = contextTier(srv.contextBytes);
+      mcpCtxBadge = '<span class="context-badge tier-'+mcpCtxTier+'">\ud83d\udcca '+formatTokens(mcpCtxTokens)+' tokens</span>';
+    } else {
+      mcpCtxBadge = '<span class="context-badge tier-unknown" title="Server was unreachable or timed out">\ud83d\udcca ? tokens</span>';
+    }
+
+    var mcpFooter = '';
+    if (gameData) {
+      var mcpUse = getMcpUsage(srv.name);
+      var mcpBelt = getBelt(mcpUse.count);
+      var mcpBeltBg = mcpBelt.color + '26';
+      mcpFooter = '<div class="card-footer" style="margin-top:0.75rem"><span class="badge-belt" style="background:'+mcpBeltBg+';color:'+mcpBelt.color+'">'+mcpBelt.emoji+' '+mcpBelt.name+(mcpBelt.dans ? ' '+mcpBelt.dans : '')+'</span><span class="belt-uses">('+mcpUse.count+' uses)</span></div>';
+    }
+
+    card.innerHTML = '<span class="scope-badge '+scopeClass+'">'+scopeLabel+'</span>'
+      +'<div class="card-name">'+srv.name+'</div>'
+      +'<span class="mcp-type-badge">MCP</span> '+mcpCtxBadge
+      +'<div class="cmd-block" style="margin-top:0.75rem"><span class="cmd-text">'+srv.command+' '+srv.args+'</span><button class="copy-btn" onclick="copyCmd(this,\''+srv.command+' '+srv.args+'\')">&#x1F4CB;<span class="copy-tooltip">Copied!</span></button></div>'
+      +(envHtml ? '<div class="cap-tags">'+envHtml+'</div>' : '')
+      +mcpFooter;
+    mcpGrid.appendChild(card);
+  });
+}
+
+// Agents section
+var agentsGrid = document.getElementById('agentsGrid');
+var agentsSection = document.getElementById('agentsSection');
+if (agents.length === 0) {
+  agentsSection.classList.add('hidden');
+} else {
+  document.getElementById('agentsCount').textContent = agents.length;
+  agents.forEach(function(agt) {
+    var card = document.createElement('article');
+    card.className = 'card';
+    card.dataset.scope = agt.scope;
+    card.dataset.type = 'agent';
+    card.dataset.name = agt.name.toLowerCase();
+    card.dataset.desc = (agt.description || '').toLowerCase();
+    card.dataset.cat = 'agent';
+    card.dataset.contextBytes = agt.contextBytes || 0;
+    card.style.animationDelay = (cardIndex * 0.05) + 's';
+    cardIndex++;
+
+    var scopeClass = agt.scope;
+    var scopeLabel = agt.scope.charAt(0).toUpperCase()+agt.scope.slice(1);
+
+    var agtCtxBytes = agt.contextBytes || 0;
+    var agtCtxTokens = bytesToTokens(agtCtxBytes);
+    var agtCtxTier = contextTier(agtCtxBytes);
+
+    var toolsHtml = '';
+    if (agt.tools) {
+      toolsHtml = agt.tools.split(',').map(function(t){return '<span class="agent-tools-tag">'+t.trim()+'</span>'}).join('');
+    }
+
+    var agtFooter = '';
+    agtFooter += '<span class="context-badge tier-'+agtCtxTier+'">\ud83d\udcca '+formatTokens(agtCtxTokens)+' tokens</span>';
+    if (gameData) {
+      var agtUse = getAgentUsage(agt.name);
+      var agtBelt = getBelt(agtUse.count);
+      var agtBeltBg = agtBelt.color + '26';
+      agtFooter += '<span class="badge-belt" style="background:'+agtBeltBg+';color:'+agtBelt.color+'">'+agtBelt.emoji+' '+agtBelt.name+(agtBelt.dans ? ' '+agtBelt.dans : '')+'</span><span class="belt-uses">('+agtUse.count+' uses)</span>';
+    }
+
+    card.innerHTML = '<span class="scope-badge '+scopeClass+'">'+scopeLabel+'</span>'
+      +'<div class="card-name">'+agt.name+'</div>'
+      +'<div class="card-desc">'+((agt.description || '').length > 120 ? agt.description.slice(0,120)+'\u2026' : (agt.description || ''))+'</div>'
+      +'<span class="agent-model-badge">'+agt.model+'</span>'
+      +(toolsHtml ? '<div class="cap-tags" style="margin-top:0.5rem">'+toolsHtml+'</div>' : '')
+      +'<div class="card-footer" style="margin-top:0.75rem">'+agtFooter+'</div>';
+    agentsGrid.appendChild(card);
+  });
+}
+
+// Feature Mastery section
+var featureNames = {
+  shell:'Shell',editing:'Editing',reading:'Reading',search:'Search',
+  btw:'Quick Aside',skills:'Skills',plugins:'Plugins',web:'Web',
+  planning:'Planning',notebooks:'Notebooks',agents:'Sub Agents',mcp:'MCP',loop:'Loop'
+};
+var featureTiers = {
+  '\ud83c\udf31 Beginner':['shell','editing','reading','search','btw'],
+  '\ud83c\udf3f Intermediate':['skills','plugins','web','planning','notebooks','mcp','loop'],
+  '\ud83c\udf33 Expert':['agents']
+};
+
+function renderFeatureMastery() {
+  if (!gameData) {
+    document.getElementById('masterySection').classList.add('hidden');
+    return;
+  }
+  document.getElementById('masterySection').classList.remove('hidden');
+  var content = document.getElementById('masteryContent');
+  content.innerHTML = '';
+
+  Object.entries(featureTiers).forEach(function(entry) {
+    var tierLabel = entry[0];
+    var keys = entry[1];
+    var sub = document.createElement('div');
+    sub.innerHTML = '<div class="tier-subheader">'+tierLabel+'</div>';
+    var grid = document.createElement('div');
+    grid.className = 'mastery-grid';
+
+    keys.forEach(function(key) {
+      var feat = gameData.features[key] || {count:0};
+      var belt = getBelt(feat.count);
+      var card = document.createElement('div');
+      card.className = 'mastery-card';
+      card.style.borderLeft = '4px solid '+belt.color;
+      card.innerHTML = '<div class="mastery-name">'+(featureNames[key] || key)+'</div>'
+        +'<div class="mastery-belt">'+belt.emoji+' '+belt.name+(belt.dans ? ' '+belt.dans : '')+'</div>'
+        +'<div class="mastery-count">'+feat.count+' uses</div>'
+        +'<div class="mastery-tier">'+tierLabel.split(' ')[0]+'</div>';
+      grid.appendChild(card);
+    });
+
+    sub.appendChild(grid);
+    content.appendChild(sub);
+  });
+}
+renderFeatureMastery();
+
+// Context summary
+function updateContextSummary() {
+  var container = document.getElementById('contextSummary');
+  var skillsBytes = 0;
+  skills.forEach(function(s) { skillsBytes += s.contextBytes || 0; });
+  var agentsBytes = 0;
+  agents.forEach(function(a) { agentsBytes += a.contextBytes || 0; });
+  var mcpBytes = 0;
+  var mcpUnknown = 0;
+  mcpServers.forEach(function(s) {
+    if (s.contextBytes != null && s.contextBytes > 0) {
+      mcpBytes += s.contextBytes;
+    } else {
+      mcpUnknown++;
+    }
+  });
+
+  var totalBytes = skillsBytes + agentsBytes + mcpBytes;
+  var totalTokens = bytesToTokens(totalBytes);
+  var windowSize = 200000;
+  var pct = Math.min((totalTokens / windowSize) * 100, 100);
+  var barColor = pct < 10 ? '#15803D' : pct < 25 ? '#B45309' : '#DC2626';
+
+  var mcpNote = mcpUnknown > 0 ? ' <span style="font-size:0.75rem;color:#6B6560">(' + mcpUnknown + ' unknown)</span>' : '';
+
+  container.classList.remove('hidden');
+  container.innerHTML = '<h3>\ud83d\udcca Context Cost Overview</h3>'
+    + '<div class="context-summary-grid">'
+    + '<div class="context-summary-item"><div class="ctx-num">' + formatTokens(totalTokens) + '</div><div class="ctx-label">Total Tokens</div></div>'
+    + '<div class="context-summary-item"><div class="ctx-num">' + formatTokens(bytesToTokens(skillsBytes)) + '</div><div class="ctx-label">Skills</div></div>'
+    + '<div class="context-summary-item"><div class="ctx-num">' + formatTokens(bytesToTokens(agentsBytes)) + '</div><div class="ctx-label">Agents</div></div>'
+    + '<div class="context-summary-item"><div class="ctx-num">' + formatTokens(bytesToTokens(mcpBytes)) + mcpNote + '</div><div class="ctx-label">MCP Servers</div></div>'
+    + '</div>'
+    + '<div class="context-bar"><div class="context-bar-fill" style="width:' + pct.toFixed(1) + '%;background:' + barColor + '"></div></div>'
+    + '<div class="context-bar-label"><span>' + pct.toFixed(1) + '% of 200K context window</span><span>' + formatTokens(totalTokens) + ' / 200K tokens</span></div>';
+}
+updateContextSummary();
+
+// Stats ribbon
+function updateStats() {
+  var ribbon = document.getElementById('statsRibbon');
+  var visibleSkills = document.querySelectorAll('[data-type="skill"]:not(.hidden)');
+  var visibleMcp = document.querySelectorAll('[data-type="mcp"]:not(.hidden)');
+  var visibleAgents = document.querySelectorAll('[data-type="agent"]:not(.hidden)');
+
+  var totalSkills = visibleSkills.length;
+  var catSet = new Set();
+  visibleSkills.forEach(function(c) {
+    var sec = c.closest('.category-section');
+    if (sec && sec.dataset.category) catSet.add(sec.dataset.category);
+  });
+  var withScripts = 0;
+  var licensed = 0;
+  var pluginCount = 0;
+  visibleSkills.forEach(function(c) {
+    var nm = c.dataset.name;
+    var s = skills.find(function(sk){return sk.name.toLowerCase() === nm && sk.scope === c.dataset.scope});
+    if (s) {
+      if (s.has_scripts) withScripts++;
+      if (s.license !== '\u2014') licensed++;
+    }
+    if (c.dataset.scope === 'plugin') pluginCount++;
+  });
+
+  var stats = [
+    {num:totalSkills,label:'Total Skills'},
+    {num:catSet.size,label:'Categories'},
+    {num:withScripts,label:'With Scripts'},
+    {num:licensed,label:'Licensed'},
+    {num:visibleMcp.length,label:'MCP Servers'},
+    {num:visibleAgents.length,label:'Sub Agents'},
+    {num:pluginCount,label:'Plugin Skills'}
+  ];
+
+  if (gameData) {
+    stats.push({num:gameData.sessionCount,label:'Sessions'});
+    var totalUses = 0;
+    if (gameData.skillUsage) {
+      Object.values(gameData.skillUsage).forEach(function(v){totalUses += v.count || 0});
+    }
+    stats.push({num:totalUses,label:'Total Uses'});
+  }
+
+  // Context cost stat from visible cards
+  var visibleCtxBytes = 0;
+  document.querySelectorAll('.card:not(.hidden)').forEach(function(c) {
+    var cb = parseInt(c.dataset.contextBytes, 10);
+    if (cb > 0) visibleCtxBytes += cb;
+  });
+  stats.push({num:formatTokens(bytesToTokens(visibleCtxBytes)),label:'Context Cost'});
+
+  ribbon.innerHTML = stats.map(function(s){
+    return '<div class="stat-box"><div class="stat-number">'+s.num+'</div><div class="stat-label">'+s.label+'</div></div>';
+  }).join('');
+}
+
+// Filtering
+var activeScope = 'all';
+var activeType = 'all';
+var activeSort = 'default';
+
+function sortCards() {
+  if (activeSort === 'default') return;
+  document.querySelectorAll('.cards-grid').forEach(function(grid) {
+    var cards = Array.from(grid.querySelectorAll('.card:not(.hidden)'));
+    if (cards.length === 0) return;
+    cards.sort(function(a, b) {
+      var aBytes = parseInt(a.dataset.contextBytes, 10) || 0;
+      var bBytes = parseInt(b.dataset.contextBytes, 10) || 0;
+      // Treat -1 (unknown) as max for ascending, 0 for descending
+      if (aBytes < 0) aBytes = activeSort === 'cost-asc' ? 999999999 : 0;
+      if (bBytes < 0) bBytes = activeSort === 'cost-asc' ? 999999999 : 0;
+      return activeSort === 'cost-asc' ? aBytes - bBytes : bBytes - aBytes;
+    });
+    cards.forEach(function(card) { grid.appendChild(card); });
+  });
+}
+
+function sortAndFilter() {
+  filterAll();
+  sortCards();
+}
+
+function filterAll() {
+  var query = document.getElementById('searchInput').value.toLowerCase();
+  var allCards = document.querySelectorAll('.card');
+
+  allCards.forEach(function(card) {
+    var matchScope = activeScope === 'all' || card.dataset.scope === activeScope;
+    var matchType = activeType === 'all' || card.dataset.type === activeType;
+    var matchSearch = !query || card.dataset.name.indexOf(query) !== -1 || card.dataset.desc.indexOf(query) !== -1 || card.dataset.cat.indexOf(query) !== -1;
+    if (matchScope && matchType && matchSearch) {
+      card.classList.remove('hidden');
+    } else {
+      card.classList.add('hidden');
+    }
+  });
+
+  // Hide empty category sections
+  document.querySelectorAll('.category-section').forEach(function(section) {
+    var visCards = section.querySelectorAll('.card:not(.hidden)');
+    if (visCards.length === 0) {
+      section.classList.add('hidden');
+    } else {
+      section.classList.remove('hidden');
+    }
+    var badge = section.querySelector('.category-badge');
+    if (badge) badge.textContent = visCards.length;
+  });
+
+  updateStats();
+}
+
+// Pill clicks
+document.querySelectorAll('.pill[data-filter="scope"]').forEach(function(btn) {
+  btn.addEventListener('click', function() {
+    document.querySelectorAll('.pill[data-filter="scope"]').forEach(function(b){b.classList.remove('active')});
+    btn.classList.add('active');
+    activeScope = btn.dataset.value;
+    sortAndFilter();
+  });
+});
+document.querySelectorAll('.pill[data-filter="type"]').forEach(function(btn) {
+  btn.addEventListener('click', function() {
+    document.querySelectorAll('.pill[data-filter="type"]').forEach(function(b){b.classList.remove('active')});
+    btn.classList.add('active');
+    activeType = btn.dataset.value;
+    sortAndFilter();
+  });
+});
+document.querySelectorAll('.pill[data-filter="sort"]').forEach(function(btn) {
+  btn.addEventListener('click', function() {
+    document.querySelectorAll('.pill[data-filter="sort"]').forEach(function(b){b.classList.remove('active')});
+    btn.classList.add('active');
+    activeSort = btn.dataset.value;
+    sortAndFilter();
+  });
+});
+
+document.getElementById('searchInput').addEventListener('input', sortAndFilter);
+
+// Copy button
+function copyCmd(btn, text) {
+  navigator.clipboard.writeText(text);
+  var tooltip = btn.querySelector('.copy-tooltip');
+  tooltip.classList.add('show');
+  setTimeout(function(){tooltip.classList.remove('show')}, 1200);
+}
+
+// Toggle description
+function toggleDesc(btn) {
+  var desc = btn.closest('.card-desc');
+  var short = desc.querySelector('.card-desc-short');
+  var full = desc.querySelector('.card-desc-full');
+  if (full.style.display === 'inline') {
+    full.style.display = 'none';
+    short.style.display = 'inline';
+    btn.textContent = 'Show more';
+  } else {
+    full.style.display = 'inline';
+    short.style.display = 'none';
+    btn.textContent = 'Show less';
+  }
+}
+
+// Initial render
+sortAndFilter();
+</script>
+</body>
+</html>
