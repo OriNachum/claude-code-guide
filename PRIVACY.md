@@ -32,7 +32,7 @@ This data is stored in `.local/game-data.json` within the plugin directory. This
 
 The plugin includes:
 
-- **Four skills:** `/guide:onboard` (getting-started walkthrough), `/guide:ask` (Q&A against reference docs), `/guide:game-mode` (gamified usage tracker), `/guide:level-up` (feature roadmap and coaching)
+- **Five skills:** `/guide:onboard` (getting-started walkthrough), `/guide:ask` (Q&A against reference docs), `/guide:game-mode` (gamified usage tracker), `/guide:level-up` (feature roadmap and coaching), `/guide:migrate-to-claude` (AI tool config migration)
 - **Reference documentation** in `skills/ask/references/` (Markdown files)
 - **Three hook events** that power Game Mode:
   - `PostToolUse` — detects which tool category was used ([track-usage.sh](hooks/scripts/track-usage.sh))

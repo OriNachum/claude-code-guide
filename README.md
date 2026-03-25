@@ -78,12 +78,13 @@ claude plugin update guide@claude-code-guide
 
 ### Usage
 
-Once installed, four skills are available:
+Once installed, five skills are available:
 
 - **`/guide:onboard`** — Interactive getting-started walkthrough. Guides you through environment setup, your first session, and best practices.
 - **`/guide:ask`** — Ask any question about Claude Code features. Reads relevant reference docs to give accurate, detailed answers.
 - **`/guide:game-mode`** — Enable Game Mode. The guide locally tracks your usage of Claude, assigns a level per feature area, and helps you master Claude Code.
 - **`/guide:level-up`** — Feature roadmap and personalized next-step coaching. Shows what to learn next based on your current skill level.
+- **`/guide:migrate-to-claude`** — Migrate your Cursor, Windsurf, Copilot, Continue, Aider, Cody, or Codex configs to Claude Code. Discovers configs, trims bloat, and proposes a clean migration plan.
 
 <img width="1050" height="366" alt="image" src="https://github.com/user-attachments/assets/3643154f-00e9-4793-886e-e49adfee54ef" />
 
@@ -112,6 +113,7 @@ Learn by example — these narrative walkthroughs show Claude Code in realistic,
 - [Discovering Plugins](skills/ask/references/discovering-plugins.md) — Browsing marketplaces, evaluating, and installing your first plugins
 - [Memory in Practice](skills/ask/references/memory-in-practice.md) — How auto memory works — corrections that stick, promoting to CLAUDE.md
 - [Automated Briefings](skills/ask/references/automated-briefings.md) — Production monitoring with /loop — deploys, post-deploy validation, on-call triage
+- [Migrating from Other AI Tools](skills/ask/references/migrating-from-other-tools.md) — Moving from Cursor, Windsurf, Copilot, Codex — what maps where, what to trim
 
 ### Getting Started
 
@@ -186,11 +188,13 @@ claude-code-guide/
 │   │           ├── beginner/ ............. 🌱 Beginner feature docs (5 files)
 │   │           ├── intermediate/ ......... 🌿 Intermediate feature docs (11 files)
 │   │           ├── expert/ ............... 🌳 Expert feature docs (5 files)
-│   │           └── *.md .................. Story walkthroughs (9 files)
+│   │           └── *.md .................. Story walkthroughs (10 files)
 │   ├── game-mode/
 │   │   └── SKILL.md ...................... Gamified usage tracker with levels
-│   └── level-up/
-│       └── SKILL.md ...................... Feature roadmap and coaching hints
+│   ├── level-up/
+│   │   └── SKILL.md ...................... Feature roadmap and coaching hints
+│   └── migrate-to-claude/
+│       └── SKILL.md ...................... AI tool config migration assistant
 ├── agents/
 │   └── doc-verifier.md .................... On-demand reference doc accuracy verifier (Sonnet agent)
 ├── docs/
@@ -217,7 +221,7 @@ claude-code-guide/
 
 ## Contributing
 
-Contributions welcome! The four skills live at `skills/onboard/`, `skills/ask/`, `skills/game-mode/`, and `skills/level-up/`. Reference docs are in `skills/ask/references/` and hooks are in `hooks/`.
+Contributions welcome! The five skills live at `skills/onboard/`, `skills/ask/`, `skills/game-mode/`, `skills/level-up/`, and `skills/migrate-to-claude/`. Reference docs are in `skills/ask/references/` and hooks are in `hooks/`.
 
 ## License
 

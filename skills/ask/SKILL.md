@@ -68,6 +68,7 @@ Narrative walkthroughs at the `references/` root — read these for workflow and
 | `discovering-plugins.md` | 🌱 | Discovering and installing plugins — browsing marketplaces, evaluating, first plugins |
 | `memory-in-practice.md` | 🌱 | How auto memory works in practice — corrections that stick, explicit remembering, promoting to CLAUDE.md |
 | `automated-briefings.md` | 🌿 | Monitoring with /loop — deploy health checks, post-deploy validation, on-call ticket triage |
+| `migrating-from-other-tools.md` | 🌿 | Migrating from Cursor, Windsurf, Copilot, Codex — what maps where, what to trim |
 
 ## Tips
 

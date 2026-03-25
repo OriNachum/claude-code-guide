@@ -1,12 +1,12 @@
 {
   "name": "guide",
   "description": "A Claude Code guide — skills for interactive onboarding and Q&A on setup, best practices, automation, and effective workflows",
-  "version": "2.11.0",
+  "version": "2.12.0",
   "author": {
     "name": "Ori Nachum"
   },
   "homepage": "https://github.com/OriNachum/claude-code-guide",
   "repository": "https://github.com/OriNachum/claude-code-guide",
   "license": "CC-BY-4.0",
-  "keywords": ["onboarding", "guide", "tutorial", "best-practices", "automation", "workflows", "user-stories"]
+  "keywords": ["onboarding", "guide", "tutorial", "best-practices", "automation", "workflows", "user-stories", "migration"]
 }
