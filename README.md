@@ -1,7 +1,9 @@
 # Claude Code Guide 🌿
 
-A Claude Code Guide — interactive onboarding and Q&A on setup, best practices, automation, and effective workflows, packaged as a plugin.  
+A Claude Code Guide — interactive onboarding and Q&A on setup, best practices, automation, and effective workflows, packaged as a plugin.
 Designed with love for beginners 🌱 to experts. 🌳
+
+**Platforms:** Tested on **Windows** (Git Bash), **macOS**, and **Linux** (Ubuntu).
 
 **New!** Enable a proactive learning with **Game Mode**!  
 Enable with `/guide:game-mode on`
@@ -143,6 +145,10 @@ Learn by example — these narrative walkthroughs show Claude Code in realistic,
 - [Claude Agent SDK](skills/ask/references/expert/agent-sdk.md) — TypeScript and Python SDKs for programmatic Claude Code integration
 - [GitHub Actions](skills/ask/references/intermediate/github-actions.md) — Running Claude Code in CI/CD pipelines with GitHub Actions
 
+### Platform Support
+
+- [Windows Support](docs/windows-support.md) — Setup, jq installation, and Windows-specific adjustments
+
 ### Other
 
 - [Loop](skills/ask/references/intermediate/loop.md) — Running recurring tasks with /loop — polling, deploy monitoring, on-call triage
@@ -192,7 +198,8 @@ claude-code-guide/
 │   ├── automation.md ...................... Nav parent: Automation
 │   ├── configuration.md ................... Nav parent: Configuration & Extensions
 │   ├── integrations.md .................... Nav parent: Integrations
-│   └── user-stories.md .................... Nav parent: User Stories
+│   ├── user-stories.md .................... Nav parent: User Stories
+│   └── windows-support.md ................ Windows setup and adjustments
 ├── _config.yml ............................ Jekyll configuration (just-the-docs theme)
 ├── Gemfile ................................ Ruby dependencies
 ├── index.md ............................... Website landing page

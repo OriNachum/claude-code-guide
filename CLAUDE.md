@@ -96,7 +96,8 @@ claude-code-guide/
 │   ├── automation.md ...................... Nav parent: Automation
 │   ├── configuration.md ................... Nav parent: Configuration & Extensions
 │   ├── integrations.md .................... Nav parent: Integrations
-│   └── user-stories.md .................... Nav parent: User Stories
+│   ├── user-stories.md .................... Nav parent: User Stories
+│   └── windows-support.md ................ Windows setup and adjustments
 ├── index.md ............................... Website landing page
 ├── .local/ ................................ Runtime data (gitignored)
 │   └── game-data.json .................... Usage data (created at runtime)

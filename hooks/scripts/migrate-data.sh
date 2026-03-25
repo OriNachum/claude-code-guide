@@ -10,6 +10,9 @@ DATA_FILE="${PLUGIN_ROOT}/.local/game-data.json"
 # Exit if data file doesn't exist
 [ -f "$DATA_FILE" ] || exit 0
 
+# jq is required for JSON processing; exit silently if unavailable
+command -v jq >/dev/null 2>&1 || exit 0
+
 # Define expected feature categories
 EXPECTED='["shell","editing","reading","search","agents","skills","plugins","web","planning","mcp","notebooks","loop","btw"]'
 

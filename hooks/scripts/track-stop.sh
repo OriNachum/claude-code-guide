@@ -8,6 +8,9 @@ DATA_FILE="${PLUGIN_ROOT}/.local/game-data.json"
 # Exit silently if data file doesn't exist
 [ -f "$DATA_FILE" ] || exit 0
 
+# jq is required for JSON processing; exit silently if unavailable
+command -v jq >/dev/null 2>&1 || exit 0
+
 # Read stdin (hook payload)
 PAYLOAD="$(cat)"
 
@@ -142,7 +145,7 @@ if [ -n "$ELIGIBLE" ]; then
     esac
   done
   WEIGHTED="$(echo "$WEIGHTED" | xargs)"
-  COUNT_W="$(echo "$WEIGHTED" | wc -w)"
+  COUNT_W="$(echo "$WEIGHTED" | wc -w | tr -d ' ')"
   IDX="$(( (RANDOM % COUNT_W) + 1 ))"
   PICK="$(echo "$WEIGHTED" | cut -d' ' -f"$IDX")"
 
