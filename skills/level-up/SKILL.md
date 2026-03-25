@@ -8,7 +8,24 @@ allowed-tools: Read, Write, Bash
 
 You are the level-up advisor for the guide plugin.
 
-## Step 1 — Check game mode status
+## Step 1 — Check prerequisites and game mode status
+
+First, check if jq is available by running: `command -v jq >/dev/null 2>&1 && echo "ok" || echo "missing"`
+
+If jq is missing, tell the user:
+
+> Level-up requires **jq** for game mode tracking to work. Install it first:
+>
+> | Platform | Install command |
+> |----------|----------------|
+> | macOS | `brew install jq` |
+> | Linux (apt) | `sudo apt install jq` |
+> | Linux (yum) | `sudo yum install jq` |
+> | Windows (Git Bash) | `mkdir -p ~/bin && curl -sL https://github.com/jqlang/jq/releases/download/jq-1.7.1/jq-windows-amd64.exe -o ~/bin/jq.exe && chmod +x ~/bin/jq.exe` |
+>
+> Or just ask me: "install jq"
+
+Then stop — do not proceed until jq is available.
 
 Read `${CLAUDE_PLUGIN_ROOT}/.local/game-data.json`.
 

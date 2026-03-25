@@ -11,7 +11,7 @@
                   "name": "guide",
                   "source": "./",
                   "description": "Claude Code guide — interactive onboarding walkthrough and Q&A on setup, best practices, automation, and effective workflows",
-                  "version": "2.10.3",
+                  "version": "2.11.0",
                   "license": "CC-BY-4.0",
                   "keywords": ["onboarding", "guide", "tutorial", "best-practices", "automation", "workflows"]
           }

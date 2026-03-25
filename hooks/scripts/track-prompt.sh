@@ -8,6 +8,9 @@ DATA_FILE="${PLUGIN_ROOT}/.local/game-data.json"
 # Exit silently if data file doesn't exist
 [ -f "$DATA_FILE" ] || exit 0
 
+# jq is required for JSON processing; exit silently if unavailable
+command -v jq >/dev/null 2>&1 || exit 0
+
 # Read stdin (hook payload)
 PAYLOAD="$(cat)"
 
