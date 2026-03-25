@@ -9,6 +9,8 @@ permalink: /stories/migrating-from-other-tools/
 
 > **Level: 🌿 Intermediate**
 
+[← Back to References](intermediate/configuring-your-claude.md)
+
 You've been using Cursor, Windsurf, Copilot, Continue, Aider, Cody, or OpenAI Codex — and now you want to move to Claude Code. Here's how everything maps over, what to trim, and how to keep your context clean.
 
 ## The configuration map
@@ -20,7 +22,8 @@ Every AI coding assistant has its own config format, but they all solve the same
 | Project instructions | `.cursorrules` | `.windsurfrules` | `.github/copilot-instructions.md` | `.continue/config.json` | `.aider.conf.yml` | `AGENTS.md` | `CLAUDE.md` |
 | File-scoped rules | `.cursor/rules/*.md` | `.windsurf/rules/*.md` | — | `.continue/rules/*.md` | — | — | `.claude/rules/*.md` |
 | MCP servers | `.cursor/mcp.json` | `.windsurf/mcp.json` | — | config.json `mcpServers` | — | `config.toml` MCP section | `.mcp.json` |
-| Personal settings | `.cursor/settings.json` | — | — | — | — | `~/.codex/config.toml` | `.claude/settings.local.json` |
+| Personal settings (global) | — | — | — | — | — | `~/.codex/config.toml` | `~/.claude/settings.json` |
+| Personal settings (project) | `.cursor/settings.json` | — | — | — | — | — | `.claude/settings.local.json` |
 | Global instructions | — | — | — | — | — | `~/.codex/AGENTS.md` | `~/.claude/CLAUDE.md` |
 | Ignore patterns | — | — | — | — | `.aiderignore` | — | No direct equivalent |
 

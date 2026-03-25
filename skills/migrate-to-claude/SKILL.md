@@ -54,7 +54,7 @@ Scan the project root for config files from other AI coding assistants. Use Glob
 | Cody | `.cody/cody.json`, `cody.json` |
 | Aider | `.aider.conf.yml`, `.aiderignore` |
 | Codex (OpenAI) | `AGENTS.md`, `.codex/config.toml`, `.codex/AGENTS.md` |
-| Existing Claude Code | `CLAUDE.md`, `.claude/settings.json`, `.claude/settings.local.json`, `.mcp.json` |
+| Existing Claude Code | `CLAUDE.md`, `CLAUDE.local.md`, `.claude/settings.json`, `.claude/settings.local.json`, `.mcp.json` |
 
 Also check for `AGENTS.override.md` and `TEAM_GUIDE.md` at the project root (Codex fallback filenames).
 
@@ -95,7 +95,7 @@ Read each discovered file. Classify every piece of content into one of these cat
 | File-scoped rules (e.g., "for *.tsx files…") | `.claude/rules/<name>.md` with `globs:` frontmatter |
 | MCP server configurations | `.mcp.json` (project scope) or `claude mcp add` command (local/user scope) |
 | Permission or safety rules | `.claude/settings.json` `permissions.allow` / `permissions.deny` |
-| Personal preferences (editor style, name) | `CLAUDE.local.md` (gitignored, personal) |
+| Personal preferences (editor style, name) | `CLAUDE.local.md` (personal — remind user to add to `.gitignore`) |
 | Codex AGENTS.md content | `CLAUDE.md` (direct 1:1 equivalent) |
 | Codex config.toml MCP servers | `.mcp.json` or `claude mcp add` (same as other MCP sources) |
 | Ignored file patterns (.aiderignore) | Note only — no direct equivalent in Claude Code |
@@ -174,11 +174,12 @@ Present the complete migration plan in a structured format. Show BOTH the summar
 
 ### Full proposed content
 
-After the summary table, show the **exact content** that will be written to each file:
+After the summary table, show the **exact content** that will be written to each file, with any sensitive values **redacted**:
 
 - For new files: show the full file content in a fenced code block
 - For appended files (e.g., CLAUDE.md): show only the new lines to be appended, with a note like "Appended below existing content at line N"
 - For merged files (e.g., .mcp.json): show the full merged result
+- **Never** display or write raw secrets (API keys, access tokens, passwords) — replace with placeholders like `<YOUR_API_KEY>` and suggest `claude mcp add` with user-provided auth instead
 
 ### Trimming report
 

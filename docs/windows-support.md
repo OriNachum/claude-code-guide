@@ -29,7 +29,7 @@ Most GNU utilities that the plugin depends on are included with Git Bash:
 
 The one dependency **not** included with Git Bash is [`jq`](https://jqlang.github.io/jq/), a JSON processor used by all hook scripts for reading and writing game data.
 
-**Without jq:** The plugin's skills (`/guide:onboard`, `/guide:ask`) work normally. Game Mode hooks will silently skip tracking — no errors, but no usage data will be collected. When you run `/guide:game-mode` or `/guide:level-up`, Claude will detect jq is missing and show installation instructions.
+**Without jq:** Most plugin skills (`/guide:onboard`, `/guide:ask`, `/guide:migrate-to-claude`) work normally. Game Mode hooks will silently skip tracking — no errors, but no usage data will be collected. When you run `/guide:game-mode` or `/guide:level-up`, Claude will detect jq is missing and show installation instructions.
 
 ### Installing jq on Windows
 

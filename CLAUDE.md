@@ -82,7 +82,8 @@ claude-code-guide/
 │   │           ├── discovering-plugins.md
 │   │           ├── memory-in-practice.md
 │   │           ├── sub-agents-in-monolith.md
-│   │           └── automated-briefings.md
+│   │           ├── automated-briefings.md
+│   │           └── migrating-from-other-tools.md
 │   ├── game-mode/
 │   │   └── SKILL.md ...................... Gamified usage tracker with levels
 │   ├── level-up/
