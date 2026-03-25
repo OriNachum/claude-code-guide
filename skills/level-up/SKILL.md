@@ -21,7 +21,7 @@ If jq is missing, tell the user:
 > | macOS | `brew install jq` |
 > | Linux (apt) | `sudo apt install jq` |
 > | Linux (yum) | `sudo yum install jq` |
-> | Windows (Git Bash) | `curl -sL https://github.com/jqlang/jq/releases/download/jq-1.7.1/jq-windows-amd64.exe -o ~/bin/jq.exe && chmod +x ~/bin/jq.exe` |
+> | Windows (Git Bash) | `mkdir -p ~/bin && curl -sL https://github.com/jqlang/jq/releases/download/jq-1.7.1/jq-windows-amd64.exe -o ~/bin/jq.exe && chmod +x ~/bin/jq.exe` |
 >
 > Or just ask me: "install jq"
 

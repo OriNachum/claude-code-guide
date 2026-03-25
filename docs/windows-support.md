@@ -73,19 +73,19 @@ The plugin includes the following adjustments for Windows compatibility:
 
 Claude Code on Windows provides file paths with backslashes (e.g., `C:\Users\you\.claude\plans\file.md`). The hook scripts normalize these to forward slashes before pattern matching, so features like plan-file detection work correctly on all platforms.
 
-**Affected file:** [`hooks/scripts/track-usage.sh`](../hooks/scripts/track-usage.sh)
+**Affected file:** `hooks/scripts/track-usage.sh`
 
 ### Graceful jq fallback
 
 All hook scripts check for `jq` availability before running. If jq is not installed, hooks exit silently with no error output. This ensures the plugin never disrupts your workflow — hooks install automatically with the plugin and should never produce unexpected errors.
 
-**Affected files:** All scripts in [`hooks/scripts/`](../hooks/scripts/)
+**Affected files:** All scripts in `hooks/scripts/`
 
 ### File locking
 
-The plugin uses `flock` for file locking on Linux. Since `flock` is not available on Windows or macOS, locking is gracefully skipped. This is safe because hook invocations within a single Claude Code session are sequential, and the game data file is low-risk (worst case: a counter is off by one).
+The plugin uses `flock` for file locking when it is available. If `flock` is unavailable (for example, in default Windows or macOS setups), locking is gracefully skipped. This is safe because hook invocations within a single Claude Code session are sequential, and the game data file is low-risk (worst case: a counter is off by one).
 
-**Affected files:** All tracking scripts in [`hooks/scripts/`](../hooks/scripts/)
+**Affected files:** All tracking scripts in `hooks/scripts/`
 
 ## Troubleshooting
 
