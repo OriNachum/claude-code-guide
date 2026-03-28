@@ -13,6 +13,7 @@ A Claude Code guide, packaged as a plugin. There are five skills:
 - **`/guide:game-mode`** — Gamified usage tracker that rewards feature breadth and depth with a level system
 - **`/guide:level-up`** — Feature roadmap and personalized next-step coaching
 - **`/guide:migrate-to-claude`** — Smart migration from other AI coding assistants (Cursor, Windsurf, Copilot, Codex, etc.) to Claude Code
+- **`/guide:visualize-setup`** — Generate an interactive HTML dashboard of all installed Claude Code skills and MCP servers
 
 This repo serves two audiences: humans browsing the docs on GitHub, and Claude Code users who install it as a plugin to get guided help.
 
@@ -88,8 +89,15 @@ claude-code-guide/
 │   │   └── SKILL.md ...................... Gamified usage tracker with levels
 │   ├── level-up/
 │   │   └── SKILL.md ...................... Feature roadmap and coaching hints
-│   └── migrate-to-claude/
-│       └── SKILL.md ...................... AI tool config migration assistant
+│   ├── migrate-to-claude/
+│   │   └── SKILL.md ...................... AI tool config migration assistant
+│   └── visualize-setup/
+│       ├── SKILL.md ...................... Interactive HTML setup dashboard generator
+│       ├── scripts/
+│       │   ├── discover.sh ............... Discovers skills, MCP servers, game data → JSON
+│       │   └── build-dashboard.sh ........ Runs discover, injects into template, opens browser
+│       └── assets/
+│           └── template.html ............. Complete HTML/CSS/JS with data placeholders
 ├── agents/
 │   ├── doc-verifier.md .................... On-demand reference doc accuracy verifier (Sonnet agent)
 │   └── version-bump.md .................... Synced version bumper for plugin.json + marketplace.json (Haiku agent)
@@ -159,6 +167,7 @@ Before staging or committing changes, check the current branch. If you are on `m
 - The ask/Q&A skill lives at `skills/ask/SKILL.md`
 - Reference docs live at `skills/ask/references/beginner/`, `intermediate/`, and `expert/` — organized by difficulty tier
 - User stories live at `skills/ask/references/` (root level) — narrative scenario walkthroughs
+- The visualize-setup skill lives at `skills/visualize-setup/SKILL.md`
 - The plugin manifest is at `.claude-plugin/plugin.json` (plugin name: `guide`)
 - README.md is the human-facing entry point
 - This file (CLAUDE.md) provides agent context — update the structure tree when adding/removing references

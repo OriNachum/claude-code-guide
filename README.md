@@ -85,6 +85,7 @@ Once installed, five skills are available:
 - **`/guide:game-mode`** — Enable Game Mode. The guide locally tracks your usage of Claude, assigns a level per feature area, and helps you master Claude Code.
 - **`/guide:level-up`** — Feature roadmap and personalized next-step coaching. Shows what to learn next based on your current skill level.
 - **`/guide:migrate-to-claude`** — Migrate your Cursor, Windsurf, Copilot, Continue, Aider, Cody, or Codex configs to Claude Code. Discovers configs, trims bloat, and proposes a clean migration plan.
+- **`/guide:visualize-setup`** — Interactive dashboard of all installed skills, MCP servers, and setup configuration.
 
 <img width="1050" height="366" alt="image" src="https://github.com/user-attachments/assets/3643154f-00e9-4793-886e-e49adfee54ef" />
 
@@ -193,8 +194,10 @@ claude-code-guide/
 │   │   └── SKILL.md ...................... Gamified usage tracker with levels
 │   ├── level-up/
 │   │   └── SKILL.md ...................... Feature roadmap and coaching hints
-│   └── migrate-to-claude/
-│       └── SKILL.md ...................... AI tool config migration assistant
+│   ├── migrate-to-claude/
+│   │   └── SKILL.md ...................... AI tool config migration assistant
+│   └── visualize-setup/
+│       └── SKILL.md ...................... Interactive HTML setup dashboard generator
 ├── agents/
 │   └── doc-verifier.md .................... On-demand reference doc accuracy verifier (Sonnet agent)
 ├── docs/
@@ -221,7 +224,7 @@ claude-code-guide/
 
 ## Contributing
 
-Contributions welcome! The five skills live at `skills/onboard/`, `skills/ask/`, `skills/game-mode/`, `skills/level-up/`, and `skills/migrate-to-claude/`. Reference docs are in `skills/ask/references/` and hooks are in `hooks/`.
+Contributions welcome! The five skills live at `skills/onboard/`, `skills/ask/`, `skills/game-mode/`, `skills/level-up/`, `skills/migrate-to-claude/`, and `skills/visualize-setup/`. Reference docs are in `skills/ask/references/` and hooks are in `hooks/`.
 
 ## License
 
