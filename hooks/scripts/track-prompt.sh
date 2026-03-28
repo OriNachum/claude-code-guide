@@ -5,7 +5,10 @@ set -euo pipefail
 PLUGIN_ROOT="${CLAUDE_PLUGIN_ROOT:-.}"
 DATA_FILE="${PLUGIN_ROOT}/.local/game-data.json"
 
-# Exit silently if data file doesn't exist
+# Run migration first (may restore data file from older cached plugin versions)
+bash "${PLUGIN_ROOT}/hooks/scripts/migrate-data.sh"
+
+# Exit silently if data file doesn't exist (even after migration attempt)
 [ -f "$DATA_FILE" ] || exit 0
 
 # Read stdin (hook payload)
@@ -20,9 +23,6 @@ if command -v flock >/dev/null 2>&1; then
   exec 9>"${DATA_FILE}.lock"
   flock 9
 fi
-
-# Migrate schema if plugin version changed
-bash "${PLUGIN_ROOT}/hooks/scripts/migrate-data.sh"
 
 # Extract the user's prompt text
 PROMPT="$(echo "$PAYLOAD" | jq -r '.prompt // .content // .message.content // empty')"

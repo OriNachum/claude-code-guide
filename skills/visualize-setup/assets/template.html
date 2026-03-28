@@ -161,6 +161,12 @@ const mcpServers = __MCP_DATA__;
 const agents = __AGENTS_DATA__;
 const gameData = __GAME_DATA__;
 
+// HTML escaping for untrusted content
+function escapeHtml(str) {
+  if (!str) return '';
+  return String(str).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;').replace(/'/g,'&#039;');
+}
+
 // Belt system
 function getBelt(count) {
   if (count >= 16384) return {emoji:'\u26ab',name:'Black Belt',color:'#1F2937',dans:'\u25fb\u25fb\u25fb\u25fb\u25fb'};
@@ -196,7 +202,8 @@ function contextTier(bytes) {
 
 function getSkillUsage(skill) {
   if (!gameData || !gameData.skillUsage) return {count:0,lastUsed:null};
-  var key = skill.pluginName ? skill.pluginName+':'+skill.name : skill.name;
+  // Use cmd (directory-based) to match how track-prompt.sh records usage
+  var key = skill.cmd ? skill.cmd.replace(/^\//, '') : (skill.pluginName ? skill.pluginName+':'+skill.name : skill.name);
   var u = gameData.skillUsage[key];
   return u || {count:0,lastUsed:null};
 }
@@ -246,13 +253,13 @@ categoryOrder.forEach(function(cat) {
     card.style.animationDelay = (cardIndex * 0.05) + 's';
     cardIndex++;
 
-    var descShort = skill.description.length > 120 ? skill.description.slice(0,120)+'\u2026' : skill.description;
+    var descShort = escapeHtml(skill.description.length > 120 ? skill.description.slice(0,120)+'\u2026' : skill.description);
     var hasLongDesc = skill.description.length > 120;
 
     var scopeClass = skill.scope;
     var scopeLabel = skill.scope.charAt(0).toUpperCase()+skill.scope.slice(1);
 
-    var capTagsHtml = skill.capTags.map(function(t){return '<span class="cap-tag">'+t+'</span>'}).join('');
+    var capTagsHtml = skill.capTags.map(function(t){return '<span class="cap-tag">'+escapeHtml(t)+'</span>'}).join('');
 
     var skillCtxBytes = skill.contextBytes || 0;
     var skillCtxTokens = bytesToTokens(skillCtxBytes);
@@ -260,7 +267,7 @@ categoryOrder.forEach(function(cat) {
 
     var footerHtml = '';
     footerHtml += '<span class="context-badge tier-'+skillCtxTier+'">\ud83d\udcca '+formatTokens(skillCtxTokens)+' tokens</span>';
-    if (skill.license !== '\u2014') footerHtml += '<span class="footer-badge badge-license">'+skill.license+'</span>';
+    if (skill.license !== '\u2014') footerHtml += '<span class="footer-badge badge-license">'+escapeHtml(skill.license)+'</span>';
     if (skill.has_scripts) footerHtml += '<span class="footer-badge badge-scripts">Has Scripts</span>';
 
     if (gameData) {
@@ -271,13 +278,13 @@ categoryOrder.forEach(function(cat) {
     }
 
     var descHtml = '<span class="card-desc-short">'+descShort+'</span>';
-    if (hasLongDesc) descHtml += '<span class="card-desc-full">'+skill.description+'</span><button class="card-desc-toggle" onclick="toggleDesc(this)">Show more</button>';
+    if (hasLongDesc) descHtml += '<span class="card-desc-full">'+escapeHtml(skill.description)+'</span><button class="card-desc-toggle" onclick="toggleDesc(this)">Show more</button>';
 
-    card.innerHTML = '<span class="scope-badge '+scopeClass+'">'+scopeLabel+'</span>'
-      +'<div class="card-name">'+skill.name+'</div>'
+    card.innerHTML = '<span class="scope-badge '+scopeClass+'">'+escapeHtml(scopeLabel)+'</span>'
+      +'<div class="card-name">'+escapeHtml(skill.name)+'</div>'
       +'<div class="card-desc">'+descHtml+'</div>'
       +(capTagsHtml ? '<div class="cap-tags">'+capTagsHtml+'</div>' : '')
-      +'<div class="cmd-block"><span class="cmd-text">'+skill.cmd+'</span><button class="copy-btn" onclick="copyCmd(this,\''+skill.cmd.replace(/'/g,"\\'")+'\')">&#x1F4CB;<span class="copy-tooltip">Copied!</span></button></div>'
+      +'<div class="cmd-block"><span class="cmd-text">'+escapeHtml(skill.cmd)+'</span><button class="copy-btn" onclick="copyCmd(this,\''+skill.cmd.replace(/'/g,"\\'")+'\')">&#x1F4CB;<span class="copy-tooltip">Copied!</span></button></div>'
       +'<div class="card-footer">'+footerHtml+'</div>';
     grid.appendChild(card);
   });
@@ -306,7 +313,7 @@ if (mcpServers.length === 0) {
 
     var scopeClass = srv.scope;
     var scopeLabel = srv.scope.charAt(0).toUpperCase()+srv.scope.slice(1);
-    var envHtml = srv.env.map(function(k){return '<span class="mcp-env-tag">'+k+'</span>'}).join('');
+    var envHtml = srv.env.map(function(k){return '<span class="mcp-env-tag">'+escapeHtml(k)+'</span>'}).join('');
 
     var mcpCtxBadge = '';
     if (srv.contextBytes != null && srv.contextBytes > 0) {
@@ -325,10 +332,11 @@ if (mcpServers.length === 0) {
       mcpFooter = '<div class="card-footer" style="margin-top:0.75rem"><span class="badge-belt" style="background:'+mcpBeltBg+';color:'+mcpBelt.color+'">'+mcpBelt.emoji+' '+mcpBelt.name+(mcpBelt.dans ? ' '+mcpBelt.dans : '')+'</span><span class="belt-uses">('+mcpUse.count+' uses)</span></div>';
     }
 
-    card.innerHTML = '<span class="scope-badge '+scopeClass+'">'+scopeLabel+'</span>'
-      +'<div class="card-name">'+srv.name+'</div>'
+    var mcpCmdStr = srv.command + (srv.args ? ' ' + srv.args : '');
+    card.innerHTML = '<span class="scope-badge '+scopeClass+'">'+escapeHtml(scopeLabel)+'</span>'
+      +'<div class="card-name">'+escapeHtml(srv.name)+'</div>'
       +'<span class="mcp-type-badge">MCP</span> '+mcpCtxBadge
-      +'<div class="cmd-block" style="margin-top:0.75rem"><span class="cmd-text">'+srv.command+' '+srv.args+'</span><button class="copy-btn" onclick="copyCmd(this,\''+srv.command+' '+srv.args+'\')">&#x1F4CB;<span class="copy-tooltip">Copied!</span></button></div>'
+      +'<div class="cmd-block" style="margin-top:0.75rem"><span class="cmd-text">'+escapeHtml(mcpCmdStr)+'</span><button class="copy-btn" onclick="copyCmd(this,\''+mcpCmdStr.replace(/'/g,"\\'")+'\')">&#x1F4CB;<span class="copy-tooltip">Copied!</span></button></div>'
       +(envHtml ? '<div class="cap-tags">'+envHtml+'</div>' : '')
       +mcpFooter;
     mcpGrid.appendChild(card);
@@ -363,7 +371,7 @@ if (agents.length === 0) {
 
     var toolsHtml = '';
     if (agt.tools) {
-      toolsHtml = agt.tools.split(',').map(function(t){return '<span class="agent-tools-tag">'+t.trim()+'</span>'}).join('');
+      toolsHtml = agt.tools.split(',').map(function(t){return '<span class="agent-tools-tag">'+escapeHtml(t.trim())+'</span>'}).join('');
     }
 
     var agtFooter = '';
@@ -375,10 +383,12 @@ if (agents.length === 0) {
       agtFooter += '<span class="badge-belt" style="background:'+agtBeltBg+';color:'+agtBelt.color+'">'+agtBelt.emoji+' '+agtBelt.name+(agtBelt.dans ? ' '+agtBelt.dans : '')+'</span><span class="belt-uses">('+agtUse.count+' uses)</span>';
     }
 
-    card.innerHTML = '<span class="scope-badge '+scopeClass+'">'+scopeLabel+'</span>'
-      +'<div class="card-name">'+agt.name+'</div>'
-      +'<div class="card-desc">'+((agt.description || '').length > 120 ? agt.description.slice(0,120)+'\u2026' : (agt.description || ''))+'</div>'
-      +'<span class="agent-model-badge">'+agt.model+'</span>'
+    var agtDesc = agt.description || '';
+    var agtDescDisplay = escapeHtml(agtDesc.length > 120 ? agtDesc.slice(0,120)+'\u2026' : agtDesc);
+    card.innerHTML = '<span class="scope-badge '+scopeClass+'">'+escapeHtml(scopeLabel)+'</span>'
+      +'<div class="card-name">'+escapeHtml(agt.name)+'</div>'
+      +'<div class="card-desc">'+agtDescDisplay+'</div>'
+      +'<span class="agent-model-badge">'+escapeHtml(agt.model)+'</span>'
       +(toolsHtml ? '<div class="cap-tags" style="margin-top:0.5rem">'+toolsHtml+'</div>' : '')
       +'<div class="card-footer" style="margin-top:0.75rem">'+agtFooter+'</div>';
     agentsGrid.appendChild(card);

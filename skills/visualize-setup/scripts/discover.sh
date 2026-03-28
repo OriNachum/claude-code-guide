@@ -266,7 +266,7 @@ extract_mcp_servers() {
 
   for entry in $servers; do
     local decoded
-    decoded="$(echo "$entry" | base64 --decode)"
+    decoded="$(echo "$entry" | base64 --decode 2>/dev/null || echo "$entry" | base64 -D 2>/dev/null || echo "$entry" | base64 -d 2>/dev/null)"
 
     local name command args_str env_keys
     name="$(echo "$decoded" | jq -r '.key')"

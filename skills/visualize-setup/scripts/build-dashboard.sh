@@ -9,11 +9,11 @@ OUTPUT="/tmp/claude-skills-dashboard.html"
 # Run discovery
 DATA="$("${SCRIPT_DIR}/discover.sh")"
 
-# Extract the four data pieces
-SKILLS_JSON="$(echo "$DATA" | jq -c '.skills')"
-MCP_JSON="$(echo "$DATA" | jq -c '.mcpServers')"
-AGENTS_JSON="$(echo "$DATA" | jq -c '.agents')"
-GAME_JSON="$(echo "$DATA" | jq -c '.gameData')"
+# Extract the four data pieces and escape </script> sequences to prevent XSS
+SKILLS_JSON="$(echo "$DATA" | jq -c '.skills' | sed 's|</|<\\/|g')"
+MCP_JSON="$(echo "$DATA" | jq -c '.mcpServers' | sed 's|</|<\\/|g')"
+AGENTS_JSON="$(echo "$DATA" | jq -c '.agents' | sed 's|</|<\\/|g')"
+GAME_JSON="$(echo "$DATA" | jq -c '.gameData' | sed 's|</|<\\/|g')"
 
 # Inject into template — use ENVIRON to avoid awk -v escape processing,
 # and printf+substr to avoid gsub & replacement issues.
