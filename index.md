@@ -31,10 +31,13 @@ A community guide to **Claude Code** — setup, best practices, automation, and 
 
 This is a community-maintained resource. It is **not** an official Anthropic product.
 
-The guide is packaged as a Claude Code plugin with two main skills:
+The guide is packaged as a Claude Code plugin with five skills:
 
 - **`/guide:onboard`** — Interactive getting-started walkthrough
 - **`/guide:ask`** — Ask any question about Claude Code features
+- **`/guide:game-mode`** — Gamified usage tracker with levels
+- **`/guide:level-up`** — Feature roadmap and personalized coaching
+- **`/guide:migrate-to-claude`** — Migrate configs from other AI coding assistants
 
 <img width="600" alt="Plugin in action" src="https://github.com/user-attachments/assets/3643154f-00e9-4793-886e-e49adfee54ef" />
 

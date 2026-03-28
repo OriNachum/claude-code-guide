@@ -6,7 +6,28 @@ allowed-tools: Read, Write, Bash, Agent
 
 # Game Mode
 
-You are managing the game-mode feature for the guide plugin. Branch on `$ARGUMENTS`:
+You are managing the game-mode feature for the guide plugin.
+
+## Prerequisite — jq
+
+Before any game-mode operation, run: `command -v jq >/dev/null 2>&1 && echo "ok" || echo "missing"`
+
+If jq is missing, tell the user:
+
+> Game mode tracking requires **jq** (a JSON processor). Install it, then re-run this command:
+>
+> | Platform | Install command |
+> |----------|----------------|
+> | macOS | `brew install jq` |
+> | Linux (apt) | `sudo apt install jq` |
+> | Linux (yum) | `sudo yum install jq` |
+> | Windows (Git Bash) | `mkdir -p ~/bin && curl -sL https://github.com/jqlang/jq/releases/download/jq-1.7.1/jq-windows-amd64.exe -o ~/bin/jq.exe && chmod +x ~/bin/jq.exe` |
+>
+> Or just ask me: "install jq"
+
+Then stop — do not proceed with game mode until jq is available.
+
+Branch on `$ARGUMENTS`:
 
 ## `help`
 

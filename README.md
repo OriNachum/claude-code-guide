@@ -1,7 +1,9 @@
 # Claude Code Guide 🌿
 
-A Claude Code Guide — interactive onboarding and Q&A on setup, best practices, automation, and effective workflows, packaged as a plugin.  
+A Claude Code Guide — interactive onboarding and Q&A on setup, best practices, automation, and effective workflows, packaged as a plugin.
 Designed with love for beginners 🌱 to experts. 🌳
+
+**Platforms:** Tested on **Windows** (Git Bash), **macOS**, and **Linux** (Ubuntu).
 
 **New!** Enable a proactive learning with **Game Mode**!  
 Enable with `/guide:game-mode on`
@@ -82,6 +84,7 @@ Once installed, five skills are available:
 - **`/guide:ask`** — Ask any question about Claude Code features. Reads relevant reference docs to give accurate, detailed answers.
 - **`/guide:game-mode`** — Enable Game Mode. The guide locally tracks your usage of Claude, assigns a level per feature area, and helps you master Claude Code.
 - **`/guide:level-up`** — Feature roadmap and personalized next-step coaching. Shows what to learn next based on your current skill level.
+- **`/guide:migrate-to-claude`** — Migrate your Cursor, Windsurf, Copilot, Continue, Aider, Cody, or Codex configs to Claude Code. Discovers configs, trims bloat, and proposes a clean migration plan.
 - **`/guide:visualize-setup`** — Interactive dashboard of all installed skills, MCP servers, and setup configuration.
 
 <img width="1050" height="366" alt="image" src="https://github.com/user-attachments/assets/3643154f-00e9-4793-886e-e49adfee54ef" />
@@ -111,6 +114,7 @@ Learn by example — these narrative walkthroughs show Claude Code in realistic,
 - [Discovering Plugins](skills/ask/references/discovering-plugins.md) — Browsing marketplaces, evaluating, and installing your first plugins
 - [Memory in Practice](skills/ask/references/memory-in-practice.md) — How auto memory works — corrections that stick, promoting to CLAUDE.md
 - [Automated Briefings](skills/ask/references/automated-briefings.md) — Production monitoring with /loop — deploys, post-deploy validation, on-call triage
+- [Migrating from Other AI Tools](skills/ask/references/migrating-from-other-tools.md) — Moving from Cursor, Windsurf, Copilot, Codex — what maps where, what to trim
 
 ### Getting Started
 
@@ -143,6 +147,10 @@ Learn by example — these narrative walkthroughs show Claude Code in realistic,
 
 - [Claude Agent SDK](skills/ask/references/expert/agent-sdk.md) — TypeScript and Python SDKs for programmatic Claude Code integration
 - [GitHub Actions](skills/ask/references/intermediate/github-actions.md) — Running Claude Code in CI/CD pipelines with GitHub Actions
+
+### Platform Support
+
+- [Windows Support](docs/windows-support.md) — Setup, jq installation, and Windows-specific adjustments
 
 ### Other
 
@@ -181,11 +189,13 @@ claude-code-guide/
 │   │           ├── beginner/ ............. 🌱 Beginner feature docs (5 files)
 │   │           ├── intermediate/ ......... 🌿 Intermediate feature docs (11 files)
 │   │           ├── expert/ ............... 🌳 Expert feature docs (5 files)
-│   │           └── *.md .................. Story walkthroughs (9 files)
+│   │           └── *.md .................. Story walkthroughs (10 files)
 │   ├── game-mode/
 │   │   └── SKILL.md ...................... Gamified usage tracker with levels
 │   ├── level-up/
 │   │   └── SKILL.md ...................... Feature roadmap and coaching hints
+│   ├── migrate-to-claude/
+│   │   └── SKILL.md ...................... AI tool config migration assistant
 │   └── visualize-setup/
 │       └── SKILL.md ...................... Interactive HTML setup dashboard generator
 ├── agents/
@@ -195,7 +205,8 @@ claude-code-guide/
 │   ├── automation.md ...................... Nav parent: Automation
 │   ├── configuration.md ................... Nav parent: Configuration & Extensions
 │   ├── integrations.md .................... Nav parent: Integrations
-│   └── user-stories.md .................... Nav parent: User Stories
+│   ├── user-stories.md .................... Nav parent: User Stories
+│   └── windows-support.md ................ Windows setup and adjustments
 ├── _config.yml ............................ Jekyll configuration (just-the-docs theme)
 ├── Gemfile ................................ Ruby dependencies
 ├── index.md ............................... Website landing page
@@ -213,7 +224,7 @@ claude-code-guide/
 
 ## Contributing
 
-Contributions welcome! The five skills live at `skills/onboard/`, `skills/ask/`, `skills/game-mode/`, `skills/level-up/`, and `skills/visualize-setup/`. Reference docs are in `skills/ask/references/` and hooks are in `hooks/`.
+Contributions welcome! The five skills live at `skills/onboard/`, `skills/ask/`, `skills/game-mode/`, `skills/level-up/`, `skills/migrate-to-claude/`, and `skills/visualize-setup/`. Reference docs are in `skills/ask/references/` and hooks are in `hooks/`.
 
 ## License
 

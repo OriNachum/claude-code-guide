@@ -11,6 +11,9 @@ bash "${PLUGIN_ROOT}/hooks/scripts/migrate-data.sh"
 # Exit silently if data file doesn't exist (even after migration attempt)
 [ -f "$DATA_FILE" ] || exit 0
 
+# jq is required for JSON processing; exit silently if unavailable
+command -v jq >/dev/null 2>&1 || exit 0
+
 # Read stdin (hook payload)
 PAYLOAD="$(cat)"
 
@@ -34,6 +37,7 @@ TOOL_NAME="$(echo "$PAYLOAD" | jq -r '.tool_name // empty')"
 # Detect plan-file writes as planning usage
 if [ "$TOOL_NAME" = "Write" ]; then
   FILE_PATH="$(echo "$PAYLOAD" | jq -r '.tool_input.file_path // empty')"
+  FILE_PATH="$(printf '%s\n' "$FILE_PATH" | tr '\\' / 2>/dev/null)"
   if [[ "$FILE_PATH" == *"/.claude/plans/"* ]]; then
     CATEGORY="planning"
   fi

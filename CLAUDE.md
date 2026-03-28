@@ -12,6 +12,7 @@ A Claude Code guide, packaged as a plugin. There are five skills:
 - **`/guide:ask`** — Q&A skill backed by comprehensive reference documentation in `skills/ask/references/`
 - **`/guide:game-mode`** — Gamified usage tracker that rewards feature breadth and depth with a level system
 - **`/guide:level-up`** — Feature roadmap and personalized next-step coaching
+- **`/guide:migrate-to-claude`** — Smart migration from other AI coding assistants (Cursor, Windsurf, Copilot, Codex, etc.) to Claude Code
 - **`/guide:visualize-setup`** — Generate an interactive HTML dashboard of all installed Claude Code skills and MCP servers
 
 This repo serves two audiences: humans browsing the docs on GitHub, and Claude Code users who install it as a plugin to get guided help.
@@ -82,11 +83,14 @@ claude-code-guide/
 │   │           ├── discovering-plugins.md
 │   │           ├── memory-in-practice.md
 │   │           ├── sub-agents-in-monolith.md
-│   │           └── automated-briefings.md
+│   │           ├── automated-briefings.md
+│   │           └── migrating-from-other-tools.md
 │   ├── game-mode/
 │   │   └── SKILL.md ...................... Gamified usage tracker with levels
 │   ├── level-up/
 │   │   └── SKILL.md ...................... Feature roadmap and coaching hints
+│   ├── migrate-to-claude/
+│   │   └── SKILL.md ...................... AI tool config migration assistant
 │   └── visualize-setup/
 │       ├── SKILL.md ...................... Interactive HTML setup dashboard generator
 │       ├── scripts/
@@ -104,7 +108,8 @@ claude-code-guide/
 │   ├── automation.md ...................... Nav parent: Automation
 │   ├── configuration.md ................... Nav parent: Configuration & Extensions
 │   ├── integrations.md .................... Nav parent: Integrations
-│   └── user-stories.md .................... Nav parent: User Stories
+│   ├── user-stories.md .................... Nav parent: User Stories
+│   └── windows-support.md ................ Windows setup and adjustments
 ├── index.md ............................... Website landing page
 ├── .local/ ................................ Runtime data (gitignored)
 │   └── game-data.json .................... Usage data (created at runtime)

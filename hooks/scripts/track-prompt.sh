@@ -11,6 +11,9 @@ bash "${PLUGIN_ROOT}/hooks/scripts/migrate-data.sh"
 # Exit silently if data file doesn't exist (even after migration attempt)
 [ -f "$DATA_FILE" ] || exit 0
 
+# jq is required for JSON processing; exit silently if unavailable
+command -v jq >/dev/null 2>&1 || exit 0
+
 # Read stdin (hook payload)
 PAYLOAD="$(cat)"
 

@@ -8,5 +8,5 @@
   "homepage": "https://github.com/OriNachum/claude-code-guide",
   "repository": "https://github.com/OriNachum/claude-code-guide",
   "license": "CC-BY-4.0",
-  "keywords": ["onboarding", "guide", "tutorial", "best-practices", "automation", "workflows", "user-stories"]
+  "keywords": ["onboarding", "guide", "tutorial", "best-practices", "automation", "workflows", "user-stories", "migration"]
 }
