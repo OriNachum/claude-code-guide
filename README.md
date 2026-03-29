@@ -22,24 +22,46 @@ This repo is a **Claude Code plugin**. Install it to get interactive guide skill
 
 > **Requires Claude Code v1.0.33 or later.** Run `claude --version` to check. See [setup docs](https://code.claude.com/docs/en/quickstart#step-1-install-claude-code) to install or update.
 
-### Quick start (load for current session)
+### Install from GitHub (recommended)
 
-Clone the repo and launch Claude Code with the `--plugin-dir` flag:
+From within Claude Code:
+
+```shell
+/plugin marketplace add OriNachum/claude-code-guide
+/plugin install guide@claude-code-guide
+```
+
+Or from the CLI:
+
+```bash
+claude plugin marketplace add OriNachum/claude-code-guide
+claude plugin install guide@claude-code-guide
+```
+
+> After installing, restart Claude Code or run `/reload-plugins` for the plugin skills to become available.
+
+### Updating
+
+```shell
+/plugin update guide@claude-code-guide
+```
+
+### Other installation methods
+
+<details>
+<summary>Try without installing (session only)</summary>
 
 ```bash
 git clone https://github.com/OriNachum/claude-code-guide.git
 claude --plugin-dir ./claude-code-guide
 ```
 
-This loads the plugin for the current session only. You can also use an absolute path:
+Loads the plugin for the current session only. No restart needed.
 
-```bash
-claude --plugin-dir /path/to/claude-code-guide
-```
+</details>
 
-### Permanent install (via marketplace)
-
-To install permanently, add this repo as a marketplace from within Claude Code, then install the plugin:
+<details>
+<summary>Install from a local clone</summary>
 
 ```shell
 /plugin marketplace add ./claude-code-guide
@@ -53,28 +75,7 @@ claude plugin marketplace add ./claude-code-guide
 claude plugin install guide@claude-code-guide
 ```
 
-### From GitHub (without cloning first)
-
-From within Claude Code:
-
-```shell
-/plugin marketplace add OriNachum/claude-code-guide
-/plugin install guide@claude-code-guide
-```
-
-> **After installing, restart Claude Code** for the plugin skills to become available.
-
-### Updating
-
-```shell
-/plugin update guide@claude-code-guide
-```
-
-Or from the CLI:
-
-```bash
-claude plugin update guide@claude-code-guide
-```
+</details>
 
 ### Usage
 

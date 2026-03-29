@@ -143,7 +143,13 @@ These rules MUST be followed when editing or creating skills:
 
 ## Versioning
 
-The plugin version lives in `.claude-plugin/plugin.json` **and** `.claude-plugin/marketplace.json` (`"version": "X.Y.Z"`). **Bump both on every change** so the installed plugin cache stays in sync:
+The authoritative plugin version lives in `.claude-plugin/plugin.json` (`"version": "X.Y.Z"`). The `marketplace.json` plugin entry also has a `version` field — **`plugin.json` takes priority**, but keep both in sync to avoid confusion.
+
+### Why bumping matters
+
+Installed plugins are cached at `~/.claude/plugins/cache`. **Version is the cache key** — if you change code but don't bump the version, users won't see the update. Always bump the version when shipping changes.
+
+### Semantic versioning
 
 | Change type | Bump | Examples |
 |---|---|---|
@@ -151,7 +157,11 @@ The plugin version lives in `.claude-plugin/plugin.json` **and** `.claude-plugin
 | **Minor** (Y) | New features, new reference docs, new hook behaviors | Adding a skill, adding a tracking category, new reference doc |
 | **Patch** (Z) | Bug fixes, wording tweaks, small improvements | Fixing a regex in a hook script, typo in a reference doc, adjusting a case branch |
 
-Always bump the version in the same commit as the change itself — never leave a functional change without a version bump.
+### Rules
+
+- Always bump the version in the same commit as the change itself — never leave a functional change without a version bump
+- Bump both `.claude-plugin/plugin.json` and `.claude-plugin/marketplace.json`
+- Use the `version-bump` agent (`agents/version-bump.md`) to keep both files in sync automatically — it infers bump type from the git diff
 
 ---
 
