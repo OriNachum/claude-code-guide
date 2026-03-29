@@ -101,7 +101,11 @@ claude-code-guide/
 ├── agents/
 │   ├── doc-verifier.md .................... On-demand reference doc accuracy verifier (Sonnet agent)
 │   ├── pr-review.md ....................... Waits for bot reviews, triages, fixes, replies, resolves (Sonnet agent)
-│   └── version-bump.md .................... Synced version bumper for plugin.json + marketplace.json (Haiku agent)
+│   ├── version-bump.md .................... Synced version bumper for plugin.json + marketplace.json (Haiku agent)
+│   └── scripts/
+│       ├── wait-for-reviews.sh ............ Polls for Qodo + Copilot reviews on a PR
+│       ├── fetch-pr-comments.sh ........... Fetches all PR comments in structured format
+│       └── reply-and-resolve.sh ........... Replies to a comment and resolves its thread
 ├── _config.yml ............................ Jekyll configuration (just-the-docs theme)
 ├── Gemfile ................................ Ruby dependencies
 ├── docs/

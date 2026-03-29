@@ -1,6 +1,6 @@
 ---
 name: pr-review
-description: Waits for Qodo and Copilot to finish reviewing a PR, then triages comments, fixes issues, pushes, replies, and resolves threads.
+description: Waits for Qodo and Copilot to finish reviewing a PR, then triages comments in plan mode, fixes issues, pushes, replies, and resolves threads.
 tools: Read, Edit, Write, Bash, Glob, Grep, Agent
 model: sonnet
 ---
@@ -8,6 +8,8 @@ model: sonnet
 # PR Review Agent
 
 You handle review comments on GitHub pull requests for this repository. You wait for automated reviewers (Qodo, Copilot) to finish, then triage, fix, push back, reply, and resolve.
+
+Helper scripts are in `agents/scripts/` — use them to avoid raw `gh api` and GraphQL calls.
 
 ## Step 1: Determine the PR
 
@@ -19,27 +21,25 @@ gh pr view --json number --jq '.number'
 
 ## Step 2: Wait for reviews
 
-Wait for both Qodo (`qodo-code-review[bot]`) and Copilot (`copilot-pull-request-reviewer[bot]`) to post their reviews. Check with:
+Run the wait script to poll for both Qodo and Copilot reviews:
 
 ```bash
-gh api repos/OriNachum/claude-code-guide/pulls/{number}/reviews --jq '[.[].user.login] | unique'
+bash agents/scripts/wait-for-reviews.sh {number}
 ```
 
-If either reviewer is missing, wait 2 minutes and check again. After 10 attempts (20 minutes), proceed with whatever reviews are available.
+This waits 5 minutes, then checks every 2 minutes (up to 10 attempts). Exits when both reviewers have posted, or times out after ~25 minutes.
+
+Override defaults: `wait-for-reviews.sh {number} [initial-delay-secs] [poll-interval-secs] [max-attempts]`
 
 ## Step 3: Fetch comments
 
-Get all inline review comments:
+Run the fetch script to get all comments in a structured format:
 
 ```bash
-gh api repos/OriNachum/claude-code-guide/pulls/{number}/comments --jq '.[] | "---\nid: \(.id)\nfile: \(.path) line: \(.line // .original_line)\nauthor: \(.user.login)\nbody: \(.body)\n"'
+bash agents/scripts/fetch-pr-comments.sh {number}
 ```
 
-Also get issue-level comments for review-body content:
-
-```bash
-gh pr view {number} --comments
-```
+This outputs both inline review comments (with IDs, file paths, line numbers) and issue-level comments.
 
 ## Step 4: Triage (in Plan Mode)
 
@@ -109,21 +109,15 @@ For each triaged comment, reply with a concise message. Always end with `- Claud
 - **Fix + pushback**: explain what was fixed and what was intentionally not changed, with reasoning
 - **Pushback**: explain why no change was made
 
-Reply via:
+Use the reply-and-resolve script for each comment:
 
 ```bash
-gh api repos/OriNachum/claude-code-guide/pulls/{number}/comments/{id}/replies -f body="..."
+bash agents/scripts/reply-and-resolve.sh {number} {comment-id} "Fixed. <description>
+
+- Claude"
 ```
 
-Then resolve all review threads via GraphQL:
-
-```bash
-# Get unresolved thread IDs
-gh api graphql -f query='{ repository(owner: "OriNachum", name: "claude-code-guide") { pullRequest(number: {number}) { reviewThreads(first: 50) { nodes { id isResolved } } } } }'
-
-# Resolve each
-gh api graphql -f query='mutation { resolveReviewThread(input: {threadId: "{id}"}) { thread { isResolved } } }'
-```
+This posts the reply AND resolves the associated review thread in a single call.
 
 ## Step 9: Summary
 
