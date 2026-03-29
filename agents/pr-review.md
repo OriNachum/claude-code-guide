@@ -41,7 +41,9 @@ Also get issue-level comments for review-body content:
 gh pr view {number} --comments
 ```
 
-## Step 4: Triage
+## Step 4: Triage (in Plan Mode)
+
+Enter Plan Mode and present the triage to the user for approval before making any changes.
 
 Categorize each comment:
 
@@ -53,6 +55,17 @@ Categorize each comment:
 | **Acknowledge** | Informational or automated summary — no action needed |
 
 Deduplicate: Qodo and Copilot often flag the same issues. Group duplicates and handle once.
+
+Present the triage as a table in the plan file:
+
+```text
+| # | Author | File:Line | Category | Summary | Action |
+|---|--------|-----------|----------|---------|--------|
+| 1 | Copilot | SKILL.md:57 | Fix | Missing scan path | Add path to discovery table |
+| 2 | qodo | CLAUDE.md:86 | Pushback | Structure tree | Already correct, explain why |
+```
+
+Wait for user approval via ExitPlanMode before proceeding to fixes.
 
 ## Step 5: Fix
 
