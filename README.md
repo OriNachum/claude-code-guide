@@ -38,6 +38,8 @@ claude plugin marketplace add OriNachum/claude-code-guide
 claude plugin install guide@claude-code-guide
 ```
 
+> The plugin name is `guide` and the marketplace name is `claude-code-guide` (from `marketplace.json`), so the install target is `guide@claude-code-guide`.
+
 > After installing, restart Claude Code or run `/reload-plugins` for the plugin skills to become available.
 
 ### Updating

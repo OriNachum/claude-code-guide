@@ -20,6 +20,7 @@ A community guide to **Claude Code** — setup, best practices, automation, and 
 > /plugin install guide@claude-code-guide
 > ```
 >
+> After installing, restart Claude Code or run `/reload-plugins` if the skills don't appear.
 > Already installed? Update with `/plugin update guide@claude-code-guide`.
 
 <img width="384" alt="Claude Code Guide overview" src="https://github.com/user-attachments/assets/5330f813-6539-4e15-bb94-0e1994edd94c" />
