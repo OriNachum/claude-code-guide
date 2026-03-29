@@ -100,7 +100,12 @@ claude-code-guide/
 │           └── template.html ............. Complete HTML/CSS/JS with data placeholders
 ├── agents/
 │   ├── doc-verifier.md .................... On-demand reference doc accuracy verifier (Sonnet agent)
-│   └── version-bump.md .................... Synced version bumper for plugin.json + marketplace.json (Haiku agent)
+│   ├── pr-review.md ....................... Waits for bot reviews, triages, fixes, replies, resolves (Sonnet agent)
+│   ├── version-bump.md .................... Synced version bumper for plugin.json + marketplace.json (Haiku agent)
+│   └── scripts/
+│       ├── wait-for-reviews.sh ............ Polls for Qodo + Copilot reviews on a PR
+│       ├── fetch-pr-comments.sh ........... Fetches all PR comments in structured format
+│       └── reply-and-resolve.sh ........... Replies to a comment and resolves its thread
 ├── _config.yml ............................ Jekyll configuration (just-the-docs theme)
 ├── Gemfile ................................ Ruby dependencies
 ├── docs/
@@ -143,7 +148,13 @@ These rules MUST be followed when editing or creating skills:
 
 ## Versioning
 
-The plugin version lives in `.claude-plugin/plugin.json` **and** `.claude-plugin/marketplace.json` (`"version": "X.Y.Z"`). **Bump both on every change** so the installed plugin cache stays in sync:
+The authoritative plugin version lives in `.claude-plugin/plugin.json` (`"version": "X.Y.Z"`). The `marketplace.json` plugin entry also has a `version` field — **`plugin.json` takes priority**, but keep both in sync to avoid confusion.
+
+### Why bumping matters
+
+Installed plugins are cached at `~/.claude/plugins/cache`. **Version is the cache key** — if you change code but don't bump the version, users won't see the update. Always bump the version when shipping changes.
+
+### Semantic versioning
 
 | Change type | Bump | Examples |
 |---|---|---|
@@ -151,7 +162,11 @@ The plugin version lives in `.claude-plugin/plugin.json` **and** `.claude-plugin
 | **Minor** (Y) | New features, new reference docs, new hook behaviors | Adding a skill, adding a tracking category, new reference doc |
 | **Patch** (Z) | Bug fixes, wording tweaks, small improvements | Fixing a regex in a hook script, typo in a reference doc, adjusting a case branch |
 
-Always bump the version in the same commit as the change itself — never leave a functional change without a version bump.
+### Rules
+
+- Always bump the version in the same commit as the change itself — never leave a functional change without a version bump
+- Bump both `.claude-plugin/plugin.json` and `.claude-plugin/marketplace.json`
+- Use the `version-bump` agent (`agents/version-bump.md`) to keep both files in sync automatically — it infers bump type from the git diff
 
 ---
 
