@@ -200,7 +200,9 @@ claude-code-guide/
 │   └── visualize-setup/
 │       └── SKILL.md ...................... Interactive HTML setup dashboard generator
 ├── agents/
-│   └── doc-verifier.md .................... On-demand reference doc accuracy verifier (Sonnet agent)
+│   ├── doc-verifier.md .................... On-demand reference doc accuracy verifier (Sonnet agent)
+│   ├── pr-review.md ....................... Waits for bot reviews, triages, fixes, replies, resolves (Sonnet agent)
+│   └── version-bump.md .................... Synced version bumper for plugin.json + marketplace.json (Haiku agent)
 ├── docs/
 │   ├── getting-started.md ................. Nav parent: Getting Started
 │   ├── automation.md ...................... Nav parent: Automation

@@ -100,6 +100,7 @@ claude-code-guide/
 │           └── template.html ............. Complete HTML/CSS/JS with data placeholders
 ├── agents/
 │   ├── doc-verifier.md .................... On-demand reference doc accuracy verifier (Sonnet agent)
+│   ├── pr-review.md ....................... Waits for bot reviews, triages, fixes, replies, resolves (Sonnet agent)
 │   └── version-bump.md .................... Synced version bumper for plugin.json + marketplace.json (Haiku agent)
 ├── _config.yml ............................ Jekyll configuration (just-the-docs theme)
 ├── Gemfile ................................ Ruby dependencies
