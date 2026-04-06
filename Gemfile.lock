@@ -81,6 +81,8 @@ GEM
       sass-embedded (~> 1.75)
     jekyll-seo-tag (2.8.0)
       jekyll (>= 3.8, < 5.0)
+    jekyll-sitemap (1.4.0)
+      jekyll (>= 3.7, < 5.0)
     jekyll-watch (2.2.1)
       listen (~> 3.0)
     json (2.19.1)
@@ -159,7 +161,6 @@ PLATFORMS
   riscv64-linux-android
   riscv64-linux-gnu
   riscv64-linux-musl
-  ruby
   x86-linux-gnu
   x86-linux-musl
   x86_64-darwin
@@ -171,6 +172,7 @@ DEPENDENCIES
   jekyll (~> 4.3)
   jekyll-relative-links
   jekyll-seo-tag
+  jekyll-sitemap
   just-the-docs (~> 0.10)
 
 CHECKSUMS
@@ -210,6 +212,7 @@ CHECKSUMS
   jekyll-relative-links (0.7.0) sha256=831e54c348eeae751845c0d4ac4b244bd73b664341f0e8c9f1803b16f4570835
   jekyll-sass-converter (3.1.0) sha256=83925d84f1d134410c11d0c6643b0093e82e3a3cf127e90757a85294a3862443
   jekyll-seo-tag (2.8.0) sha256=3f2ed1916d56f14ebfa38e24acde9b7c946df70cb183af2cb5f0598f21ae6818
+  jekyll-sitemap (1.4.0)
   jekyll-watch (2.2.1) sha256=bc44ed43f5e0a552836245a54dbff3ea7421ecc2856707e8a1ee203a8387a7e1
   json (2.19.1) sha256=dd94fdc59e48bff85913829a32350b3148156bc4fd2a95a2568a78b11344082d
   just-the-docs (0.12.0) sha256=15f2839ac9082898d60f33b978aa6f8e46fc50ba8fac20ae7a7f0e1fb295523e
@@ -247,4 +250,4 @@ CHECKSUMS
   webrick (1.9.2) sha256=beb4a15fc474defed24a3bda4ffd88a490d517c9e4e6118c3edce59e45864131
 
 BUNDLED WITH
-  4.0.7
+  4.0.9
