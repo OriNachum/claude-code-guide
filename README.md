@@ -90,7 +90,8 @@ Once installed, five skills are available:
 - **`/guide:migrate-to-claude`** — Migrate your Cursor, Windsurf, Copilot, Continue, Aider, Cody, or Codex configs to Claude Code. Discovers configs, trims bloat, and proposes a clean migration plan.
 - **`/guide:visualize-setup`** — Interactive dashboard of all installed skills, MCP servers, and setup configuration.
 
-<img width="1050" height="366" alt="image" src="https://github.com/user-attachments/assets/3643154f-00e9-4793-886e-e49adfee54ef" />
+<img width="1050" alt="image" src="https://github.com/user-attachments/assets/5e47db03-511d-469c-a258-e42022360988" />
+
 
 ### Hooks in action
 
