@@ -1,5 +1,8 @@
 # Claude Code Guide 🌿
 
+<img width="1236" height="380" alt="image" src="https://github.com/user-attachments/assets/1b8117a7-47cf-406b-a2f3-91243879945f" />
+
+
 A Claude Code Guide — interactive onboarding and Q&A on setup, best practices, automation, and effective workflows, packaged as a plugin.
 Designed with love for beginners 🌱 to experts. 🌳
 
