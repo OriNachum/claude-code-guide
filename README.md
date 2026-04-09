@@ -97,6 +97,8 @@ Once installed, five skills are available:
 
 #### VIsualize setup
 
+<img width="1231" height="1300" alt="image" src="https://github.com/user-attachments/assets/527000c6-486f-49e8-aea9-afdec13a0cc6" />
+
 <img width="1231" height="707" alt="image" src="https://github.com/user-attachments/assets/c8d2b970-5baf-4d5f-9084-f0bbd94a6d21" />
 
 
