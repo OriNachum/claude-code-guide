@@ -1,7 +1,7 @@
 {
   "name": "guide",
   "description": "A Claude Code guide — skills for interactive onboarding and Q&A on setup, best practices, automation, and effective workflows",
-  "version": "2.14.4",
+  "version": "2.14.5",
   "author": {
     "name": "Ori Nachum"
   },
