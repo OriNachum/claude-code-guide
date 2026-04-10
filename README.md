@@ -1,3 +1,6 @@
+> **Looking for the official Claude Code guide?** See [Anthropic's Claude Code documentation](https://docs.anthropic.com/en/docs/claude-code/overview).
+> This is a community plugin to help you proactively master Claude Code.
+
 # Claude Code Guide 🌿
 
 <img width="1236" height="380" alt="image" src="https://github.com/user-attachments/assets/1b8117a7-47cf-406b-a2f3-91243879945f" />

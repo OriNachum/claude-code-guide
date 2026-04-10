@@ -4,6 +4,9 @@ nav_order: 0
 permalink: /
 ---
 
+> **Looking for the official Claude Code guide?** See [Anthropic's Claude Code documentation](https://docs.anthropic.com/en/docs/claude-code/overview).
+> This is a community plugin to help you proactively master Claude Code.
+
 # Claude Code Guide
 
 A community guide to **Claude Code** — setup, best practices, automation, and effective workflows.
