@@ -54,20 +54,17 @@ If the intent is unclear, ask the user which level they want.
 2. Read `${CLAUDE_PLUGIN_ROOT}/.local/game-data.json` — if the file doesn't exist, start with `{}`
 3. Set `.introspectConfig.triggerLevel` to the chosen level (`auto`, `remind`, or `off`)
 4. Write the updated game-data.json
-
-4. If level is `auto`:
+5. If level is `auto`:
    - Edit this file's frontmatter: set `disable-model-invocation: false`
    - Search the project for a PR review skill: look in `.claude/skills/`, `skills/`, and installed plugins for any skill whose description mentions "PR", "pull request", or "review"
    - If found: ask the user "Found **[skill name]**. Update it to call `/guide:introspect` after PR merge?"
    - If not found: ask the user "No PR review skill found. Create one?" AND add to CLAUDE.md: "After merging a PR, run `/guide:introspect` to review what could be improved."
    - Tell the user: "Restart Claude Code for automatic introspection to take effect."
-
-5. If level is `remind`:
+6. If level is `remind`:
    - Keep this file's frontmatter as `disable-model-invocation: true`
    - Same PR skill search as `auto`, but the instruction becomes: "After merging a PR, remind the user: 'Want to introspect? Run `/guide:introspect`'"
    - Tell the user: "Restart Claude Code for the reminder to take effect."
-
-6. If level is `off`:
+7. If level is `off`:
    - Edit this file's frontmatter: set `disable-model-invocation: true`
    - Tell the user: "Automatic introspection disabled. You can still run `/guide:introspect` manually anytime. Restart Claude Code for the change to take effect."
 
@@ -102,7 +99,7 @@ Gather project state relevant to the focus. Read what exists, note what's missin
 
 | Area | What to look for |
 |---|---|
-| **Instruction files** | CLAUDE.md, AGENT.md files — do they exist? Are they current? |
+| **Instruction files** | CLAUDE.md — does it exist? Is it current? |
 | **Skills** | `skills/`, `.claude/skills/` — what workflows are encoded? |
 | **Hooks** | `hooks/`, `.claude/hooks/` — what events are automated? |
 | **Plugins** | `.claude-plugin/`, installed plugins — what extensions exist? |
@@ -124,7 +121,6 @@ Evaluate findings through the four dimensions of Introspective Development:
 
 - Is CLAUDE.md current and accurate?
 - Do skills have descriptions that match what they actually do?
-- Are AGENT.md files present in key directories?
 - Would an agent landing here for the first time know how to navigate?
 
 #### Dimension 2: Self-Reflection
@@ -152,7 +148,7 @@ Evaluate whether the project supports each phase of the development lifecycle:
 | Phase | What "supported" means |
 |---|---|
 | **Plan** | Architecture docs exist, planning guidance in CLAUDE.md or a skill |
-| **Implement** | Code is navigable — AGENT.md in key folders, conventions documented, scripts reduce complexity |
+| **Implement** | Code is navigable — conventions documented, scripts reduce complexity |
 | **Test** | Test suite exists, CI runs it, agent knows how to invoke (documented or scripted) |
 | **PR** | PR workflow is documented or scripted — what to include, format, checks |
 | **Iterate** | Review feedback loop works — agent can read comments, fix, push |
@@ -210,7 +206,6 @@ Apply only the approved fixes. For each fix:
 **What you CAN do:**
 
 - Create or update CLAUDE.md sections
-- Create AGENT.md files in key directories
 - Create skill stubs (basic SKILL.md with description — user fills in details)
 - Add or update linting configs
 - Update existing skill descriptions

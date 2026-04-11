@@ -68,7 +68,7 @@ Introspective Development verifies that a project supports every phase of the de
 | Phase | What "supported" means |
 |---|---|
 | **Plan** | Architecture docs exist, planning guidance in CLAUDE.md or a skill |
-| **Implement** | Code is navigable — AGENT.md in key folders, conventions documented, scripts reduce complexity |
+| **Implement** | Code is navigable — conventions documented, scripts reduce complexity |
 | **Test** | Test suite exists, CI runs it, agent knows how to invoke tests |
 | **PR** | PR workflow documented or scripted — format, checks, reviewers |
 | **Iterate** | Review feedback loop works — agent can read comments, fix, push |
@@ -98,7 +98,7 @@ Gaps in any phase create friction. Introspection finds those gaps and proposes f
 2. **Analyze** — evaluate through the four dimensions
 3. **Lifecycle check** — verify each phase is supported
 4. **Report** — present findings in plan mode for your review
-5. **Fix** — apply approved changes (create/update CLAUDE.md, AGENT.md, skill stubs, linting configs)
+5. **Fix** — apply approved changes (create/update CLAUDE.md, skill stubs, linting configs)
 
 ## Trigger Levels
 
@@ -119,7 +119,7 @@ The setting persists across plugin updates. After changing the trigger level, re
 Introspective Development originated in the [Culture](https://github.com/OriNachum/culture) project as "Reflective Development" — a paradigm where agents develop by reflecting on real work, not by configuration. The concept evolved through several blog posts:
 
 - **Workbench Development** — scoping agents to specific folders for reliable, isolated work
-- **Agentic Folders** — placing AGENT.md in key directories so agents understand context per-folder
+- **Agentic Folders** — placing instruction files in key directories so agents understand context per-folder (future consideration)
 - **Code as Documentation** — skills as live, executable documentation that can't silently rot
 
 The `/guide:introspect` skill packages these ideas into a practical tool any project can use.

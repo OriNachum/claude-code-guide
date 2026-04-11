@@ -87,10 +87,11 @@ claude plugin install guide@claude-code-guide
 
 ### Usage
 
-Once installed, five skills are available:
+Once installed, seven skills are available:
 
 - **`/guide:onboard`** — Interactive getting-started walkthrough. Guides you through environment setup, your first session, and best practices.
 - **`/guide:ask`** — Ask any question about Claude Code features. Reads relevant reference docs to give accurate, detailed answers.
+- **`/guide:introspect`** — Introspective Development. Audit your project's lifecycle coverage, find gaps in tooling and docs, and auto-fix what it finds. Run after a task to ask "How could I have done it better?"
 - **`/guide:game-mode`** — Enable Game Mode. The guide locally tracks your usage of Claude, assigns a level per feature area, and helps you master Claude Code.
 - **`/guide:level-up`** — Feature roadmap and personalized next-step coaching. Shows what to learn next based on your current skill level.
 - **`/guide:migrate-to-claude`** — Migrate your Cursor, Windsurf, Copilot, Continue, Aider, Cody, or Codex configs to Claude Code. Discovers configs, trims bloat, and proposes a clean migration plan.
@@ -252,7 +253,7 @@ claude-code-guide/
 
 ## Contributing
 
-Contributions welcome! The five skills live at `skills/onboard/`, `skills/ask/`, `skills/game-mode/`, `skills/level-up/`, `skills/migrate-to-claude/`, and `skills/visualize-setup/`. Reference docs are in `skills/ask/references/` and hooks are in `hooks/`.
+Contributions welcome! The seven skills live at `skills/onboard/`, `skills/ask/`, `skills/introspect/`, `skills/game-mode/`, `skills/level-up/`, `skills/migrate-to-claude/`, and `skills/visualize-setup/`. Reference docs are in `skills/ask/references/` and hooks are in `hooks/`.
 
 ## License
 
