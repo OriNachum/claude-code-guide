@@ -223,6 +223,21 @@ Installed plugins are cached at `~/.claude/plugins/cache`. **Version is the cach
 
 Before staging or committing changes, check the current branch. If you are on `main`, create a new descriptive branch first — never commit directly to `main`.
 
+### After implementing a plan
+
+When a plan's implementation is complete, run the PR review cycle:
+
+1. **Branch** — if on `main`, create a descriptive branch (`feature/short-name`)
+2. **Commit & push** — stage only files changed by the task (never `git add -A`), commit, push with `-u`
+3. **Create PR** — `gh pr create` with a summary of the changes
+4. **Wait for reviewers** — wait ~5 minutes, then check for automated review comments and CI status
+5. **Triage in plan mode** — enter plan mode and categorize each comment: fix, fix + pushback, pushback, or acknowledge
+6. **Fix & push** — apply approved fixes, commit, push
+7. **Follow-up issues** — open GitHub issues for items outside the PR's scope
+8. **Reply & resolve** — reply to every comment thread and resolve it
+
+Use the `pr-review` agent (`agents/pr-review.md`) and its helper scripts to automate steps 4-8.
+
 ### After completing work
 
 When a task is done and merged, clean up:

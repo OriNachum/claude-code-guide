@@ -45,6 +45,7 @@ After producing documentation, deliberately review it through different lenses:
 - **AI conversations** — discuss docs with agents: "explain this back to me," "what's missing," "what would confuse a newcomer"
 - **User-story demos** — write scenarios that walk through actual usage, revealing design gaps
 - **Fix-forward cycle** — issues found flow back as tasks: bug fixes, doc rewrites, design improvements
+- **Doc-test alignment** — verify a mechanism exists (skill, CI step, agent) that checks docs describe what tests assert and tests cover what docs promise
 
 This is the "documentation as code, NotebookLM as compiler" principle. If the compiled output (podcast, overview, summary) sounds wrong, the source docs need fixing.
 
@@ -69,7 +70,7 @@ Introspective Development verifies that a project supports every phase of the de
 |---|---|
 | **Plan** | Architecture docs exist, planning guidance in CLAUDE.md or a skill |
 | **Implement** | Code is navigable — conventions documented, scripts reduce complexity |
-| **Test** | Test suite exists, CI runs it, agent knows how to invoke tests |
+| **Test** | Test suite exists, CI runs it, agent knows how to invoke tests, doc-test alignment is verified |
 | **PR** | PR workflow documented or scripted — format, checks, reviewers |
 | **Iterate** | Review feedback loop works — agent can read comments, fix, push |
 | **Clear** | Agent knows how to clean up — compact history, archive, close |
