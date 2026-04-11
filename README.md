@@ -253,7 +253,7 @@ claude-code-guide/
 
 ## Contributing
 
-Contributions welcome! The five skills live at `skills/onboard/`, `skills/ask/`, `skills/game-mode/`, `skills/level-up/`, `skills/migrate-to-claude/`, and `skills/visualize-setup/`. Reference docs are in `skills/ask/references/` and hooks are in `hooks/`.
+Contributions welcome! The seven skills live at `skills/onboard/`, `skills/ask/`, `skills/introspect/`, `skills/game-mode/`, `skills/level-up/`, `skills/migrate-to-claude/`, and `skills/visualize-setup/`. Reference docs are in `skills/ask/references/` and hooks are in `hooks/`.
 
 ## License
 

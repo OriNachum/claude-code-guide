@@ -119,7 +119,7 @@ The setting persists across plugin updates. After changing the trigger level, re
 Introspective Development originated in the [Culture](https://github.com/OriNachum/culture) project as "Reflective Development" — a paradigm where agents develop by reflecting on real work, not by configuration. The concept evolved through several blog posts:
 
 - **Workbench Development** — scoping agents to specific folders for reliable, isolated work
-- **Agentic Folders** — placing AGENT.md in key directories so agents understand context per-folder
+- **Agentic Folders** — placing instruction files in key directories so agents understand context per-folder (future consideration)
 - **Code as Documentation** — skills as live, executable documentation that can't silently rot
 
 The `/guide:introspect` skill packages these ideas into a practical tool any project can use.
