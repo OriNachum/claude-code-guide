@@ -1,6 +1,8 @@
 name: Docs Freshness Check
 
 on:
+  schedule:
+    - cron: '0 9 * * 1'   # Every Monday at 09:00 UTC
   workflow_dispatch:
 
 permissions:
@@ -17,21 +19,29 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v4
 
-      - name: Check for existing docs-freshness PR
-        id: check-pr
+      - name: Check for existing docs-freshness issue or PR
+        id: check-existing
         env:
           GH_TOKEN: ${{ github.token }}
         run: |
+          OPEN_ISSUES=$(gh issue list --label "docs-freshness" --state open --json number --jq 'length')
           OPEN_PRS=$(gh pr list --label "docs-freshness" --state open --json number --jq 'length')
-          if [ "$OPEN_PRS" -gt 0 ]; then
+          if [ "$OPEN_ISSUES" -gt 0 ] || [ "$OPEN_PRS" -gt 0 ]; then
             echo "skip=true" >> "$GITHUB_OUTPUT"
-            echo "Open docs-freshness PR already exists — skipping."
+            echo "Open docs-freshness issue or PR already exists — skipping."
           else
             echo "skip=false" >> "$GITHUB_OUTPUT"
           fi
 
+      - name: Ensure docs-freshness label exists
+        if: steps.check-existing.outputs.skip != 'true'
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          gh label create docs-freshness --description "Automated docs freshness check" --color "0075ca" 2>/dev/null || true
+
       - name: Run Claude Code for docs freshness
-        if: steps.check-pr.outputs.skip != 'true'
+        if: steps.check-existing.outputs.skip != 'true'
         uses: anthropics/claude-code-action@v1
         with:
           claude_code_oauth_token: ${{ secrets.CLAUDE_CODE_OAUTH_TOKEN }}
@@ -40,7 +50,7 @@ jobs:
           settings: |
             {
               "permissions": {
-                "allow": ["WebFetch", "WebSearch"]
+                "allow": ["WebFetch", "WebSearch", "Bash(gh issue create:*)", "Bash(gh pr create:*)", "Bash(gh label:*)"]
               }
             }
           prompt: |
@@ -138,27 +148,42 @@ jobs:
             - Do NOT make stylistic or formatting-only changes
             - Do NOT modify or remove YAML front matter blocks at the top of reference files
 
-            ## Step 6: If changes were made
+            ## Step 6: Create a findings issue
 
+            Always create a GitHub issue summarizing your findings, even if all docs
+            are current (this serves as an audit trail).
+
+            Use the Bash tool to create the issue with `gh issue create`:
+            - Title: `docs-freshness: weekly check (YYYY-MM-DD)` (using today's date)
+            - Label: `docs-freshness`
+            - Body containing a table of ALL checked files:
+
+              ## Docs Freshness Report — YYYY-MM-DD
+
+              | File | Status | Details | Source |
+              |------|--------|---------|--------|
+              | choosing-your-model.md | OUTDATED | Model ID changed from X to Y | [model-config](url) |
+              | memory.md | CURRENT | No issues found | |
+              | ... | ... | ... | ... |
+
+              ## URLs that returned errors
+              (list any URLs that 404'd or failed, or "None")
+
+              ## Summary
+              - Files checked: N
+              - Current: X
+              - Outdated: Y
+              - Skipped: Z (URL errors)
+
+            ## Step 7: If changes are needed
+
+            If any files are outdated:
             1. Bump the patch version in `.claude-plugin/plugin.json` (e.g. 1.1.0 → 1.1.1)
             2. Create a new branch named `docs-freshness/YYYY-MM-DD` (using today's date)
             3. Commit all changes
             4. Open a PR with:
                - Title: `docs: update reference docs for accuracy (YYYY-MM-DD)`
                - Label: `docs-freshness`
-               - Body containing a table like:
+               - Body referencing the issue number from Step 6
 
-                 ## Changes
-
-                 | File | What changed | Source |
-                 |------|-------------|--------|
-                 | choosing-your-model.md | Updated model ID from X to Y | [model-config](url) |
-                 | ... | ... | ... |
-
-                 ## URLs that returned errors
-                 (list any URLs that 404'd or failed)
-
-            ## Step 7: If no changes needed
-
-            If all docs are accurate, do NOT create a PR. Just output:
-            "All reference docs are current — no changes needed."
+            If all docs are current, do NOT create a PR or branch.

@@ -17,7 +17,44 @@ A Claude Code guide, packaged as a plugin. There are five skills:
 
 This repo serves two audiences: humans browsing the docs on GitHub, and Claude Code users who install it as a plugin to get guided help.
 
-This is a **content-only** repo — no application code, no build system, no tests.
+This is primarily a **content** repo — no application code, no build system. Bash hook scripts are tested with bats-core (see `tests/`).
+
+---
+
+## Plugin vs. Project Tooling
+
+This repo serves two purposes — distinguish them before starting any work:
+
+### Plugin features (ships to users)
+
+Everything under `skills/`, `hooks/`, `.claude-plugin/`, and reference docs. These are what users get when they install the plugin:
+
+- Skills (SKILL.md files)
+- Hooks (hooks.json + tracking scripts)
+- Reference documentation (`skills/ask/references/`)
+- Game mode, level-up, migration, visualize-setup
+- Plugin manifests (plugin.json, marketplace.json)
+
+### Project tooling (maintains the repo)
+
+Infrastructure that helps develop and maintain the plugin but does NOT ship to users:
+
+- Agents (`agents/`) — doc-verifier, pr-review, version-bump
+- CI workflows (`.github/workflows/`) — docs-freshness, pages, tests
+- Test suite (`tests/`) — bats tests for hook scripts
+- CLAUDE.md, README.md — repo documentation
+
+### Before starting work
+
+**Always ask: "Is this a plugin feature or project tooling?"** This determines:
+
+| | Plugin feature | Project tooling |
+|---|---|---|
+| **Where** | `skills/`, `hooks/`, `.claude-plugin/` | `agents/`, `.github/`, `tests/` |
+| **Version bump?** | Always | Usually not |
+| **How to test** | User-facing verification | `bats tests/*.bats` or CI |
+
+If it's unclear, ask before proceeding.
 
 ---
 
@@ -30,8 +67,9 @@ claude-code-guide/
 │   └── marketplace.json .................. Marketplace manifest
 ├── .github/
 │   └── workflows/
-│       ├── docs-freshness.yml ............. Automated docs accuracy checker
-│       └── pages.yml ...................... Jekyll build + raw markdown deploy
+│       ├── docs-freshness.yml ............. Weekly automated docs accuracy checker
+│       ├── pages.yml ...................... Jekyll build + raw markdown deploy
+│       └── tests.yml ...................... Bash test suite (bats-core)
 ├── _includes/
 │   ├── footer_custom.html ................. Disclaimer footer
 │   └── head_custom.html ................... Raw markdown <link> header
@@ -106,6 +144,13 @@ claude-code-guide/
 │       ├── wait-for-reviews.sh ............ Polls for Qodo + Copilot reviews on a PR
 │       ├── fetch-pr-comments.sh ........... Fetches all PR comments in structured format
 │       └── reply-and-resolve.sh ........... Replies to a comment and resolves its thread
+├── tests/
+│   ├── helpers/
+│   │   └── setup.sh ...................... Common test fixtures and mock data
+│   ├── track-usage.bats .................. Tests for PostToolUse hook
+│   ├── track-prompt.bats ................. Tests for UserPromptSubmit hook
+│   ├── track-stop.bats ................... Tests for Stop hook (Fibonacci, levels, scoring)
+│   └── migrate-data.bats ................. Tests for schema migration
 ├── _config.yml ............................ Jekyll configuration (just-the-docs theme)
 ├── Gemfile ................................ Ruby dependencies
 ├── docs/

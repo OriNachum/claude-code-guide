@@ -216,8 +216,14 @@ claude-code-guide/
 │       └── SKILL.md ...................... Interactive HTML setup dashboard generator
 ├── agents/
 │   ├── doc-verifier.md .................... On-demand reference doc accuracy verifier (Sonnet agent)
-│   ├── pr-review.md ....................... Waits for bot reviews, triages, fixes, replies, resolves (Sonnet agent)
 │   └── version-bump.md .................... Synced version bumper for plugin.json + marketplace.json (Haiku agent)
+├── tests/
+│   ├── helpers/
+│   │   └── setup.sh ...................... Common test fixtures and mock data
+│   ├── track-usage.bats .................. Tests for PostToolUse hook
+│   ├── track-prompt.bats ................. Tests for UserPromptSubmit hook
+│   ├── track-stop.bats ................... Tests for Stop hook (Fibonacci, levels, scoring)
+│   └── migrate-data.bats ................. Tests for schema migration
 ├── docs/
 │   ├── getting-started.md ................. Nav parent: Getting Started
 │   ├── automation.md ...................... Nav parent: Automation
