@@ -44,20 +44,24 @@ setup_common() {
 
   # Convenience alias
   export DATA_FILE="${CLAUDE_PLUGIN_ROOT}/.local/game-data.json"
+  return 0
 }
 
 teardown_common() {
-  [ -n "${CLAUDE_PLUGIN_ROOT:-}" ] && rm -rf "$CLAUDE_PLUGIN_ROOT"
+  [[ -n "${CLAUDE_PLUGIN_ROOT:-}" ]] && rm -rf "$CLAUDE_PLUGIN_ROOT"
+  return 0
 }
 
 # Helper: get a feature count from game-data.json
 get_count() {
   local category="$1"
   jq -r --arg c "$category" '.features[$c].count' "$DATA_FILE"
+  return 0
 }
 
 # Helper: get a top-level numeric field
 get_field() {
   local field="$1"
   jq -r ".$field" "$DATA_FILE"
+  return 0
 }
