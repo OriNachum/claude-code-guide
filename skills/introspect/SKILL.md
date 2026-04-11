@@ -107,6 +107,7 @@ Gather project state relevant to the focus. Read what exists, note what's missin
 | **MCP servers / agent skills** | `.mcp.json`, settings — what external integrations are wired? |
 | **Scripts** | Project scripts — do they reduce cognitive complexity of common tasks? |
 | **Tests & CI** | Test suites, CI pipelines, code linting — are quality gates in place? |
+| **Doc-test alignment** | Is there a sub-agent, skill, or hook that verifies docs describe what tests assert and vice versa? |
 | **Markdown linting** | markdownlint config, `.markdownlint-cli2.yaml` — is doc quality enforced? |
 | **Docs** | README, `docs/`, references — are they fresh, accurate, consumable? |
 | **Git history** | Recent commits — what workflow patterns are visible? |
@@ -134,6 +135,7 @@ Evaluate findings through the four dimensions of Introspective Development:
 - Are docs consumable by tools like NotebookLM (documentation as code, NotebookLM as compiler)?
 - Are there gaps, contradictions, or stale information?
 - Is there a linting setup for docs quality?
+- Is there a mechanism (sub-agent, skill, or hook) to verify that docs and tests stay in sync?
 
 #### Dimension 4: Environment Self-Improvement
 
@@ -149,7 +151,7 @@ Evaluate whether the project supports each phase of the development lifecycle:
 |---|---|
 | **Plan** | Architecture docs exist, planning guidance in CLAUDE.md or a skill |
 | **Implement** | Code is navigable — conventions documented, scripts reduce complexity |
-| **Test** | Test suite exists, CI runs it, agent knows how to invoke (documented or scripted) |
+| **Test** | Test suite exists, CI runs it, agent knows how to invoke (documented or scripted), doc-test alignment is verified |
 | **PR** | PR workflow is documented or scripted — what to include, format, checks |
 | **Iterate** | Review feedback loop works — agent can read comments, fix, push |
 | **Clear** | Agent knows how to clean up — compact history, archive, close |
@@ -210,6 +212,7 @@ Apply only the approved fixes. For each fix:
 - Add or update linting configs
 - Update existing skill descriptions
 - Add instructions to existing PR review skills
+- Suggest or create a doc-test alignment sub-agent stub (modeled after `pr-review`) to run at the end of a plan
 
 **What you do NOT do:**
 
