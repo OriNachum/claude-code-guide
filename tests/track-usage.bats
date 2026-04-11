@@ -114,6 +114,52 @@ run_hook() {
   [ "$(get_count agents)" -eq 1 ]
 }
 
+# --- Task tracking ---
+
+@test "TaskCreate tool increments tasks count" {
+  run_hook '{"tool_name": "TaskCreate"}'
+  [ "$(get_count tasks)" -eq 1 ]
+}
+
+@test "TaskUpdate tool increments tasks count" {
+  run_hook '{"tool_name": "TaskUpdate"}'
+  [ "$(get_count tasks)" -eq 1 ]
+}
+
+@test "TaskList tool increments tasks count" {
+  run_hook '{"tool_name": "TaskList"}'
+  [ "$(get_count tasks)" -eq 1 ]
+}
+
+# --- Worktree tracking ---
+
+@test "EnterWorktree tool increments worktrees count" {
+  run_hook '{"tool_name": "EnterWorktree"}'
+  [ "$(get_count worktrees)" -eq 1 ]
+}
+
+@test "ExitWorktree tool increments worktrees count" {
+  run_hook '{"tool_name": "ExitWorktree"}'
+  [ "$(get_count worktrees)" -eq 1 ]
+}
+
+# --- Cron tools tracked as loop ---
+
+@test "CronCreate tool increments loop count" {
+  run_hook '{"tool_name": "CronCreate"}'
+  [ "$(get_count loop)" -eq 1 ]
+}
+
+@test "CronDelete tool increments loop count" {
+  run_hook '{"tool_name": "CronDelete"}'
+  [ "$(get_count loop)" -eq 1 ]
+}
+
+@test "CronList tool increments loop count" {
+  run_hook '{"tool_name": "CronList"}'
+  [ "$(get_count loop)" -eq 1 ]
+}
+
 # --- Plan-file detection ---
 
 @test "Write to plans directory increments planning count" {

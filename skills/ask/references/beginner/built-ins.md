@@ -120,18 +120,27 @@ Claude Code provides these lifecycle events that you can hook into. No hooks are
 | `UserPromptSubmit` | User submits a prompt | Yes |
 | `PreToolUse` | Before a tool call executes | Yes |
 | `PermissionRequest` | Permission dialog appears | Yes |
+| `PermissionDenied` | Tool call denied by auto mode classifier | No |
 | `PostToolUse` | After a tool call succeeds | No |
 | `PostToolUseFailure` | After a tool call fails | No |
 | `Notification` | Claude sends a notification | No |
+| `InstructionsLoaded` | CLAUDE.md or memory files loaded into context | No |
 | `SubagentStart` | A subagent is spawned | No |
 | `SubagentStop` | A subagent finishes | Yes |
 | `Stop` | Claude finishes responding | Yes |
+| `StopFailure` | Turn ends due to an API error | No |
 | `TeammateIdle` | Agent team teammate goes idle | Yes |
+| `TaskCreated` | A task is created via TaskCreate | Yes |
 | `TaskCompleted` | Task is marked as completed | Yes |
+| `FileChanged` | A watched file changes on disk | No |
+| `CwdChanged` | Working directory changes (e.g., cd command) | No |
 | `ConfigChange` | Configuration file changes | Yes (except policy) |
 | `WorktreeCreate` | Worktree is being created | Yes |
 | `WorktreeRemove` | Worktree is being removed | No |
 | `PreCompact` | Before context compaction | No |
+| `PostCompact` | After context compaction completes | No |
+| `Elicitation` | MCP server requests user input during a tool call | Yes |
+| `ElicitationResult` | User responds to an MCP elicitation | No |
 | `SessionEnd` | Session terminates | No |
 
 Hook handlers can be shell commands (`type: "command"`), HTTP endpoints (`type: "http"`), LLM prompts (`type: "prompt"`), or agentic verifiers (`type: "agent"`).

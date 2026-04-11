@@ -37,12 +37,16 @@ Opus 4.6 and Sonnet 4.6 support **effort levels** that control how deeply the mo
 | **Low** | Minimal reasoning | Fastest | Straightforward tasks: rename a variable, add a log line, simple questions |
 | **Medium** (Opus default) | Balanced reasoning | Moderate | Most daily work: implement features, fix known bugs, write tests |
 | **High** | Deep reasoning | Slowest | Hard problems: architectural design, subtle bugs, complex multi-file changes |
+| **Max** | Deepest reasoning, no token constraint | Slowest | The hardest problems: complex architecture across many files, novel algorithm design. Opus 4.6 only, does not persist across sessions. |
+
+> **Note:** The `max` effort level is available on Opus 4.6 only and does not persist across sessions except through the `CLAUDE_CODE_EFFORT_LEVEL` environment variable.
 
 ### How to set effort level
 
 - **In /model**: use left/right arrow keys to adjust the effort slider
-- **Environment variable**: `export CLAUDE_CODE_EFFORT_LEVEL=low|medium|high`
+- **Environment variable**: `export CLAUDE_CODE_EFFORT_LEVEL=low|medium|high|max`
 - **Settings file**: set `"effortLevel": "medium"` in your settings
+- **Slash command**: `/effort low`, `/effort medium`, `/effort high`, or `/effort max`
 - **One-off deep thinking**: type "ultrathink" anywhere in your prompt to set effort to high for that single turn
 
 ## When to Use Each Model
@@ -102,6 +106,7 @@ Here's how to think about combining model choice and effort level:
 | Debug a race condition | Opus + medium effort | Needs deeper reasoning to trace concurrent paths |
 | Design a caching strategy | Opus + high effort | Complex tradeoffs, needs thorough analysis |
 | Review code for security issues | Opus + high effort | Subtle issues require careful examination |
+| Novel algorithm design or architecture from scratch | Opus + max effort | Deepest possible reasoning with no token constraint |
 | Generate test boilerplate | Sonnet + low effort | Repetitive, well-defined task |
 | Understand unfamiliar codebase | Sonnet + medium effort (or Haiku sub agent) | Balances thoroughness with speed |
 

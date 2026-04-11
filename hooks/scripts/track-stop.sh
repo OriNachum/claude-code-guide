@@ -74,7 +74,7 @@ is_fibonacci "$SESSION" || exit 0
 eval "$(jq -r '
   def multiplier:
     if . == "shell" or . == "editing" or . == "reading" or . == "search" or . == "btw" then 1
-    elif . == "agents" then 100
+    elif . == "agents" or . == "worktrees" then 100
     else 10
     end;
 
@@ -109,15 +109,16 @@ dep_met() {
   local feature="$1"
   case "$feature" in
     agents)       jq -e '.features.skills.count > 0 and .features.planning.count > 0' "$DATA_FILE" >/dev/null 2>&1 ;;
+    worktrees)    jq -e '.features.agents.count > 0' "$DATA_FILE" >/dev/null 2>&1 ;;
     *)            return 0 ;;
   esac
 }
 
 # Level gating: levels 1-2 see intermediate only; 3+ see intermediate + expert
 if [ "$LEVEL" -ge 3 ]; then
-  CANDIDATES="btw skills plugins web planning notebooks mcp loop agents"
+  CANDIDATES="btw skills plugins web planning notebooks mcp loop tasks agents worktrees"
 else
-  CANDIDATES="btw skills plugins web planning notebooks mcp loop"
+  CANDIDATES="btw skills plugins web planning notebooks mcp loop tasks"
 fi
 
 # Filter: unused, not yet suggested, deps met
@@ -140,7 +141,7 @@ if [ -n "$ELIGIBLE" ]; then
   WEIGHTED=""
   for feat in $ELIGIBLE; do
     case "$feat" in
-      agents) WEIGHTED="$WEIGHTED $feat $feat $feat" ;;
+      agents|worktrees) WEIGHTED="$WEIGHTED $feat $feat $feat" ;;
       *)      WEIGHTED="$WEIGHTED $feat" ;;
     esac
   done
@@ -160,6 +161,8 @@ if [ -n "$ELIGIBLE" ]; then
     loop)      TIP="Loop Scheduling — use /loop to monitor deploys or triage tickets on a timer" ;;
     btw)       TIP="Quick Aside — use /btw to ask a one-off question without cluttering context" ;;
     agents)    TIP="Sub Agents — delegate complex tasks to run in parallel" ;;
+    tasks)     TIP="Task Management — use TaskCreate to break work into tracked steps" ;;
+    worktrees) TIP="Worktrees — use isolation: 'worktree' in agents for parallel git work" ;;
     *)         TIP="$PICK" ;;
   esac
 
@@ -170,5 +173,5 @@ if [ -n "$ELIGIBLE" ]; then
 
   echo "🎮 Lvl ${LEVEL} ${TITLE} | ${SCORE} pts | Try: ${TIP} (/guide:level-up for more)"
 else
-  echo "🎮 Lvl ${LEVEL} ${TITLE} | ${SCORE} pts | ${UNIQUE}/13 features (/guide:level-up)"
+  echo "🎮 Lvl ${LEVEL} ${TITLE} | ${SCORE} pts | ${UNIQUE}/15 features (/guide:level-up)"
 fi

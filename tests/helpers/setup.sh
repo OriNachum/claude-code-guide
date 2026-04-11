@@ -17,7 +17,9 @@ GAME_DATA_TEMPLATE='{
     "mcp": {"count": 0, "lastUsed": null},
     "notebooks": {"count": 0, "lastUsed": null},
     "loop": {"count": 0, "lastUsed": null},
-    "btw": {"count": 0, "lastUsed": null}
+    "btw": {"count": 0, "lastUsed": null},
+    "tasks": {"count": 0, "lastUsed": null},
+    "worktrees": {"count": 0, "lastUsed": null}
   },
   "tokens": {"read": 0, "write": 0, "total": 0},
   "sessionCount": 0,

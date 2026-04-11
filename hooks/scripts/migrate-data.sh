@@ -37,7 +37,7 @@ fi
 command -v jq >/dev/null 2>&1 || exit 0
 
 # Define expected feature categories
-EXPECTED='["shell","editing","reading","search","agents","skills","plugins","web","planning","mcp","notebooks","loop","btw"]'
+EXPECTED='["shell","editing","reading","search","agents","skills","plugins","web","planning","mcp","notebooks","loop","btw","tasks","worktrees"]'
 
 # Add missing fields and categories, preserve all existing data
 # Intentionally does not touch pluginVersion or migrations — those are

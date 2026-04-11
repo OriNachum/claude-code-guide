@@ -72,7 +72,7 @@ Each iteration runs in the same conversation, so Claude has full context of prev
 | Constraint | Detail |
 |---|---|
 | **Session-scoped** | Tasks die when your terminal closes, the session exits, or the machine restarts. There is no persistence across sessions. |
-| **3-day auto-expiry** | Recurring tasks automatically expire 3 days after creation — the task fires one final time, then self-deletes. |
+| **7-day auto-expiry** | Recurring tasks automatically expire 7 days after creation — the task fires one final time, then self-deletes. |
 | **50 task limit** | Maximum 50 scheduled tasks per session. |
 | **Fires only when idle** | If Claude is busy when the interval elapses, the task waits. There is no catch-up for missed intervals — it fires once when Claude becomes idle. |
 | **Minute granularity** | The scheduler is cron-based; intervals under 1 minute are rounded up to the nearest minute. |
@@ -81,7 +81,7 @@ Each iteration runs in the same conversation, so Claude has full context of prev
 
 **What this means in practice:**
 
-- The `d` unit exists but is impractical — `/loop 1d` fires roughly 3 times before auto-expiry.
+- The `d` unit exists but is impractical — `/loop 1d` fires roughly 7 times before auto-expiry.
 - Anything longer than a few hours is unreliable. Best practice: intervals from minutes to a few hours within a single working session.
 - For unattended automation that runs without an active session, see [GitHub Actions](github-actions.md).
 
@@ -175,7 +175,7 @@ GitHub Actions is for **unattended automation** — CI/CD pipelines, scheduled m
 | Aspect | /loop | GitHub Actions |
 |---|---|---|
 | **Setup time** | Seconds — just type the command | Minutes to hours — write YAML, configure secrets, push |
-| **Persistence** | Dies with session (3-day max) | Runs on GitHub's infrastructure |
+| **Persistence** | Dies with session (7-day max) | Runs on GitHub's infrastructure |
 | **Reliability** | Depends on session staying alive | Production-grade, team-visible |
 | **Cost model** | Claude tokens per iteration | GitHub Actions minutes + Claude tokens |
 | **Best for** | In-session monitoring, deploy checks, on-call triage | Production workflows, team-wide automation, compliance |
