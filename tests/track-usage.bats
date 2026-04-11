@@ -131,6 +131,21 @@ run_hook() {
   [ "$(get_count tasks)" -eq 1 ]
 }
 
+@test "TaskGet tool increments tasks count" {
+  run_hook '{"tool_name": "TaskGet"}'
+  [ "$(get_count tasks)" -eq 1 ]
+}
+
+@test "TaskStop tool increments tasks count" {
+  run_hook '{"tool_name": "TaskStop"}'
+  [ "$(get_count tasks)" -eq 1 ]
+}
+
+@test "TaskOutput tool increments tasks count" {
+  run_hook '{"tool_name": "TaskOutput"}'
+  [ "$(get_count tasks)" -eq 1 ]
+}
+
 # --- Worktree tracking ---
 
 @test "EnterWorktree tool increments worktrees count" {

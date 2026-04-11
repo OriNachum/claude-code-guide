@@ -42,7 +42,7 @@ You're about to work on something **complex, risky, or unfamiliar** and you want
 In Plan Mode, Claude can read files, search code, and analyze your codebase, but cannot write files or execute commands. It uses `AskUserQuestion` to gather requirements and propose plans.
 
 **The workflow:**
-1. Start in Plan Mode: `claude --permission-mode plan` or press `Shift+Tab` twice
+1. Start in Plan Mode: `claude --permission-mode plan` or press `Shift+Tab` to cycle through modes
 2. Ask Claude to explore and plan: "I need to add OAuth. What files need to change? Create a plan."
 3. Review the plan (press `Ctrl+G` to edit it in your text editor)
 4. Switch to Normal Mode (`Shift+Tab`) and let Claude implement
@@ -183,7 +183,7 @@ Claude implements, and you supervise (Normal) or let it write freely (Accept Edi
 > Commit with a descriptive message and create a PR.
 ```
 
-## 🌿 Beyond the Three Modes: Advanced Options
+## 🌿 Beyond the Permission Modes: Advanced Options
 
 ### `dontAsk` mode
 
