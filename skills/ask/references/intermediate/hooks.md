@@ -150,19 +150,27 @@ exit 0
 | `UserPromptSubmit` | User submits a prompt | Yes |
 | `PreToolUse` | Before a tool call executes | Yes |
 | `PermissionRequest` | Permission dialog appears | Yes |
+| `PermissionDenied` | Tool call denied by auto mode classifier | No |
 | `PostToolUse` | After a tool call succeeds | No (tool already ran) |
 | `PostToolUseFailure` | After a tool call fails | No |
 | `Notification` | Claude sends a notification | No |
+| `InstructionsLoaded` | CLAUDE.md/memory files loaded | No |
 | `SubagentStart` | A subagent is spawned | No |
 | `SubagentStop` | A subagent finishes | Yes |
 | `Stop` | Claude finishes responding | Yes |
-| `InstructionsLoaded` | CLAUDE.md/memory files loaded | No |
-| `ConfigChange` | Settings file changes | Yes |
+| `StopFailure` | Turn ends due to an API error | No |
 | `TeammateIdle` | A teammate has no pending tasks | Yes |
+| `TaskCreated` | A task is created via TaskCreate | Yes |
 | `TaskCompleted` | A background task finishes | Yes |
+| `FileChanged` | A watched file changes on disk | No |
+| `CwdChanged` | Working directory changes (e.g., cd command) | No |
+| `ConfigChange` | Settings file changes | Yes |
 | `WorktreeCreate` | A worktree is created | Yes |
 | `WorktreeRemove` | A worktree is removed | No |
 | `PreCompact` | Before context compaction | No |
+| `PostCompact` | After context compaction completes | No |
+| `Elicitation` | MCP server requests user input during a tool call | Yes |
+| `ElicitationResult` | User responds to an MCP elicitation | No |
 | `SessionEnd` | Session terminates | No |
 
 ## Next Steps

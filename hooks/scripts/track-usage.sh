@@ -53,6 +53,11 @@ case "$TOOL_NAME" in
   WebFetch|WebSearch)            CATEGORY="web" ;;
   EnterPlanMode|ExitPlanMode)    CATEGORY="planning" ;;
   NotebookEdit)                  CATEGORY="notebooks" ;;
+  TaskCreate|TaskGet|TaskList|TaskUpdate|TaskStop|TaskOutput)
+                                 CATEGORY="tasks" ;;
+  EnterWorktree|ExitWorktree)    CATEGORY="worktrees" ;;
+  CronCreate|CronDelete|CronList)
+                                 CATEGORY="loop" ;;
   Agent)
     # Only count user-initiated agents (not built-in or plugin ones)
     SUBAGENT_TYPE="$(echo "$PAYLOAD" | jq -r '.tool_input.subagent_type // empty')"

@@ -13,7 +13,7 @@ permalink: /starting-to-work/
 
 Before you start typing a prompt, you need to make one key decision: **what permission mode should Claude run in?** This determines how much autonomy Claude has — from read-only exploration to fully autonomous execution.
 
-## The Three Permission Modes
+## Permission Modes
 
 You cycle through modes using **Shift+Tab** during a session, or set them at startup.
 
@@ -21,6 +21,7 @@ You cycle through modes using **Shift+Tab** during a session, or set them at sta
 |---|---|---|---|---|---|
 | **Normal** (default) | (none) | ✅ | ✅ (with approval) | ✅ (with approval) | Yes — for edits and commands |
 | **Accept Edits** | `⏵⏵ accept edits on` | ✅ | ✅ (auto-approved) | ✅ (with approval) | Only for shell commands |
+| **Auto** (research preview) | `🤖 auto mode on` | ✅ | ✅ (auto-approved) | ✅ (auto-approved) | No — background safety checks verify alignment |
 | **Plan Mode** | `⏸ plan mode on` | ✅ | ❌ | ❌ | N/A — Claude only reads and plans |
 
 ## Choosing Your Mode
@@ -41,7 +42,7 @@ You're about to work on something **complex, risky, or unfamiliar** and you want
 In Plan Mode, Claude can read files, search code, and analyze your codebase, but cannot write files or execute commands. It uses `AskUserQuestion` to gather requirements and propose plans.
 
 **The workflow:**
-1. Start in Plan Mode: `claude --permission-mode plan` or press `Shift+Tab` twice
+1. Start in Plan Mode: `claude --permission-mode plan` or press `Shift+Tab` to cycle through modes
 2. Ask Claude to explore and plan: "I need to add OAuth. What files need to change? Create a plan."
 3. Review the plan (press `Ctrl+G` to edit it in your text editor)
 4. Switch to Normal Mode (`Shift+Tab`) and let Claude implement
@@ -106,6 +107,27 @@ File edits (Write, Edit) are auto-approved for the session. Shell commands still
 3. Claude writes files without asking — you only approve shell commands
 4. Review the diff afterward: `/diff` or `git diff`
 
+### 🌳 Start in Auto mode when...
+
+> **Research preview** — this mode is experimental and may change. It requires understanding its safety model before use.
+
+You **fully understand the safety classifier** and are comfortable with autonomous tool execution. Auto mode is an expert-level capability, not a convenience upgrade from Accept Edits.
+
+**Typical scenarios:**
+
+- You understand how the background safety classifier works and have configured `autoMode.environment`
+- You're working on a well-tested codebase with good CI coverage
+- You want maximum speed and are prepared to review denied actions after the fact
+
+**How it works:**
+Auto-approves tool calls with background safety checks that verify actions align with your request. A background classifier evaluates each action — anything that appears misaligned is denied and logged in `/permissions`. You configure trusted infrastructure (repos, domains, buckets) in `autoMode.environment` settings so the classifier knows what's "internal" vs. "external."
+
+**The workflow:**
+1. Configure `autoMode.environment` in your settings with your trusted infrastructure
+2. Start with `claude --permission-mode auto` or press `Shift+Tab` to cycle to Auto mode
+3. Describe your task and let Claude work
+4. Check `/permissions` to review any denied actions and retry false positives
+
 ## Decision Flowchart
 
 ```
@@ -119,6 +141,10 @@ Am I exploring or planning?
     └── Is this a quick, low-risk task?
         ├── Yes → Normal mode (just approve as you go)
         └── No, it's complex → Start in Plan Mode first
+
+Auto mode (🌳 Expert, research preview):
+  Use only if you fully understand the safety model
+  and are comfortable with autonomous tool execution.
 ```
 
 ## The Explore → Plan → Implement Workflow
@@ -161,7 +187,7 @@ Claude implements, and you supervise (Normal) or let it write freely (Accept Edi
 > Commit with a descriptive message and create a PR.
 ```
 
-## 🌿 Beyond the Three Modes: Advanced Options
+## 🌿 Beyond the Permission Modes: Advanced Options
 
 ### `dontAsk` mode
 
@@ -188,6 +214,7 @@ An alternative to permission modes — OS-level isolation that restricts filesys
 | Plan a complex change | Plan Mode |
 | Implement with active supervision | Normal |
 | Implement with file-edit freedom | Accept Edits |
+| Let Claude work fully autonomously | Auto (research preview) |
 | Run in CI/automation | `bypassPermissions` (in a sandbox) |
 | Lock down to specific operations | `dontAsk` + allow rules |
 | Ask a quick question without losing context | `/btw` (one-off, stays out of context) |
@@ -196,7 +223,7 @@ An alternative to permission modes — OS-level isolation that restricts filesys
 
 You don't have to pick one mode and stick with it. Switch freely:
 
-- **Shift+Tab**: cycles Normal → Accept Edits → Plan Mode → Normal
+- **Shift+Tab**: cycles Normal → Accept Edits → Auto → Plan Mode → Normal
 - **`/plan`**: enters Plan Mode from the prompt
 - The mode indicator at the bottom of the terminal tells you which mode you're in
 

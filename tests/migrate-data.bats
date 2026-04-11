@@ -20,16 +20,16 @@ run_migrate() {
   # Start with minimal game-data.json — only enabled and empty features
   echo '{"enabled": true, "features": {}}' > "$DATA_FILE"
   run_migrate
-  # All 13 categories should exist
+  # All 15 categories should exist
   local count
   count="$(jq '.features | keys | length' "$DATA_FILE")"
-  [ "$count" -eq 13 ]
+  [ "$count" -eq 15 ]
 }
 
-@test "All 13 expected categories are present after migration" {
+@test "All 15 expected categories are present after migration" {
   echo '{"enabled": true, "features": {}}' > "$DATA_FILE"
   run_migrate
-  for cat in shell editing reading search agents skills plugins web planning mcp notebooks loop btw; do
+  for cat in shell editing reading search agents skills plugins web planning mcp notebooks loop btw tasks worktrees; do
     local val
     val="$(jq -r --arg c "$cat" '.features[$c]' "$DATA_FILE")"
     [ "$val" != "null" ]
@@ -143,7 +143,7 @@ run_migrate() {
   echo '{"enabled": true, "features": {}}' > "$DATA_FILE"
   run_migrate
   # Validate each new feature category has count and lastUsed
-  for cat in shell editing reading search agents skills plugins web planning mcp notebooks loop btw; do
+  for cat in shell editing reading search agents skills plugins web planning mcp notebooks loop btw tasks worktrees; do
     [ "$(jq -r --arg c "$cat" '.features[$c].count' "$DATA_FILE")" = "0" ]
     [ "$(jq -r --arg c "$cat" '.features[$c].lastUsed' "$DATA_FILE")" = "null" ]
   done
