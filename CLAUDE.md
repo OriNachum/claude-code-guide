@@ -223,6 +223,15 @@ Installed plugins are cached at `~/.claude/plugins/cache`. **Version is the cach
 
 Before staging or committing changes, check the current branch. If you are on `main`, create a new descriptive branch first — never commit directly to `main`.
 
+### After completing work
+
+When a task is done and merged, clean up:
+
+- Compact or clear conversation history if context is getting long
+- Delete merged feature branches locally: `git branch -d feature/branch-name`
+- Close related GitHub issues (use `closes #N` in commit messages for auto-close)
+- Run `/guide:introspect` to review what could be improved for next time
+
 ---
 
 ## How to Edit

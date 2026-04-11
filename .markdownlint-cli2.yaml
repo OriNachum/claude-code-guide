@@ -1,0 +1,12 @@
+# Project markdownlint-cli2 configuration
+config:
+  default: true
+  # MD013: Line length — disabled (content-heavy docs with tables)
+  MD013: false
+  # MD060: Table pipe spacing — disabled (stylistic preference)
+  MD060: false
+
+# Ignore patterns
+ignores:
+  - "node_modules/**"
+  - ".local/**"
