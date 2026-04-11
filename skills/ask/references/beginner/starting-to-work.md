@@ -107,40 +107,44 @@ File edits (Write, Edit) are auto-approved for the session. Shell commands still
 3. Claude writes files without asking — you only approve shell commands
 4. Review the diff afterward: `/diff` or `git diff`
 
-### Start in Auto mode when...
+### 🌳 Start in Auto mode when...
 
-You **trust Claude to work fully autonomously** with background safety verification. This mode is currently a research preview.
+> **Research preview** — this mode is experimental and may change. It requires understanding its safety model before use.
+
+You **fully understand the safety classifier** and are comfortable with autonomous tool execution. Auto mode is an expert-level capability, not a convenience upgrade from Accept Edits.
 
 **Typical scenarios:**
 
+- You understand how the background safety classifier works and have configured `autoMode.environment`
 - You're working on a well-tested codebase with good CI coverage
-- You want maximum speed and minimal interruptions
-- You're comfortable with Claude making decisions within your project scope
+- You want maximum speed and are prepared to review denied actions after the fact
 
 **How it works:**
-Auto-approves tool calls with background safety checks that verify actions align with your request. File edits and shell commands proceed without prompting, but a background classifier flags anything that appears misaligned — those actions are denied and logged in `/permissions`.
+Auto-approves tool calls with background safety checks that verify actions align with your request. A background classifier evaluates each action — anything that appears misaligned is denied and logged in `/permissions`. You configure trusted infrastructure (repos, domains, buckets) in `autoMode.environment` settings so the classifier knows what's "internal" vs. "external."
 
 **The workflow:**
-1. Press `Shift+Tab` to cycle to Auto mode, or start with `claude --permission-mode auto`
-2. Describe your task and let Claude work
-3. Check `/permissions` to review any denied actions
-4. Configure trusted infrastructure in `autoMode.environment` settings for fewer false positives
+1. Configure `autoMode.environment` in your settings with your trusted infrastructure
+2. Start with `claude --permission-mode auto` or press `Shift+Tab` to cycle to Auto mode
+3. Describe your task and let Claude work
+4. Check `/permissions` to review any denied actions and retry false positives
 
 ## Decision Flowchart
 
 ```
 Am I exploring or planning?
 ├── Yes → Plan Mode
-│   └── Ready to implement? → Switch to Normal, Accept Edits, or Auto
+│   └── Ready to implement? → Switch to Normal or Accept Edits
 └── No, I'm implementing
-    ├── Do I trust Claude to work fully autonomously?
-    │   ├── Yes → Auto mode (research preview)
-    │   └── Do I trust Claude with file edits?
-    │       ├── Yes → Accept Edits mode
-    │       └── Not yet → Normal mode
+    ├── Do I trust Claude with file edits?
+    │   ├── Yes → Accept Edits mode
+    │   └── Not yet → Normal mode
     └── Is this a quick, low-risk task?
         ├── Yes → Normal mode (just approve as you go)
         └── No, it's complex → Start in Plan Mode first
+
+Auto mode (🌳 Expert, research preview):
+  Use only if you fully understand the safety model
+  and are comfortable with autonomous tool execution.
 ```
 
 ## The Explore → Plan → Implement Workflow
