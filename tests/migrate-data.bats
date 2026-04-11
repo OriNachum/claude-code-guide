@@ -9,7 +9,9 @@ teardown() { teardown_common; }
 SCRIPT_NAME="hooks/scripts/migrate-data.sh"
 
 run_migrate() {
-  bash "${CLAUDE_PLUGIN_ROOT}/${SCRIPT_NAME}"
+  local rc=0
+  bash "${CLAUDE_PLUGIN_ROOT}/${SCRIPT_NAME}" || rc=$?
+  [ "$rc" -eq 0 ] || { echo "run_migrate failed with exit code $rc" >&2; return 1; }
 }
 
 # --- Adding missing fields ---

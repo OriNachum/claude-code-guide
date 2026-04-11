@@ -216,6 +216,7 @@ claude-code-guide/
 │       └── SKILL.md ...................... Interactive HTML setup dashboard generator
 ├── agents/
 │   ├── doc-verifier.md .................... On-demand reference doc accuracy verifier (Sonnet agent)
+│   ├── pr-review.md ....................... Pull request review sub-agent (Sonnet agent)
 │   └── version-bump.md .................... Synced version bumper for plugin.json + marketplace.json (Haiku agent)
 ├── tests/
 │   ├── helpers/

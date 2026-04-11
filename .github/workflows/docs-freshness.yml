@@ -19,16 +19,15 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v4
 
-      - name: Check for existing docs-freshness issue or PR
+      - name: Check for existing docs-freshness PR
         id: check-existing
         env:
           GH_TOKEN: ${{ github.token }}
         run: |
-          OPEN_ISSUES=$(gh issue list --label "docs-freshness" --state open --json number --jq 'length')
           OPEN_PRS=$(gh pr list --label "docs-freshness" --state open --json number --jq 'length')
-          if [ "$OPEN_ISSUES" -gt 0 ] || [ "$OPEN_PRS" -gt 0 ]; then
+          if [ "$OPEN_PRS" -gt 0 ]; then
             echo "skip=true" >> "$GITHUB_OUTPUT"
-            echo "Open docs-freshness issue or PR already exists — skipping."
+            echo "Open docs-freshness PR already exists — skipping."
           else
             echo "skip=false" >> "$GITHUB_OUTPUT"
           fi
@@ -43,7 +42,10 @@ jobs:
       - name: Run Claude Code for docs freshness
         if: steps.check-existing.outputs.skip != 'true'
         uses: anthropics/claude-code-action@v1
+        env:
+          GH_TOKEN: ${{ github.token }}
         with:
+          github_token: ${{ github.token }}
           claude_code_oauth_token: ${{ secrets.CLAUDE_CODE_OAUTH_TOKEN }}
           claude_args: "--model sonnet"
           show_full_output: true

@@ -9,7 +9,9 @@ teardown() { teardown_common; }
 SCRIPT_NAME="hooks/scripts/track-usage.sh"
 
 run_hook() {
-  echo "$1" | bash "${CLAUDE_PLUGIN_ROOT}/${SCRIPT_NAME}"
+  local rc=0
+  echo "$1" | bash "${CLAUDE_PLUGIN_ROOT}/${SCRIPT_NAME}" || rc=$?
+  [ "$rc" -eq 0 ] || { echo "run_hook failed with exit code $rc" >&2; return 1; }
 }
 
 # --- Tool-to-category mapping ---
