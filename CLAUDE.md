@@ -6,7 +6,7 @@ This file tells Claude Code (and other AI agents) how to work with this reposito
 
 ## What This Repo Is
 
-A Claude Code guide, packaged as a plugin. There are five skills:
+A Claude Code guide, packaged as a plugin. There are seven skills:
 
 - **`/guide:onboard`** — Interactive getting-started walkthrough for new users
 - **`/guide:ask`** — Q&A skill backed by comprehensive reference documentation in `skills/ask/references/`
@@ -14,6 +14,7 @@ A Claude Code guide, packaged as a plugin. There are five skills:
 - **`/guide:level-up`** — Feature roadmap and personalized next-step coaching
 - **`/guide:migrate-to-claude`** — Smart migration from other AI coding assistants (Cursor, Windsurf, Copilot, Codex, etc.) to Claude Code
 - **`/guide:visualize-setup`** — Generate an interactive HTML dashboard of all installed Claude Code skills and MCP servers
+- **`/guide:open-freshness-issue`** — Open a GitHub issue listing reference docs that need updating based on official Anthropic docs
 
 This repo serves two audiences: humans browsing the docs on GitHub, and Claude Code users who install it as a plugin to get guided help.
 
@@ -91,6 +92,10 @@ claude-code-guide/
 │   │   └── SKILL.md ...................... Feature roadmap and coaching hints
 │   ├── migrate-to-claude/
 │   │   └── SKILL.md ...................... AI tool config migration assistant
+│   ├── open-freshness-issue/
+│   │   ├── SKILL.md ...................... Opens GitHub issue with docs-freshness findings
+│   │   └── scripts/
+│   │       └── create-issue.sh ........... Creates/deduplicates freshness issue via gh CLI
 │   └── visualize-setup/
 │       ├── SKILL.md ...................... Interactive HTML setup dashboard generator
 │       ├── scripts/

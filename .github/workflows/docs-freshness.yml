@@ -40,7 +40,7 @@ jobs:
           settings: |
             {
               "permissions": {
-                "allow": ["WebFetch", "WebSearch"]
+                "allow": ["Bash", "WebFetch", "WebSearch"]
               }
             }
           prompt: |
@@ -158,7 +158,33 @@ jobs:
                  ## URLs that returned errors
                  (list any URLs that 404'd or failed)
 
+            ## Step 6b: Open a tracking issue
+
+            Whether or not a PR was created, if ANY inaccuracies were found during
+            comparison, open a GitHub issue to track them:
+
+            1. Create a JSON array of all findings. Each entry must have:
+               ```json
+               {"file": "tier/filename.md", "finding": "what is wrong", "source_url": "official URL"}
+               ```
+
+            2. Write the JSON array to `/tmp/freshness-findings.json`
+
+            3. If a PR was created in Step 6, export the PR URL:
+               ```bash
+               export FRESHNESS_PR_URL="<the PR URL from Step 6>"
+               ```
+
+            4. Run the issue-creation script:
+               ```bash
+               bash skills/open-freshness-issue/scripts/create-issue.sh /tmp/freshness-findings.json
+               ```
+
+            The script handles dedup (skips if an open `docs-freshness` issue exists)
+            and outputs the issue URL. Include both the PR URL and issue URL in your
+            final output.
+
             ## Step 7: If no changes needed
 
-            If all docs are accurate, do NOT create a PR. Just output:
+            If all docs are accurate, do NOT create a PR or issue. Just output:
             "All reference docs are current — no changes needed."
