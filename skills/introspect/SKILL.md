@@ -50,9 +50,10 @@ If the intent is unclear, ask the user which level they want.
 
 **Applying the toggle:**
 
-1. Read `${CLAUDE_PLUGIN_ROOT}/.local/game-data.json` (create the `introspectConfig` key if missing)
-2. Set `introspectConfig.triggerLevel` to the chosen level (`auto`, `remind`, or `off`)
-3. Write the updated game-data.json
+1. Create `${CLAUDE_PLUGIN_ROOT}/.local/` directory if it doesn't exist
+2. Read `${CLAUDE_PLUGIN_ROOT}/.local/game-data.json` — if the file doesn't exist, start with `{}`
+3. Set `.introspectConfig.triggerLevel` to the chosen level (`auto`, `remind`, or `off`)
+4. Write the updated game-data.json
 
 4. If level is `auto`:
    - Edit this file's frontmatter: set `disable-model-invocation: false`
@@ -76,7 +77,7 @@ Then stop.
 
 On every invocation (before scanning), check if the saved config matches the current frontmatter:
 
-1. Read `${CLAUDE_PLUGIN_ROOT}/.local/game-data.json`
+1. Read `${CLAUDE_PLUGIN_ROOT}/.local/game-data.json` (skip this check if the file doesn't exist)
 2. If `introspectConfig.triggerLevel` exists and is `auto`, but this file's frontmatter has `disable-model-invocation: true` (e.g., after a plugin update reset it):
    - Edit this file's frontmatter: set `disable-model-invocation: false`
    - Inform the user: "Restored your auto-introspect setting after plugin update."

@@ -20,7 +20,7 @@ run_migrate() {
   # Start with minimal game-data.json — only enabled and empty features
   echo '{"enabled": true, "features": {}}' > "$DATA_FILE"
   run_migrate
-  # All 15 categories should exist
+  # All 16 categories should exist
   local count
   count="$(jq '.features | keys | length' "$DATA_FILE")"
   [ "$count" -eq 16 ]

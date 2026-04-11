@@ -208,7 +208,7 @@ run_hook() {
 @test "Already-suggested features are not re-suggested" {
   # Suggest all eligible features until none remain
   # Pre-populate suggestedFeatures with all level 1-2 candidates
-  jq '.suggestedFeatures = ["btw","skills","plugins","web","planning","notebooks","mcp","loop","tasks","introspection"]' \
+  jq '.suggestedFeatures = ["btw","skills","plugins","web","planning","notebooks","mcp","loop","tasks"]' \
     "$DATA_FILE" > "${DATA_FILE}.tmp" && mv "${DATA_FILE}.tmp" "$DATA_FILE"
   output="$(run_hook '{"usage": {"input_tokens": 0, "output_tokens": 0}}')"
   # Should show the "features" summary line instead of "Try:"
