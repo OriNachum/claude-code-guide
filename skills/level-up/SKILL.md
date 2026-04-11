@@ -88,6 +88,7 @@ For each feature, determine its state:
 | tasks | Intermediate | — |
 | agents | Expert | skills + planning |
 | worktrees | Expert | agents |
+| introspection | Expert | — |
 
 Show ALL features in the roadmap, including beginner features. Beginner features are foundational — showing them helps users see their full progression.
 
@@ -122,6 +123,7 @@ Present features grouped by tier with belt emoji, use count, and belt label. Exa
   ────────────────────────────────────────────
   🔒 Sub Agents     (needs: planning)
   🔒 Worktrees      (needs: agents)
+  ⚪ Introspection  (0 uses)     White Belt
 
 ═══════════════════════════════════════════════
   ⚪ White  🟡 Yellow  🟠 Orange  🟢 Green
@@ -159,6 +161,7 @@ Advanced user example with dans:
   ────────────────────────────────────────────
   🟢 Sub Agents     (72 uses)    Green Belt
   🟡 Worktrees      (20 uses)    Yellow Belt
+  🟠 Introspection  (38 uses)    Orange Belt
 
 ═══════════════════════════════════════════════
   ⚪ White  🟡 Yellow  🟠 Orange  🟢 Green
@@ -193,6 +196,7 @@ Present a short, positive recommendation:
 - White Belt: "**Try Planning** ⚪ — structure complex tasks before diving in. Ask Claude to make a plan for your next feature."
 - White Belt: "**Try Task Management** ⚪ — break complex work into tracked steps. Use TaskCreate to organize multi-step implementations."
 - White Belt: "**Try Worktrees** ⚪ — run agents in isolated git worktrees for parallel work without branch conflicts."
+- White Belt: "**Try Introspection** ⚪ — run `/guide:introspect` after a task to find friction and improve your development environment."
 - Yellow Belt: "**Deepen MCP Tools** 🟡 — you've started exploring external integrations. Try connecting a database or API server to unlock more power."
 - All features Green+: "**Level up Sub Agents** 🟢 — your weakest area. Delegate a research task to a sub-agent while you keep working."
 

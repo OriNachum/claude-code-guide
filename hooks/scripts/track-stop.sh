@@ -74,7 +74,7 @@ is_fibonacci "$SESSION" || exit 0
 eval "$(jq -r '
   def multiplier:
     if . == "shell" or . == "editing" or . == "reading" or . == "search" or . == "btw" then 1
-    elif . == "agents" or . == "worktrees" then 100
+    elif . == "agents" or . == "worktrees" or . == "introspection" then 100
     else 10
     end;
 
@@ -116,7 +116,7 @@ dep_met() {
 
 # Level gating: levels 1-2 see intermediate only; 3+ see intermediate + expert
 if [ "$LEVEL" -ge 3 ]; then
-  CANDIDATES="btw skills plugins web planning notebooks mcp loop tasks agents worktrees"
+  CANDIDATES="btw skills plugins web planning notebooks mcp loop tasks agents worktrees introspection"
 else
   CANDIDATES="btw skills plugins web planning notebooks mcp loop tasks"
 fi
@@ -141,7 +141,7 @@ if [ -n "$ELIGIBLE" ]; then
   WEIGHTED=""
   for feat in $ELIGIBLE; do
     case "$feat" in
-      agents|worktrees) WEIGHTED="$WEIGHTED $feat $feat $feat" ;;
+      agents|worktrees|introspection) WEIGHTED="$WEIGHTED $feat $feat $feat" ;;
       *)      WEIGHTED="$WEIGHTED $feat" ;;
     esac
   done
@@ -163,6 +163,7 @@ if [ -n "$ELIGIBLE" ]; then
     agents)    TIP="Sub Agents — delegate complex tasks to run in parallel" ;;
     tasks)     TIP="Task Management — use TaskCreate to break work into tracked steps" ;;
     worktrees) TIP="Worktrees — use isolation: 'worktree' in agents for parallel git work" ;;
+    introspection) TIP="Introspect — run /guide:introspect after a task to find friction and improve your setup" ;;
     *)         TIP="$PICK" ;;
   esac
 
@@ -173,5 +174,5 @@ if [ -n "$ELIGIBLE" ]; then
 
   echo "🎮 Lvl ${LEVEL} ${TITLE} | ${SCORE} pts | Try: ${TIP} (/guide:level-up for more)"
 else
-  echo "🎮 Lvl ${LEVEL} ${TITLE} | ${SCORE} pts | ${UNIQUE}/15 features (/guide:level-up)"
+  echo "🎮 Lvl ${LEVEL} ${TITLE} | ${SCORE} pts | ${UNIQUE}/16 features (/guide:level-up)"
 fi

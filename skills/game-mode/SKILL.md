@@ -84,7 +84,8 @@ Present the available commands:
     "loop":      { "count": 0, "lastUsed": null },
     "btw":       { "count": 0, "lastUsed": null },
     "tasks":     { "count": 0, "lastUsed": null },
-    "worktrees": { "count": 0, "lastUsed": null }
+    "worktrees": { "count": 0, "lastUsed": null },
+    "introspection": { "count": 0, "lastUsed": null }
   },
   "tokens": {
     "read": 0,
@@ -98,7 +99,7 @@ Present the available commands:
 ```
 
 1. Tell the user game mode is now active. Mention:
-   - Tool usage is being tracked across 15 feature categories
+   - Tool usage is being tracked across 16 feature categories
    - Use `/guide:game-mode stats` to see their dashboard
    - Use `/guide:game-mode off` to pause tracking
    - Data is stored locally and never transmitted
@@ -125,7 +126,7 @@ Present the available commands:
 |---|---|---|
 | Beginner | x1 | shell, editing, reading, search, btw |
 | Intermediate | x10 | skills, plugins, web, planning, notebooks, mcp, loop, tasks |
-| Expert | x100 | agents, worktrees |
+| Expert | x100 | agents, worktrees, introspection |
 
 1. Compute: `raw_points = sum(feature.count * multiplier)` and `score = sqrt(raw_points)` to 2 decimal places
 1. Count unique features (count > 0)
@@ -163,9 +164,10 @@ Present the available commands:
 |  ⚪ Loop/Schedule    I       0       0   never        |
 |  ⚪ Task Mgmt        I       0       0   never        |
 |  ⚪ Worktrees        E       0       0   never        |
+|  ⚪ Introspection    E       0       0   never        |
 +=======================================================+
 |  Raw: 1053 pts | Score: sqrt(1053) = 32.45            |
-|  Features: 10/15 unlocked                             |
+|  Features: 10/16 unlocked                             |
 |  Tokens: ~12.4K read, ~3.1K write                     |
 |  Next level: Master (score 55+, 10+ features)         |
 |  Migrated: unknown → 2.2.0 (2026-03-09)              |
