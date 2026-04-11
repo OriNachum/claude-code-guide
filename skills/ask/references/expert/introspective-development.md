@@ -45,7 +45,7 @@ After producing documentation, deliberately review it through different lenses:
 - **AI conversations** — discuss docs with agents: "explain this back to me," "what's missing," "what would confuse a newcomer"
 - **User-story demos** — write scenarios that walk through actual usage, revealing design gaps
 - **Fix-forward cycle** — issues found flow back as tasks: bug fixes, doc rewrites, design improvements
-- **Doc-test alignment** — verify a mechanism exists (skill, CI step, agent) that checks docs describe what tests assert and tests cover what docs promise
+- **Doc-test alignment** — verify a mechanism exists (sub-agent, skill, or hook) that checks docs describe what tests assert and tests cover what docs promise
 
 This is the "documentation as code, NotebookLM as compiler" principle. If the compiled output (podcast, overview, summary) sounds wrong, the source docs need fixing.
 
