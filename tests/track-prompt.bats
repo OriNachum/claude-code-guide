@@ -73,7 +73,17 @@ run_hook() {
   [ "$total" -eq 0 ]
 }
 
-# --- Own plugin is skipped ---
+# --- Own plugin is skipped (except introspect) ---
+
+@test "/guide:introspect increments introspection count" {
+  run_hook '{"prompt": "/guide:introspect"}'
+  [ "$(get_count introspection)" -eq 1 ]
+}
+
+@test "/guide:introspect with args increments introspection count" {
+  run_hook '{"prompt": "/guide:introspect agent skills"}'
+  [ "$(get_count introspection)" -eq 1 ]
+}
 
 @test "/guide:ask is skipped (own plugin)" {
   run_hook '{"prompt": "/guide:ask how do hooks work"}'

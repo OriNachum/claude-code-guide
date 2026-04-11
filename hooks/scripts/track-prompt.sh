@@ -40,6 +40,8 @@ if echo "$PROMPT" | grep -qE '^\s*/[a-zA-Z]'; then
       CATEGORY="loop" ;;
     btw)
       CATEGORY="btw" ;;
+    guide:introspect)
+      CATEGORY="introspection" ;;
     guide:*)
       exit 0 ;;  # Our own plugin skills — skip
     help|clear|compact|cost|doctor|init|login|logout|status|model|config|\

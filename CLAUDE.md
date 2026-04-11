@@ -6,10 +6,11 @@ This file tells Claude Code (and other AI agents) how to work with this reposito
 
 ## What This Repo Is
 
-A Claude Code guide, packaged as a plugin. There are five skills:
+A Claude Code guide, packaged as a plugin. There are seven skills:
 
 - **`/guide:onboard`** — Interactive getting-started walkthrough for new users
 - **`/guide:ask`** — Q&A skill backed by comprehensive reference documentation in `skills/ask/references/`
+- **`/guide:introspect`** — Introspective Development — audit lifecycle coverage, find gaps, and improve your development environment
 - **`/guide:game-mode`** — Gamified usage tracker that rewards feature breadth and depth with a level system
 - **`/guide:level-up`** — Feature roadmap and personalized next-step coaching
 - **`/guide:migrate-to-claude`** — Smart migration from other AI coding assistants (Cursor, Windsurf, Copilot, Codex, etc.) to Claude Code
@@ -111,6 +112,7 @@ claude-code-guide/
 │   │           │   ├── agent-sdk.md
 │   │           │   ├── hooks-http.md
 │   │           │   ├── ongoing-work.md
+│   │           │   ├── introspective-development.md
 │   │           │   ├── sub-agents.md
 │   │           │   └── team-mode.md
 │   │           ├── daily-workflow.md ...... Story walkthrough
@@ -123,6 +125,8 @@ claude-code-guide/
 │   │           ├── sub-agents-in-monolith.md
 │   │           ├── automated-briefings.md
 │   │           └── migrating-from-other-tools.md
+│   ├── introspect/
+│   │   └── SKILL.md ...................... Introspective Development — audit and improve your project
 │   ├── game-mode/
 │   │   └── SKILL.md ...................... Gamified usage tracker with levels
 │   ├── level-up/
