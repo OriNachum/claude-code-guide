@@ -15,7 +15,7 @@ Help the user set up their environment:
 
 - **CLAUDE.md** — Create a project-level `CLAUDE.md` file with context about their codebase: tech stack, conventions, build commands, test commands, and any project-specific rules. This is the single most impactful thing they can do.
 - **Permissions** — Explain the three permission modes (Ask, Auto-edit, YOLO/Dangerously skip permissions) and help them pick the right one for their workflow. Most users should start with the default (Ask) and move to Auto-edit once comfortable.
-- **Model selection** — Opus 4.6 is the default and most capable. Sonnet 4.6 is faster and cheaper for routine tasks. They can switch with `/model` anytime. Suggest starting with Opus.
+- **Model selection** — Opus 4.8 is the default and most capable for everyday work. Sonnet 4.6 is faster and cheaper for routine tasks. Fable 5 is also available for long autonomous tasks (`/model fable`). They can switch with `/model` anytime. Suggest starting with Opus.
 
 ### Step 2: First session
 

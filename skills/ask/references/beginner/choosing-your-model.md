@@ -11,7 +11,7 @@ permalink: /choosing-your-model/
 
 [← Back to Automating Your Workflows](../intermediate/automating-your-workflows.md)
 
-Claude Code lets you switch between models at any time. Each model has different strengths in speed, cost, and reasoning depth. Additionally, Opus 4.6 and Sonnet 4.6 support **effort levels** that control how much thinking the model does before responding.
+Claude Code lets you switch between models at any time. Each model has different strengths in speed, cost, and reasoning depth. Additionally, Fable 5, Opus 4.8, Opus 4.7, Opus 4.6, and Sonnet 4.6 support **effort levels** that control how much thinking the model does before responding.
 
 ## The Models at a Glance
 
@@ -19,35 +19,37 @@ Claude Code lets you switch between models at any time. Each model has different
 |---|---|---|---|---|
 | **Haiku** | Fastest | Good | Lowest | Quick lookups, simple edits, exploratory searches, sub agents doing basic research |
 | **Sonnet 4.6** | Fast | Strong | Medium | Daily coding — writing features, fixing bugs, refactoring, test generation |
-| **Opus 4.6** | Slower | Deepest | Highest | Complex architecture, subtle bugs, multi-file reasoning, nuanced code review |
+| **Opus 4.8** | Slower | Deepest | Highest | Complex architecture, subtle bugs, multi-file reasoning, nuanced code review |
+| **Fable 5** | Slowest | Deepest | Highest | The most capable model — long autonomous sessions and tasks larger than a single sitting; investigates before acting and verifies its own work. Select with `/model fable` |
 
 ## How to Switch Models
 
-- **During a session**: `/model sonnet`, `/model opus`, `/model haiku`
+- **During a session**: `/model sonnet`, `/model opus`, `/model haiku`, `/model fable`
 - **At startup**: `claude --model opus`
 - **Keyboard shortcut**: `Option+P` (macOS) or `Alt+P` (Windows/Linux)
 - **Permanently**: Set `"model": "opus"` in your settings file
 
 ## Effort Levels (Adaptive Reasoning)
 
-Opus 4.6 and Sonnet 4.6 support **effort levels** that control how deeply the model thinks before responding. This is the primary knob for tuning the speed-vs-quality tradeoff.
+Fable 5, Opus 4.8, Opus 4.7, Opus 4.6, and Sonnet 4.6 support **effort levels** that control how deeply the model thinks before responding. This is the primary knob for tuning the speed-vs-quality tradeoff. The **default is `high`** on Fable 5, Opus 4.8, Opus 4.6, and Sonnet 4.6, and **`xhigh`** on Opus 4.7.
 
 | Effort | Thinking depth | Speed | When to use |
 |---|---|---|---|
 | **Low** | Minimal reasoning | Fastest | Straightforward tasks: rename a variable, add a log line, simple questions |
-| **Medium** (Opus default) | Balanced reasoning | Moderate | Most daily work: implement features, fix known bugs, write tests |
-| **High** | Deep reasoning | Slowest | Hard problems: architectural design, subtle bugs, complex multi-file changes |
-| **Max** | Deepest reasoning, no token constraint | Slowest | The hardest problems: complex architecture across many files, novel algorithm design. Opus 4.6 only, does not persist across sessions. |
+| **Medium** | Balanced reasoning | Moderate | Cost-sensitive work that can trade off some intelligence |
+| **High** (default) | Deep reasoning | Slower | Most daily work and hard problems: features, architectural design, subtle bugs, complex multi-file changes |
+| **XHigh** | Deeper reasoning, higher token spend | Slowest | Hard problems needing deeper analysis. Default on Opus 4.7; also on Fable 5 and Opus 4.8 |
+| **Max** | Deepest reasoning, no token constraint | Slowest | The hardest problems: complex architecture across many files, novel algorithm design. Session-only unless set via env var. |
 
-> **Note:** The `max` effort level is available on Opus 4.6 only and does not persist across sessions except through the `CLAUDE_CODE_EFFORT_LEVEL` environment variable.
+> **Note:** The `max` effort level is available on all effort-supporting models (Fable 5, Opus 4.8, Opus 4.7, Opus 4.6, Sonnet 4.6). It applies to the current session only, except when set through the `CLAUDE_CODE_EFFORT_LEVEL` environment variable. `xhigh` is available on Fable 5, Opus 4.8, and Opus 4.7; on models that don't support a level, Claude Code falls back to the highest supported level below it.
 
 ### How to set effort level
 
 - **In /model**: use left/right arrow keys to adjust the effort slider
-- **Environment variable**: `export CLAUDE_CODE_EFFORT_LEVEL=low|medium|high|max`
-- **Settings file**: set `"effortLevel": "medium"` in your settings
-- **Slash command**: `/effort low`, `/effort medium`, `/effort high`, or `/effort max`
-- **One-off deep thinking**: type "ultrathink" anywhere in your prompt to set effort to high for that single turn
+- **Environment variable**: `export CLAUDE_CODE_EFFORT_LEVEL=low|medium|high|xhigh|max`
+- **Settings file**: set `"effortLevel": "high"` in your settings (`max` is session-only and not accepted here)
+- **Slash command**: `/effort low`, `/effort medium`, `/effort high`, `/effort xhigh`, or `/effort max` (or `/effort auto` to reset to the model default)
+- **One-off deep thinking**: type "ultrathink" anywhere in your prompt to request deeper reasoning for that single turn
 
 ## When to Use Each Model
 
@@ -71,7 +73,7 @@ Opus 4.6 and Sonnet 4.6 support **effort levels** that control how deeply the mo
 
 **Example**: Most developers use Sonnet as their default model. It handles the majority of coding tasks well and responds fast enough to keep you in flow.
 
-### Use Opus 4.6 when...
+### Use Opus 4.8 when...
 
 - You're working on a hard problem that requires deep reasoning
 - You need to understand complex relationships across many files
@@ -123,7 +125,7 @@ Here's how to think about combining model choice and effort level:
 - Code writers and fixers → `model: sonnet` or `model: inherit`
 - Reviewers and architects → `model: opus`
 
-**Extended context (1M tokens).** For very long sessions with large codebases, Opus 4.6 and Sonnet 4.6 support a 1 million token context window. Use `sonnet[1m]` or `opus[1m]` aliases.
+**Extended context (1M tokens).** For very long sessions with large codebases, Fable 5, Opus 4.6 and later, and Sonnet 4.6 support a 1 million token context window. Use `sonnet[1m]` or `opus[1m]` aliases.
 
 ## Default Model Behavior by Plan
 
@@ -131,9 +133,9 @@ Your default model depends on your subscription:
 
 | Plan | Default model |
 |---|---|
-| Max / Team Premium | Opus 4.6 |
+| Max / Team Premium | Opus 4.8 |
 | Pro / Team Standard | Sonnet 4.6 |
-| Enterprise | Opus 4.6 available, not default |
+| Enterprise | Opus 4.8 available, not default |
 | API / Pay-as-you-go | You choose |
 
 Claude Code may automatically fall back to Sonnet if you hit an Opus usage threshold.

@@ -41,7 +41,7 @@ Everything under `skills/`, `hooks/`, `.claude-plugin/`, and reference docs. The
 Infrastructure that helps develop and maintain the plugin but does NOT ship to users:
 
 - Agents (`agents/`) — doc-verifier, pr-review, version-bump
-- CI workflows (`.github/workflows/`) — docs-freshness, pages, tests
+- CI workflows (`.github/workflows/`) — tests
 - Test suite (`tests/`) — bats tests for hook scripts
 - CLAUDE.md, README.md — repo documentation
 
@@ -68,7 +68,6 @@ claude-code-guide/
 │   └── marketplace.json .................. Marketplace manifest
 ├── .github/
 │   └── workflows/
-│       ├── docs-freshness.yml ............. Weekly automated docs accuracy checker
 │       └── tests.yml ...................... Bash test suite (bats-core)
 ├── _includes/
 │   ├── footer_custom.html ................. Disclaimer footer

@@ -137,7 +137,7 @@ This enables building multi-step workflows where each step picks up from the pre
 
 The SDK offers layered permission control:
 
-- **`permissionMode`** / **`permission_mode`** — `default`, `acceptEdits`, `bypassPermissions`, `plan`, or `dontAsk`. Use `bypassPermissions` for CI (equivalent to `--dangerously-skip-permissions`) — requires also setting `allowDangerouslySkipPermissions: true`.
+- **`permissionMode`** / **`permission_mode`** — `default`, `acceptEdits`, `auto`, `bypassPermissions`, `plan`, or `dontAsk`. Use `bypassPermissions` for CI (equivalent to `--dangerously-skip-permissions`) — requires also setting `allowDangerouslySkipPermissions: true`.
 - **`canUseTool`** / **`can_use_tool`** — callback invoked when Claude requests tool approval. Return `{ behavior: "allow", updatedInput }` or `{ behavior: "deny", message }`. See the [Real-World Example](#real-world-example-claude-code--slack) for a production use of this pattern.
 - **`disallowedTools`** / **`disallowed_tools`** — block specific tools even in `bypassPermissions` mode.
 

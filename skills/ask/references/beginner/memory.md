@@ -76,12 +76,12 @@ Claude saves things it learns during your sessions:
 Auto memory files are stored outside your project repository:
 
 ```text
-~/.claude/projects/<project-hash>/memory/MEMORY.md
+~/.claude/projects/<project>/memory/MEMORY.md
 ```
 
 MEMORY.md is the entrypoint, but you can create additional **topic files** (e.g., `debugging.md`, `patterns.md`) in the same directory and link to them from MEMORY.md. This keeps the main file concise while preserving detailed notes in dedicated files.
 
-> **200-line limit:** The first 200 lines of MEMORY.md are loaded at the start of every conversation. Content beyond line 200 is not loaded at session start — use topic files for detailed notes.
+> **200-line limit:** The first 200 lines of MEMORY.md, or the first 25KB, whichever comes first, are loaded at the start of every conversation. Content beyond that threshold is not loaded at session start — use topic files for detailed notes.
 
 This means:
 

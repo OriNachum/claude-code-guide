@@ -165,7 +165,7 @@ Or use the hybrid approach for planning with Opus and implementing with Sonnet:
 }
 ```
 
-See [Choosing Your Model](choosing-your-model.md) for detailed guidance on Opus 4.6, Sonnet 4.6, Haiku, and effort levels.
+See [Choosing Your Model](choosing-your-model.md) for detailed guidance on Fable 5, Opus 4.8, Sonnet 4.6, Haiku, and effort levels.
 
 ---
 

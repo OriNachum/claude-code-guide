@@ -13,7 +13,7 @@ permalink: /team-mode/
 
 Agent teams let you coordinate multiple Claude Code instances working together on a complex task. One session acts as the lead, and teammates work independently in their own context windows — but unlike [sub agents](sub-agents.md), teammates can communicate directly with each other, share a task list, and self-coordinate.
 
-> **Note:** Agent teams are experimental and disabled by default. Enable them in your settings before use.
+> ⚠️ **Agent teams are experimental** and disabled by default. Features may change. Enable them in your settings before use.
 
 ---
 
@@ -128,6 +128,7 @@ Task claiming uses file locking to prevent race conditions when multiple teammat
 Use [hooks](../intermediate/hooks.md) to enforce rules when teammates finish work:
 
 - **TeammateIdle**: Fires when a teammate is about to go idle. Exit with code 2 to send feedback and keep the teammate working.
+- **TaskCreated**: Fires when a task is created via TaskCreate. Exit with code 2 to reject task creation.
 - **TaskCompleted**: Fires when a task is being marked complete. Exit with code 2 to prevent completion and send feedback.
 
 ---

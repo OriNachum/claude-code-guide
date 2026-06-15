@@ -2,5 +2,6 @@
 .claude/settings.json
 .local/
 .worktrees/
+.devex/
 _site/
 .jekyll-cache/

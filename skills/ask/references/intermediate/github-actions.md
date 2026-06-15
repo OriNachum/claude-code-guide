@@ -50,7 +50,7 @@ GitHub Actions workflows can fire on many events. The most common for Claude Cod
 Claude Code in GitHub Actions has two independent permission layers:
 
 1. **GitHub token permissions** — what the workflow can do in GitHub (read/write code, PRs, issues). Set via the `permissions:` block in your workflow YAML.
-2. **Claude tool permissions** — what Claude is allowed to do (which tools it can call). Set via the `settings` input or by using `--dangerously-skip-permissions` in `claude_args` (see [Starting to Work](../beginner/starting-to-work.md) for context on this flag).
+2. **Claude tool permissions** — what Claude is allowed to do (which tools it can call). Set via the `settings` input or by using `--dangerously-skip-permissions` in `claude_args` (see [Starting to Work](../beginner/starting-to-work.md) for context on this flag). An **autonomous run has no human to approve prompts**, so any tool not pre-allowed is denied — a docs-fixing job that can't `Edit`/`Write` or run `git`/`gh` will stall instead of opening its PR. Add those tools to the `settings` allow-list up front.
 
 ### Model Selection for Cost
 
@@ -90,7 +90,7 @@ jobs:
   review:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v5
       - uses: anthropics/claude-code-action@v1
         with:
           anthropic_api_key: ${{ secrets.ANTHROPIC_API_KEY }}
@@ -109,7 +109,7 @@ jobs:
 
 ### Scheduled Doc Freshness Check
 
-This repo uses a real example of this pattern in `.github/workflows/docs-freshness.yml`. The workflow runs on a cron schedule, compares reference docs against official sources, and opens a PR if anything is outdated:
+A common example: a workflow that runs on a cron schedule, compares reference docs against official sources, and opens a PR if anything is outdated.
 
 ```yaml
 name: Docs Freshness Check
@@ -128,11 +128,20 @@ jobs:
   check-freshness:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v5
       - uses: anthropics/claude-code-action@v1
         with:
           anthropic_api_key: ${{ secrets.ANTHROPIC_API_KEY }}
           claude_args: "--model sonnet"
+          # No human is present to approve prompts, so pre-allow the tools the
+          # job needs via the settings allow-list (see "Two Permission Layers")
+          # — otherwise it stalls on the first file edit instead of opening a PR.
+          settings: |
+            {
+              "permissions": {
+                "allow": ["Edit", "Write", "Bash(git:*)", "Bash(gh pr create:*)"]
+              }
+            }
           prompt: |
             Compare our docs against official sources.
             If anything is outdated, fix it and open a PR.

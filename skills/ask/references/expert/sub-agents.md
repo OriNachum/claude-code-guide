@@ -59,7 +59,7 @@ Sub agents are about delegation — handing off a complete task to a specialist 
 
 **Model selection** — Sub agents can use different models. Use `haiku` for fast, cheap exploration. Use `sonnet` for balanced work. Use `opus` for complex reasoning. Use `inherit` (default) to match the main conversation.
 
-**Permission modes** — Sub agents can have their own permission mode: `default`, `acceptEdits`, `dontAsk`, `bypassPermissions`, or `plan`.
+**Permission modes** — Sub agents can have their own permission mode: `default`, `acceptEdits`, `auto`, `dontAsk`, `bypassPermissions`, or `plan`.
 
 **Persistent memory** — Sub agents can maintain a memory directory that survives across sessions, building up knowledge over time.
 

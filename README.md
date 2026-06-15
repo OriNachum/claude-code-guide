@@ -140,7 +140,7 @@ Learn by example — these narrative walkthroughs show Claude Code in realistic,
 
 - [Setting Your Environment](skills/ask/references/beginner/setting-your-environment.md) — CLAUDE.md, permissions, model selection, MCP servers, customization
 - [Starting to Work](skills/ask/references/beginner/starting-to-work.md) — Permission modes, Plan Mode, Accept Edits, the explore-plan-implement workflow
-- [Choosing Your Model](skills/ask/references/beginner/choosing-your-model.md) — Opus 4.6, Sonnet 4.6, Haiku, effort levels, when to use each
+- [Choosing Your Model](skills/ask/references/beginner/choosing-your-model.md) — Fable 5, Opus 4.8, Sonnet 4.6, Haiku, effort levels, when to use each
 - [Best Practices](skills/ask/references/intermediate/best-practices.md) — Self-testing loops, context management, effective prompting, common failure patterns
 - [Auto Memory](skills/ask/references/beginner/memory.md) — How Claude remembers across sessions, comparison with CLAUDE.md
 
@@ -185,7 +185,6 @@ claude-code-guide/
 │   └── marketplace.json .................. Marketplace manifest
 ├── .github/
 │   └── workflows/
-│       ├── docs-freshness.yml ............. Automated docs accuracy checker
 │       └── tests.yml ...................... Bash test suite (bats-core)
 ├── _includes/
 │   ├── footer_custom.html ................. Disclaimer footer
