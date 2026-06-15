@@ -46,10 +46,24 @@ function wantsMarkdown(request) {
   return /\btext\/markdown\b/i.test(request.headers.get("Accept") || "");
 }
 
+// Add "Accept" to the response's Vary header without clobbering any value the
+// upstream asset already set, and without duplicating the token.
+function addVaryAccept(headers) {
+  const existing = headers.get("Vary");
+  if (!existing) {
+    headers.set("Vary", "Accept");
+    return;
+  }
+  const hasAccept = existing
+    .split(",")
+    .some((v) => v.trim().toLowerCase() === "accept");
+  if (!hasAccept) headers.set("Vary", existing + ", Accept");
+}
+
 function asMarkdown(resp) {
   const out = new Response(resp.body, resp);
   out.headers.set("Content-Type", MARKDOWN_TYPE);
-  out.headers.set("Vary", "Accept");
+  addVaryAccept(out.headers);
   return out;
 }
 
@@ -84,11 +98,15 @@ export default {
       }
     }
 
-    // 3. Default — serve the static asset, adding Vary so edge caches key on
-    //    Accept (HTML and markdown share a URL).
+    // 3. Default — serve the static asset. Only key the edge cache on Accept
+    //    for paths that can actually be content-negotiated into markdown (HTML
+    //    pages, pretty URLs, home). Real assets (css/js/img) have no twin, so
+    //    adding Vary: Accept would only fragment their cache.
     const resp = await env.ASSETS.fetch(request);
     const out = new Response(resp.body, resp);
-    out.headers.append("Vary", "Accept");
+    if (markdownTwin(pathname) !== null) {
+      addVaryAccept(out.headers);
+    }
     return out;
   },
 };

@@ -18,7 +18,7 @@ The whole documentation set concatenated into one file is at
 ## Start here
 
 - [Getting Started]({{ site.url }}/getting-started.md): Install Claude Code, set your environment, choose a model, and start working.
-- [Automation]({{ site.url }}/automation.md): Hooks, skills, sub agents, GitHub Actions, and ongoing work.
+- [Automation]({{ site.url }}/automation.md): The three automation mechanisms — hooks, skills, and sub agents — plus running Claude in GitHub Actions and ongoing/looping work.
 - [Configuration & Extensions]({{ site.url }}/configuration.md): Memory, settings, plugins, the marketplace, and MCP.
 - [Integrations]({{ site.url }}/integrations.md): MCP servers and connecting Claude Code to other tools.
 - [User Stories]({{ site.url }}/user-stories.md): Narrative walkthroughs of real Claude Code workflows.
