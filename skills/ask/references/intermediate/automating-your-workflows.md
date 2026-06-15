@@ -116,7 +116,7 @@ on-call triage. For unattended, recurring automation, see [GitHub Actions](githu
 ### Getting Started
 - [Setting Your Environment](../beginner/setting-your-environment.md) — Initial setup: CLAUDE.md, permissions, model selection, MCP servers, and customization
 - [Starting to Work](../beginner/starting-to-work.md) — When to use Plan Mode, Accept Edits, and Normal mode
-- [Choosing Your Model](../beginner/choosing-your-model.md) — Opus 4.6, Sonnet 4.6, Haiku, and effort levels
+- [Choosing Your Model](../beginner/choosing-your-model.md) — Fable 5, Opus 4.8, Sonnet 4.6, Haiku, and effort levels
 - [Best Practices](best-practices.md) — Self-testing loops, context management, and effective prompting
 - [Auto Memory](../beginner/memory.md) — How Claude remembers across sessions, auto memory vs CLAUDE.md
 

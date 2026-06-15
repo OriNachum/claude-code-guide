@@ -78,7 +78,7 @@ Type `/` in Claude Code to see all available commands. Some commands depend on y
 | `/output-style [style]` | Switch output styles (standard, explanatory, learning) |
 | `/plan` | Enter plan mode directly from the prompt |
 | `/tasks` | List and manage background tasks |
-| `/loop [interval] [command]` | Run a prompt or command on a recurring interval (default: 10 minutes) |
+| `/loop [interval] [command]` | Run a prompt or command on a recurring interval (Claude paces it if no interval is given) |
 | `/btw [message]` | Send a one-off request that doesn't enter the conversation context — perfect for quick lookups mid-task |
 | `/keybindings` | Open keybindings configuration file |
 | `/stats` | Visualize daily usage, session history, streaks |
@@ -104,9 +104,11 @@ Bundled skills ship with Claude Code and are available in every session. Unlike 
 
 | Skill | What it does |
 |---|---|
-| `/simplify` | Reviews your recently changed files for code reuse, quality, and efficiency issues, then fixes them. Spawns three review agents in parallel. Run after implementing a feature or bug fix. |
+| `/code-review` | Reviews the current diff for correctness bugs and quality issues (reuse, simplification, efficiency) at a chosen effort level. Can post findings as inline PR comments or apply fixes. Run after implementing a feature or bug fix. |
 | `/batch <instruction>` | Orchestrates large-scale changes across a codebase in parallel. Decomposes work into 5-30 independent units, spawns one agent per unit in isolated git worktrees, each opens a PR. Requires a git repo. |
 | `/debug [description]` | Troubleshoots your current session by reading the session debug log. Optionally describe the issue to focus analysis. |
+| `/loop [interval] [prompt]` | Runs a prompt or slash command on a recurring interval within the session; if no interval is given, Claude paces it. |
+| `/claude-api` | Reference playbook for the Claude API / Anthropic SDK — model IDs, pricing, params, streaming, tool use, and caching. |
 
 There is also a bundled **developer platform skill** that activates automatically when your code imports the Anthropic SDK — no manual invocation needed.
 
@@ -137,10 +139,10 @@ Claude Code provides these lifecycle events that you can hook into. No hooks are
 | `ConfigChange` | Configuration file changes | Yes (except policy) |
 | `WorktreeCreate` | Worktree is being created | Yes |
 | `WorktreeRemove` | Worktree is being removed | No |
-| `PreCompact` | Before context compaction | No |
+| `PreCompact` | Before context compaction | Yes |
 | `PostCompact` | After context compaction completes | No |
 | `Elicitation` | MCP server requests user input during a tool call | Yes |
-| `ElicitationResult` | User responds to an MCP elicitation | No |
+| `ElicitationResult` | User responds to an MCP elicitation | Yes |
 | `SessionEnd` | Session terminates | No |
 
 Hook handlers can be shell commands (`type: "command"`), HTTP endpoints (`type: "http"`), LLM prompts (`type: "prompt"`), or agentic verifiers (`type: "agent"`).

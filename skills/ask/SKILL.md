@@ -23,7 +23,7 @@ Read these files from the `references/` subfolders as needed:
 |---|---|
 | `beginner/setting-your-environment.md` | Initial setup: CLAUDE.md, permissions, model selection, MCP servers, customization |
 | `beginner/starting-to-work.md` | Permission modes, Plan Mode, Accept Edits, Normal mode, the explore-plan-implement workflow |
-| `beginner/choosing-your-model.md` | Opus 4.6, Sonnet 4.6, Haiku, effort levels, when to use each |
+| `beginner/choosing-your-model.md` | Fable 5, Opus 4.8, Sonnet 4.6, Haiku, effort levels, when to use each |
 | `beginner/built-ins.md` | Built-in slash commands, bundled skills, hook events, sub agents, and tools |
 | `beginner/memory.md` | Auto memory — how Claude remembers across sessions, comparison with CLAUDE.md, /memory command |
 

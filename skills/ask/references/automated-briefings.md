@@ -80,9 +80,9 @@ allowed-tools: ["Bash", "WebFetch"]
 5. Return ONLY a one-line summary to the main conversation (e.g., "3 new tickets, 1 critical — see Slack")
 ```
 
-You restart the loop. Now each iteration spawns a Sonnet 4.6 sub-agent in its own context. The sub-agent does all the Jira fetching, log reading, and analysis — posts detailed results to Slack — and returns only a one-line summary to the main conversation (Opus 4.6). **The main context barely grows.**
+You restart the loop. Now each iteration spawns a Sonnet 4.6 sub-agent in its own context. The sub-agent does all the Jira fetching, log reading, and analysis — posts detailed results to Slack — and returns only a one-line summary to the main conversation (Opus 4.8). **The main context barely grows.**
 
-> **What's Happening:** This is the **Loop + Sub Agent** pattern. Opus 4.6 acts as the manager — it fires on schedule and delegates to Sonnet 4.6, which does the heavy lifting in isolation. The sub-agent's full context (Jira data, log excerpts, analysis) stays in its own window and gets discarded when it returns. The main conversation only accumulates one-line summaries. Cheaper model for repetitive legwork, clean context for the orchestrator.
+> **What's Happening:** This is the **Loop + Sub Agent** pattern. Opus 4.8 acts as the manager — it fires on schedule and delegates to Sonnet 4.6, which does the heavy lifting in isolation. The sub-agent's full context (Jira data, log excerpts, analysis) stays in its own window and gets discarded when it returns. The main conversation only accumulates one-line summaries. Cheaper model for repetitive legwork, clean context for the orchestrator.
 
 ### Step 4: Afternoon — Deploy Monitoring
 
@@ -156,7 +156,7 @@ If this monitoring should run overnight, on weekends, or without anyone's sessio
 ## Key Takeaways
 
 - **`/loop` is a session-scoped production companion** — deploy monitoring, post-deploy validation, on-call triage. It's the fastest way to set up temporary recurring monitoring — no config files, no deployment.
-- **Pair with sub-agents to prevent context bloat.** Sonnet 4.6 does the legwork in isolation, Opus 4.6 orchestrates. The main conversation only sees one-line summaries.
+- **Pair with sub-agents to prevent context bloat.** Sonnet 4.6 does the legwork in isolation, Opus 4.8 orchestrates. The main conversation only sees one-line summaries.
 - **Pair with Slack/Discord for phone-friendly monitoring.** You don't need to be at the terminal — the session stays alive on your machine, notifications reach you wherever you are.
 - **The dev orchestrates, not implements.** Setting up skills, configuring sub-agents, managing loops — you're designing the automation, not writing application code.
 - **Check `/tasks` regularly.** Stop loops when they've served their purpose. Context accumulates silently.
