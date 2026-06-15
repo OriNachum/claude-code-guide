@@ -37,6 +37,16 @@ relative_links:
   enabled: true
   collections: false
 
+# Force-copy underscore-prefixed Cloudflare Pages control files into the build
+# root. Jekyll excludes underscore files by default; `include:` overrides that.
+#   _worker.js  — Pages consumes it as the advanced-mode Worker (markdown
+#                 content negotiation), not as a static asset.
+#   _redirects  — Pages redirect/rewrite rules; a catch-all that serves
+#                 /404.html with a 404 status for unmatched paths.
+include:
+  - _worker.js
+  - _redirects
+
 # Apply just-the-docs default layout to all pages
 defaults:
   - scope:

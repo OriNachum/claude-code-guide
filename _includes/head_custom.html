@@ -1,3 +1,12 @@
-{% if page.path and page.path contains 'skills/ask/references/' %}
-<link rel="alternate" type="text/markdown" href="{{ '/raw/' | append: page.path | relative_url }}">
+{% comment %}
+  Point agents at the page's raw-markdown twin (produced by
+  _plugins/llm_markdown.rb and served via content negotiation by _worker.js).
+  The twin path must stay in lockstep with that plugin's `twin_relpath`:
+    "/docs/getting-started/"   -> "/docs/getting-started.md"
+    "/docs/getting-started.html" -> "/docs/getting-started.md"
+  The home page ("/") has no twin, so it is skipped.
+{% endcomment %}
+{% if page.url and page.url != '/' %}
+{% assign twin = page.url | append: 'X' | replace: '/X', '.md' | replace: '.htmlX', '.md' %}
+<link rel="alternate" type="text/markdown" href="{{ twin | relative_url }}">
 {% endif %}

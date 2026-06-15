@@ -18,7 +18,7 @@ A Claude Code guide, packaged as a plugin. There are seven skills:
 
 This repo serves two audiences: humans browsing the docs on GitHub, and Claude Code users who install it as a plugin to get guided help.
 
-This is primarily a **content** repo — no application code, no build system. Bash hook scripts are tested with bats-core (see `tests/`).
+This is primarily a **content** repo — no application code. The docs website builds with Jekyll and is deployed to Cloudflare Pages (see [Deployment](#deployment)). Bash hook scripts are tested with bats-core (see `tests/`).
 
 ---
 
@@ -69,11 +69,12 @@ claude-code-guide/
 ├── .github/
 │   └── workflows/
 │       ├── docs-freshness.yml ............. Weekly automated docs accuracy checker
-│       ├── pages.yml ...................... Jekyll build + raw markdown deploy
 │       └── tests.yml ...................... Bash test suite (bats-core)
 ├── _includes/
 │   ├── footer_custom.html ................. Disclaimer footer
-│   └── head_custom.html ................... Raw markdown <link> header
+│   └── head_custom.html ................... .md twin <link rel=alternate> header
+├── _plugins/
+│   └── llm_markdown.rb .................... Build-time generator: .md twin per page + llms-full.txt
 ├── _sass/
 │   └── color_schemes/
 │       └── anthropic.scss ................. Anthropic cream color scheme
@@ -155,7 +156,11 @@ claude-code-guide/
 │   ├── track-prompt.bats ................. Tests for UserPromptSubmit hook
 │   ├── track-stop.bats ................... Tests for Stop hook (Fibonacci, levels, scoring)
 │   └── migrate-data.bats ................. Tests for schema migration
-├── _config.yml ............................ Jekyll configuration (just-the-docs theme)
+├── _config.yml ............................ Jekyll configuration (just-the-docs theme; include: _worker.js/_redirects)
+├── _worker.js ............................. Cloudflare Pages advanced-mode Worker (markdown content negotiation)
+├── _redirects ............................. Cloudflare Pages rules (catch-all real 404)
+├── 404.md ................................. Custom 404 page (served by _redirects)
+├── llms.txt ............................... Agent-facing documentation index
 ├── Gemfile ................................ Ruby dependencies
 ├── docs/
 │   ├── getting-started.md ................. Nav parent: Getting Started
@@ -216,6 +221,37 @@ Installed plugins are cached at `~/.claude/plugins/cache`. **Version is the cach
 - Always bump the version in the same commit as the change itself — never leave a functional change without a version bump
 - Bump both `.claude-plugin/plugin.json` and `.claude-plugin/marketplace.json`
 - Use the `version-bump` agent (`agents/version-bump.md`) to keep both files in sync automatically — it infers bump type from the git diff
+
+---
+
+## Deployment
+
+The docs website is served by **Cloudflare Pages** (native Git integration) on
+`claude-code-guide.org` — Cloudflare clones the repo, runs the Jekyll build, and
+serves the result. **There is no deploy workflow in the repo**; the Pages project
+and custom domain are provisioned out-of-band (via the `cultureflare` CLI / its
+`cf-pages-project-create.sh` + `cf-pages-domain-add.sh`).
+
+The build is **advanced-mode Pages**: a root `_worker.js` intercepts every
+request to serve agent-readable markdown. The moving parts must stay in lockstep:
+
+- `_plugins/llm_markdown.rb` — at build time, writes a `.md` twin of every
+  content page (and a concatenated `llms-full.txt`). Its `twin_relpath` path
+  scheme is the source of truth.
+- `_worker.js` — serves a page's `.md` twin on `Accept: text/markdown` or an
+  explicit `.md` URL, and maps `/` → `/llms.txt`. Its `markdownTwin()` **must
+  match** the plugin's `twin_relpath`.
+- `_includes/head_custom.html` — emits `<link rel="alternate" type="text/markdown">`
+  pointing at the same twin URL.
+- `_redirects` + `404.md` — catch-all that returns a real 404.
+- `_config.yml` `include:` — force-copies the underscore-prefixed `_worker.js`
+  and `_redirects` into the build root (Jekyll skips `_`-files otherwise).
+
+If you change the twin path scheme, change it in all three of `llm_markdown.rb`,
+`_worker.js`, and `head_custom.html`.
+
+These files are the **website**, not plugin content — changing them needs **no
+version bump** (see [Plugin vs. Project Tooling](#plugin-vs-project-tooling)).
 
 ---
 
