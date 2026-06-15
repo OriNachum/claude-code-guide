@@ -1,0 +1,38 @@
+---
+layout: null
+permalink: /llms.txt
+sitemap: false
+---
+# Claude Code Guide
+
+> {{ site.description }}
+
+A community guide to Claude Code — setup, best practices, automation, and
+effective workflows. This file indexes the documentation for LLMs and agents.
+
+Every page is also available as raw markdown: append `.md` to its URL
+(e.g. `{{ site.url }}/getting-started.md`) or send `Accept: text/markdown`.
+The whole documentation set concatenated into one file is at
+[{{ site.url }}/llms-full.txt]({{ site.url }}/llms-full.txt).
+
+## Start here
+
+- [Getting Started]({{ site.url }}/getting-started.md): Install Claude Code, set your environment, choose a model, and start working.
+- [Automation]({{ site.url }}/automation.md): The three automation mechanisms — hooks, skills, and sub agents — plus running Claude in GitHub Actions and ongoing/looping work.
+- [Configuration & Extensions]({{ site.url }}/configuration.md): Memory, settings, plugins, the marketplace, and MCP.
+- [Integrations]({{ site.url }}/integrations.md): MCP servers and connecting Claude Code to other tools.
+- [User Stories]({{ site.url }}/user-stories.md): Narrative walkthroughs of real Claude Code workflows.
+- [Windows Support]({{ site.url }}/getting-started/windows-support.md): Windows setup and adjustments.
+
+## Reference docs
+
+Reference docs are organized by difficulty tier under
+`{{ site.url }}/skills/ask/references/`:
+
+- 🌱 Beginner — built-ins, choosing your model, memory, setting your environment, starting to work.
+- 🌿 Intermediate — automating workflows, best practices, configuring Claude, GitHub Actions, hooks, the loop, marketplace, MCP, plugins, skills.
+- 🌳 Expert — Agent SDK, HTTP hooks, ongoing work, introspective development, sub agents, team mode.
+
+## Everything
+
+- [Full documentation as one file]({{ site.url }}/llms-full.txt): Every page concatenated as markdown.

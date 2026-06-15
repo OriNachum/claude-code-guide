@@ -186,10 +186,12 @@ claude-code-guide/
 ├── .github/
 │   └── workflows/
 │       ├── docs-freshness.yml ............. Automated docs accuracy checker
-│       └── pages.yml ...................... Jekyll build + raw markdown deploy
+│       └── tests.yml ...................... Bash test suite (bats-core)
 ├── _includes/
 │   ├── footer_custom.html ................. Disclaimer footer
-│   └── head_custom.html ................... Raw markdown <link> header
+│   └── head_custom.html ................... .md twin <link rel=alternate> header
+├── _plugins/
+│   └── llm_markdown.rb .................... Build-time generator: .md twin per page + llms-full.txt
 ├── _sass/
 │   └── color_schemes/
 │       └── anthropic.scss ................. Anthropic cream color scheme
@@ -236,7 +238,11 @@ claude-code-guide/
 │   ├── integrations.md .................... Nav parent: Integrations
 │   ├── user-stories.md .................... Nav parent: User Stories
 │   └── windows-support.md ................ Windows setup and adjustments
-├── _config.yml ............................ Jekyll configuration (just-the-docs theme)
+├── _config.yml ............................ Jekyll configuration (just-the-docs theme; include: _worker.js/_redirects)
+├── _worker.js ............................. Cloudflare Pages advanced-mode Worker (markdown content negotiation)
+├── _redirects ............................. Cloudflare Pages rules (catch-all real 404)
+├── 404.md ................................. Custom 404 page (served by _redirects)
+├── llms.txt ............................... Agent-facing documentation index
 ├── Gemfile ................................ Ruby dependencies
 ├── index.md ............................... Website landing page
 ├── .local/ ................................ Runtime data (gitignored)

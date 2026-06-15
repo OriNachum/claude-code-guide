@@ -1,0 +1,10 @@
+# Cloudflare Pages redirect/rewrite rules. Applied by env.ASSETS.fetch() (the
+# advanced-mode Worker in _worker.js delegates static serving to it), AFTER an
+# exact static-asset match — so real pages and the .md twins are served
+# normally and never reach the catch-all below.
+#
+# Serve the custom 404 page with a real 404 status for any path that doesn't
+# match a built asset. Without this, the Pages project's single-page-application
+# not_found_handling returns /index.html + 200 for every unmatched URL (a soft
+# 404 that also makes /<missing>.md echo the home page as text/markdown).
+/*    /404.html    404
