@@ -37,7 +37,7 @@ If you need something to run *once in response to an event*, use [Hooks](hooks.m
 /loop [interval] [command or prompt]
 ```
 
-- **interval** — how often to repeat (e.g., `5m`, `15m`, `30m`, `1h`). Defaults to `10m` if omitted. Supported units: `s`, `m`, `h`, `d`.
+- **interval** — how often to repeat (e.g., `5m`, `15m`, `30m`, `1h`). If omitted, Claude chooses the interval dynamically each iteration (between 1 minute and 1 hour) based on what it observes. Supported units: `s`, `m`, `h`, `d`.
 - **command or prompt** — any slash command (like `/review`) or a natural-language prompt.
 
 Examples:
@@ -47,7 +47,7 @@ Examples:
 /loop 15m /review
 /loop 30m summarize new errors in the logs
 /loop 1h check test results and flag any regressions
-/loop                          # runs the default (10m) with the next prompt you type
+/loop                          # runs at a dynamically chosen interval with the next prompt you type
 ```
 
 The first run executes immediately, then repeats at the specified interval.
@@ -76,7 +76,7 @@ Each iteration runs in the same conversation, so Claude has full context of prev
 | **50 task limit** | Maximum 50 scheduled tasks per session. |
 | **Fires only when idle** | If Claude is busy when the interval elapses, the task waits. There is no catch-up for missed intervals — it fires once when Claude becomes idle. |
 | **Minute granularity** | The scheduler is cron-based; intervals under 1 minute are rounded up to the nearest minute. |
-| **Jitter** | Up to 10% of the period (capped at 15 minutes) is added to fire times to prevent thundering-herd effects. |
+| **Jitter** | Recurring tasks fire up to 30 minutes after the scheduled time — or up to half the interval for tasks that run more often than hourly — to prevent thundering-herd effects. |
 | **Disable flag** | Set `CLAUDE_CODE_DISABLE_CRON=1` to disable the scheduler entirely. |
 
 **What this means in practice:**

@@ -17,7 +17,7 @@ Skills are Markdown instruction files that extend what Claude can do. Create a `
 > Built-in slash commands like `/compact` and `/help` are covered in the [Built-ins](../beginner/built-ins.md) page.
 > The `.claude/commands/` directory still works, but Skills (in `.claude/skills/`) are the recommended approach going forward.
 
-**Bundled skills** — Claude Code ships with several built-in skills: `/simplify`, `/batch`, `/debug`, `/loop`, and `/claude-api`. These are always available without any configuration.
+**Bundled skills** — Claude Code ships with several built-in skills: `/code-review`, `/batch`, `/debug`, `/loop`, and `/claude-api`. These are always available without any configuration.
 
 ## When to Use Skills
 

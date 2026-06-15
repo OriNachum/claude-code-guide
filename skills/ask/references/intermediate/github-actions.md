@@ -109,7 +109,7 @@ jobs:
 
 ### Scheduled Doc Freshness Check
 
-This repo uses a real example of this pattern in `.github/workflows/docs-freshness.yml`. The workflow runs on a cron schedule, compares reference docs against official sources, and opens a PR if anything is outdated:
+A common example: a workflow that runs on a cron schedule, compares reference docs against official sources, and opens a PR if anything is outdated.
 
 ```yaml
 name: Docs Freshness Check
@@ -128,11 +128,13 @@ jobs:
   check-freshness:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v5
       - uses: anthropics/claude-code-action@v1
         with:
           anthropic_api_key: ${{ secrets.ANTHROPIC_API_KEY }}
-          claude_args: "--model sonnet"
+          # An autonomous run has no human to approve prompts, so grant the
+          # tools it needs up front — otherwise it stalls on every file edit.
+          claude_args: "--model sonnet --permission-mode acceptEdits --allowedTools Edit,Write,Bash(git:*),Bash(gh pr create:*)"
           prompt: |
             Compare our docs against official sources.
             If anything is outdated, fix it and open a PR.

@@ -185,7 +185,6 @@ claude-code-guide/
 │   └── marketplace.json .................. Marketplace manifest
 ├── .github/
 │   └── workflows/
-│       ├── docs-freshness.yml ............. Automated docs accuracy checker
 │       └── tests.yml ...................... Bash test suite (bats-core)
 ├── _includes/
 │   ├── footer_custom.html ................. Disclaimer footer

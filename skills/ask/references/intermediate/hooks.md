@@ -167,10 +167,10 @@ exit 0
 | `ConfigChange` | Settings file changes | Yes |
 | `WorktreeCreate` | A worktree is created | Yes |
 | `WorktreeRemove` | A worktree is removed | No |
-| `PreCompact` | Before context compaction | No |
+| `PreCompact` | Before context compaction | Yes |
 | `PostCompact` | After context compaction completes | No |
 | `Elicitation` | MCP server requests user input during a tool call | Yes |
-| `ElicitationResult` | User responds to an MCP elicitation | No |
+| `ElicitationResult` | User responds to an MCP elicitation | Yes |
 | `SessionEnd` | Session terminates | No |
 
 ## Next Steps

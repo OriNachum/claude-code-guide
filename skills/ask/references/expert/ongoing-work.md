@@ -32,18 +32,19 @@ This is distinct from [Configuring Your Claude](../intermediate/configuring-your
 
 The most concrete pattern: periodically compare your docs against authoritative sources and fix what's drifted.
 
-This repo uses this pattern in `.github/workflows/docs-freshness.yml`. A cron-triggered GitHub Actions workflow:
+A cron-triggered GitHub Actions workflow makes this concrete. On a schedule it can:
 
-1. Reads all reference docs
-2. Fetches official Anthropic documentation
-3. Compares for factual inaccuracies (not stylistic differences)
-4. Opens a PR with targeted fixes if anything is outdated
+1. Read all reference docs
+2. Fetch official Anthropic documentation
+3. Compare for factual inaccuracies (not stylistic differences)
+4. Open a PR with targeted fixes if anything is outdated
 
 The key design decisions:
-- **Runs on a schedule** (weekday mornings), not on every commit — freshness is a slow drift, not a per-change concern
-- **Uses Sonnet** for cost efficiency on a recurring task
-- **Skips if a freshness PR is already open** — avoids piling up duplicate PRs
-- **Scoped narrowly** — only fixes factual errors, doesn't restructure or restyle
+- **Run on a schedule** (e.g. weekday mornings), not on every commit — freshness is a slow drift, not a per-change concern
+- **Use a cost-efficient model** (e.g. Sonnet) for a recurring task
+- **Skip if a freshness PR is already open** — avoids piling up duplicate PRs
+- **Scope narrowly** — only fix factual errors, don't restructure or restyle
+- **Give the run the permissions it needs** — an automated editor must be allowed to edit files and open PRs (e.g. `Edit`/`Write` plus scoped `git`/`gh`), or it will stall on permission prompts that no human is present to approve
 
 See [GitHub Actions](../intermediate/github-actions.md) for the mechanics of setting up scheduled workflows.
 
