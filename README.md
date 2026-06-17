@@ -15,6 +15,8 @@ Designed with love for beginners 🌱 to experts. 🌳
 Enable with `/guide:game-mode on`
 
 > **Listen to this guide** — [NotebookLM audio overview](https://notebooklm.google.com/notebook/61c00692-3e07-4cac-887a-3360520d8f94) provides an AI-generated audio reflection of the guide content.
+>
+> **Featured on** — [AI Tool Review](https://aitoolreview.ai/guides/) lists this guide among its curated Claude Code resources.
 
 *⭐ Find this useful? Star the repo to follow updates and show support!* <a href="https://github.com/OriNachum/claude-code-guide/stargazers"><img src="https://img.shields.io/github/stars/OriNachum/claude-code-guide?style=social" alt="GitHub stars"></a>
 
